@@ -26,5 +26,5 @@ app.get('/api/image', (req, res) => {
 
 const PORT = process.env.PORT || 8800;
 app.listen(PORT, () => {
-    console.log("Server running port 8000");
+    console.log("Server running port 8800");
 })
