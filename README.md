@@ -15,65 +15,32 @@ Hệ thống điều tra dân số.
 
  
 
-STT
+STT    Tiêu chí chấm điểm                                 Hệ số
 
-Tiêu chí chấm điểm
+1      Chức năng và các features đã cài đặt               0.35
 
-Hệ số
+2      Thiết kế: Logic, dễ sử dụng, đẹp                   0.15
 
-1
+3      Responsive GUI 0.1
 
-Chức năng và các features đã cài đặt
+4      Hiệu năng: Sử dụng fetch hoặc AJAX để tải          0.1
+       bộ phận, không tải lại, backend API, sử dụng
+       dữ liệu JSON, cập nhật DOM trên frontend.  
 
-0.35
+5      Phong cách lập trình: Sử dụng mẫu thiết kế,        0.1
+       tách biệt mã tạo giao diện và mã xử lý nghiệp 
+       vụ, tổ chức thư viện, lớp và kế thừa, trình 
+       bày và chú thích mã, ...  
 
-2
+6      Xử lý nhập liệu: Kiểm tra hợp thức, tự động        0.05
+       điền, gợi ý, chuyển đổi, ...   
 
-Thiết kế: Logic, dễ sử dụng, đẹp
+7      Xử lý phiên, xác thực, an ninh                     0.05
 
-0.15
+8      Viết lại và/hoặc định tuyến URL                    0.05
 
-3
-
-Responsive GUI
-
-0.1
-
-4
-
-Hiệu năng: Sử dụng fetch hoặc AJAX để tải bộ phận, không tải lại, backend API, sử dụng dữ liệu JSON, cập nhật DOM trên frontend.
-
-0.1
-
-5
-
-Phong cách lập trình: Sử dụng mẫu thiết kế, tách biệt mã tạo giao diện và mã xử lý nghiệp vụ, tổ chức thư viện, lớp và kế thừa, trình bày và chú thích mã, ...
-
-0.1
-
-6
-
-Xử lý nhập liệu: Kiểm tra hợp thức, tự động điền, gợi ý, chuyển đổi, ...
-
-0.05
-
-7
-
-Xử lý phiên, xác thực, an ninh
-
-0.05
-
-8
-
-Viết lại và/hoặc định tuyến URL
-
-0.05
-
-9
-
-Thao tác CSDL theo lập trình hướng đối và độc lập CSDL
-
-0.05
+9     Thao tác CSDL theo lập trình hướng đối và           0.05
+      độc lập CSDL  
 
  
 
