@@ -1,33 +1,61 @@
-import React, { useState } from 'react';
 import './App.css';
-import axios from 'axios';
+import { Button } from "@mui/material";
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
-import { urlApi } from './api/urlApi';
-
+function createData(name, calories, fat, carbs, protein) {
+    return { name, calories, fat, carbs, protein };
+  }
+  
 function App() {
-    const [images, setImages] = useState([]);
-    const handleClickJson = async () => {
-        const res = await axios.get(urlApi + '/home');
-        console.log(res);
-    }
-    const handleClickJsonImage = async () => {
-        const res = await axios.get(urlApi + '/image');
-        console.log(res.data);
-        setImages(res.data);
-    }
-
+    const rows = [
+        createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+        createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+        createData('Eclair', 262, 16.0, 24, 6.0),
+        createData('Cupcake', 305, 3.7, 67, 4.3),
+        createData('Gingerbread', 356, 16.0, 49, 3.9),
+      ];
+      
     return (
         <div className="App">
-            <button onClick={handleClickJson}>HOME</button>
-            <button onClick={handleClickJsonImage}>IMAGE</button>
-
-            <div className="listImage">
-                {images && images.map((image, index) => (
-                    <div key={index}>
-                        <img src={image} />
-                    </div>
+            <h1>App</h1> <i className="material-icons">favorite</i>
+            <Button variant="text">Text</Button>
+            <Button variant="contained">Contained</Button>
+            <Button variant="outlined">Outlined</Button>
+            <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                <TableRow>
+                    <TableCell>Dessert (100g serving)</TableCell>
+                    <TableCell align="right">Calories</TableCell>
+                    <TableCell align="right">Fat&nbsp;(g)</TableCell>
+                    <TableCell align="right">Carbs&nbsp;(g)</TableCell>
+                    <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                </TableRow>
+                </TableHead>
+                <TableBody>
+                {rows.map((row) => (
+                    <TableRow
+                    key={row.name}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                    <TableCell component="th" scope="row">
+                        {row.name}
+                    </TableCell>
+                    <TableCell align="right">{row.calories}</TableCell>
+                    <TableCell align="right">{row.fat}</TableCell>
+                    <TableCell align="right">{row.carbs}</TableCell>
+                    <TableCell align="right">{row.protein}</TableCell>
+                    </TableRow>
                 ))}
-            </div>
+                </TableBody>
+            </Table>
+            </TableContainer>
         </div>
     )
 }
