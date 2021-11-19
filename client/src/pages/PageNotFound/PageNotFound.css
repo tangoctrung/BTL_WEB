@@ -1,0 +1,36 @@
+.pageNotFound{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pageNotFound-content{
+    padding: 20px;
+    width: 90%;
+    text-align: center;
+}
+.pageNotFound-content h1{
+    margin-bottom: 100px;
+    font-size: 36px;
+}
+.pageNotFound-content p{
+    margin-top: 30px;
+    margin-bottom: 0px;
+}
+.pageNotFound-home{
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+}
+.pageNotFound-home:hover{
+    color: rgb(25, 104, 252);
+}
+
+@media screen and (max-width: 767px) {
+    .pageNotFound-content h1{
+        margin-bottom: 50px;
+        font-size: 28px;
+    }
+}

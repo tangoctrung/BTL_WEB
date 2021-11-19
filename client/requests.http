@@ -1,0 +1,30 @@
+POST http://localhost:8800/api/auth/register HTTP/1.1
+Content-Type: application/json
+
+{
+    "lastName": "Tạ",
+    "firstName": "Trung",
+    "bufferName": "Ngọc",
+    "date": "2001-07-23",
+    "gender": "Nam",
+    "numCCCD": "23456789101",
+    "email": "trung@gmail.com",
+    "password": "12345678",
+    "phone": "0123456789",
+    "position": "admin"
+}
+
+
+###
+POST http://localhost:8800/api/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "trung@gmail.com",
+    "password": "12345678"
+}
+
+
+###
+GET http://localhost:8800/api/getuser HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTk3OTE2NjAwMTY0N2Q0YjA5OTU2MjIiLCJpYXQiOjE2MzczMjQxOTF9.2BUoXQRSP-UQr4KFDQHyfC46vlnWmz7L8hoElLUERRU
