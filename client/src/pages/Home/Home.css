@@ -64,12 +64,13 @@
     font-size: 18px;
     color: gray;
 }
-.isActive{
-    color: red;
+.home-news-item-isActive{
+    color: red !important;
     border-bottom: 2px solid red;
 
 }
 .home-news-listPost{
+    margin-top: 30px;
     width: 100%;
 }
 

@@ -3,4 +3,32 @@
     background-color: rgb(240,242,245);
     width: 100%;
     height: 100vh;
+    display: flex;
+}
+
+.work-left{
+    width: 350px;
+    height: calc(100vh - 70px);
+    background-color: rgb(226, 226, 226);
+    position: fixed;
+    z-index: 2;
+    top: 70px;
+    left: 0px;
+}
+
+.work-center{
+    margin-left: 350px;
+    width: calc(100vw - 350px);
+}
+.work-center-text{
+    width: 100%;
+}
+.work-center-text p{
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    padding: 30px;
+    font-size: 48px;
+    margin-top: 400px;
+    color: gray;
 }
