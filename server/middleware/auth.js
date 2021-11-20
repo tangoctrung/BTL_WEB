@@ -1,20 +1,21 @@
 const jwt = require('jsonwebtoken')
 
 const verifyToken = (req, res, next) => {
+	const authHeader = req.header('Authorization')
+	const token = authHeader && authHeader.split(' ')[1]
+
+	if (!token)
+		return res.json('Từ chối kết nối.')
 
 	try {
-        const token = req.header("Authorization")
+		const data = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+		req.userId = data._id;
+		next();
+	} catch (error) {
+		console.log(error)
+		return res.json({ success: false, message: 'Invalid token' })
+	}
 
-        if (!token) return res.json({ msg: "Invalid Authentication." })
-
-        const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
-        if (!decoded) return res.json({ msg: "Invalid Authentication." })
-
-        req.userId = decoded._id;
-        next();
-    } catch (err) {
-        return res.status(500).json({ msg: err.message })
-    }
 }
 
 module.exports = verifyToken;

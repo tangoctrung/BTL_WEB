@@ -7,6 +7,8 @@ import Home from './pages/Home/Home';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
 import { useEffect } from 'react';
 import { getUser } from './redux/actions/authAction';
+import Topbar from './components/Topbar/Topbar';
+import Work from './pages/Work/Work';
 
 function App() {
 
@@ -24,10 +26,12 @@ function App() {
     return (
         <div className="App">
             <Router>
+                <Topbar />
                 <Routes>
                     <Route path="/login" exact element={ !auth.accessToken ? <Login /> : <Navigate to="/" /> } />
                     <Route path="/register" exact element={ !auth.accessToken ? <Register /> : <Navigate to="/" /> } />
                     <Route path="/" exact element={ auth.accessToken ? <Home /> : <Navigate to="/login" /> } />
+                    <Route path="/work" exact element={ auth.accessToken ? <Work /> : <Navigate to="/login" /> } />
                     <Route path="*" exact element={ auth.accessToken ? <PageNotFound /> : <Navigate to="/login" /> } />
                 </Routes>
             </Router>
