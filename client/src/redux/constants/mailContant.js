@@ -1,0 +1,5 @@
+export const EMAIL_IS_OPEN = "EMAIL_IS_OPEN";
+export const CLEAR_EMAIL_IS_OPEN = "CLEAR_EMAIL_IS_OPEN";
+
+export const OPEN_SEND_MAIL = "OPEN_SEND_MAIL";
+export const CLOSE_SEND_MAIL = "CLOSE_SEND_MAIL";

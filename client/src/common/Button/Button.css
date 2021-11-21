@@ -38,12 +38,12 @@
   .buttonUpload{
       border-radius: 10px;
       border: none;
-      background-color: rgb(121, 183, 253);
+      background-color: rgb(26,115,232);
       color: rgb(255, 255, 255);
       transition: all 0.2s infinite;
   }
   .buttonUpload:hover{
-      background-color: rgb(98, 171, 255);
+      background-color: rgb(20, 127, 248);
       color: rgb(255, 255, 255);
   }
   
