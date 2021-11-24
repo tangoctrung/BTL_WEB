@@ -1,6 +1,6 @@
 import React from 'react';
 import "./ProvideCode.css";
-import { dataCity } from '../../../data/dataDemo/dataCity';
+import dataLocal from '../../../data/dataDemo/local.json';
 
 function ProvideCode() {
     return (
@@ -13,8 +13,8 @@ function ProvideCode() {
                             <p>Tên tỉnh/thành phố</p>
                             <input list="dataList" />
                             <dataList id="dataList">
-                                { dataCity.map((city, index) => (
-                                    <option key={index} value={city.name} >{city.name}</option>
+                                { dataLocal.map((city, index) => (
+                                    <option key={index} value={city.Name}>{city.Name}</option>
                                 ))}
                             </dataList>
                         </div>

@@ -1,3 +1,92 @@
 .addAcount{
     width: 100%;
+    min-height: calc(100vh - 70px);
+    padding: 20px;
+}
+
+
+.addAcount-top{
+    width: 100%;
+}
+.addAcount-top h3{
+    font-size: 32px;
+    font-weight: bold;
+    color: gray;
+}
+.addAcount-top-container{
+    width: 100%;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}
+.addAcount-top-content{
+    padding: 15px;
+    border: 1px solid gray;
+    display: flex;
+    flex-direction: column;
+}
+.addAcount-top-content-username{
+    margin-bottom: 20px;
+}
+.addAcount-top-content-username span, .addAcount-top-content-password span{
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+.addAcount-top-content-username input, .addAcount-top-content-password input{
+    padding: 10px 10px 8px 10px;
+    width: 300px;
+    outline: none;
+    border: none;
+    border-bottom: 1.5px solid gray;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 16px;
+    background-color: rgb(240,242,245);
+    margin-bottom: 15px;
+}
+.addAcount-top-content-button{
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.addAcount-top-content-button p{
+    margin-bottom: 10px;
+}
+.addAcount-top-button-text{
+    color: red;
+}
+
+
+.addAcount-bottom{
+    margin-top:40px;
+}
+.addAcount-bottom h3{
+    font-size: 32px;
+    font-weight: bold;
+    color: gray;
+    margin-bottom: 30px;
+}
+.addAcount-bottom-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+.addAcount-bottom-container tr, th,td{
+    padding: 10px;
+    border: 1px solid gray;
+}
+.addAcount-bottom-container table{
+    border-collapse: collapse;
+}
+
+@media screen and (max-width: 768px){
+    .addAcount{
+        padding: 20px;
+    }
+    .addAcount-bottom h3, .addAcount-top h3{
+        font-size: 24px;
+    }
 }

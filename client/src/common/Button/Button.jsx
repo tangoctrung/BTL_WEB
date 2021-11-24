@@ -1,7 +1,7 @@
 import React from "react";
 import "./Button.css";
 
-function Button({ typeButton, text, width, height, fontSize, borderRadius, onClick }) {
+function Button({ typeButton, text, width, height, fontSize, borderRadius, onClick, title }) {
   return (
     <div
       style={{
@@ -11,7 +11,14 @@ function Button({ typeButton, text, width, height, fontSize, borderRadius, onCli
         borderRadius: `${borderRadius}`,
         overflow: 'hidden',
       }}
+      title={title}
     >
+      {typeButton === "normal" && (
+        <button onClick={onClick} className="buttonType buttonNormal">
+          {text ? text : ""}
+        </button>
+      )}
+
       {typeButton === "black-white" && (
         <button onClick={onClick} className="buttonType buttonBlackWhite">
           {text ? text : "Button"}
