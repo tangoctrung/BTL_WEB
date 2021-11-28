@@ -17,19 +17,22 @@ function ListMail({data}) {
         <div className="listMail">
             {data.map((mail, index) => (
                 <div key={index} className="itemMail">
-                    <div className="itemMail-sender">
-                        <input type="checkbox" />
-                        <b onClick={() => handleOpenMail(mail)}>{mail.sender.name}</b>
-                        <span onClick={() => handleOpenMail(mail)}>{`(${mail.sender.email})`}</span>
+                    <div className="itemMail-content" onClick={() => handleOpenMail(mail)}>
+                        <div className="itemMail-sender">
+                            <b>{mail.sender.name}</b>
+                            <span>{`(${mail.sender.email})`}</span>
+                        </div>
+                        <div className="itemMail-content">              
+                            <span>
+                                {mail.body.length > 100 ? mail.body.slice(0, 100) + '...' : mail.body}
+                            </span>
+                        </div>
+                        <div className="itemMail-time">              
+                            <b>{mail.time}</b>
+                        </div>
                     </div>
-                    <div className="itemMail-content">              
-                        <span onClick={() => handleOpenMail(mail)}>
-                            {mail.body.length > 100 ? mail.body.slice(0, 100) + '...' : mail.body}
-                        </span>
+                    <div className="itemMail-delete">
                         <i className="fas fa-trash" title="Xóa thư này"></i>
-                    </div>
-                    <div className="itemMail-time">              
-                        <b>{mail.time}</b>
                     </div>
                 </div>
             ))}

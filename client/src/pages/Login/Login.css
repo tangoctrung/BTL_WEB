@@ -68,6 +68,29 @@
 .inputPasswordLogin{
     margin-top: 20px;
 }
+/* .inputSelectLogin{
+    width: 100%;
+}
+.inputSelectLogin label{
+    display: inline-block;
+    margin-top:10px;
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+.inputSelectLogin select{
+    width: 100%;
+    padding: 8px 10px;
+    outline: none;
+    border: none;
+    border-bottom: 1.5px solid gray;
+    font-size: 18px;
+    font-family: 'Quicksand', sans-serif;
+}
+.inputSelectLogin select option{
+    width: 100%;
+    padding: 10px;
+} */
 .loginCorrect{
     font-weight: bold;
     color: red;

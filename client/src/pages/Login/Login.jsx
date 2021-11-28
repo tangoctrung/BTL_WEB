@@ -66,18 +66,36 @@ function Login() {
                     <div className="inputLogin inputEmailLogin">
                         <i className="fas fa-envelope" title="Email"></i>
                         <input 
-                            type="email" 
                             name="email" 
                             onChange={handleChange} 
-                            placeholder="Nhập email của bạn" 
+                            placeholder="Nhập tên tài khoản của bạn" 
                             required
                             autoComplete="off"
                         />
                     </div>
                     <div className="inputLogin inputPasswordLogin">
                         <i className="fas fa-lock" title="Mật khẩu"></i>
-                        <input type="password" name="password" onChange={handleChange} placeholder="Nhập password của bạn" required/>
+                        <input 
+                            type="password" 
+                            name="password" 
+                            onChange={handleChange} 
+                            placeholder="Nhập password của bạn" 
+                            required
+                        />
                     </div>
+                    {/* <div className="inputSelectLogin">
+                        <label>Đăng nhập với tư cách</label>
+                        <select>
+                            <option value=""></option>
+                            <option value="admin">Admin</option>
+                            <option value="A1">A1 (Tổng cục Dân số thuộc Bộ Y tế)</option>
+                            <option value="A2">A2 (Chi cục dân số thuộc Sở Y tế các tỉnh/thành phố)</option>
+                            <option value="A3">A3 (Công chức thực hiện công tác dân số tại Phòng Y tế các huyện/quận)</option>
+                            <option value="B2">B1 (Viên chức dân số thuộc Trạm Y tế xã/phường)</option>
+                            <option value="B3">B2 (Cộng tác viên dân số tại các thôn, bản, tổ dân phố)</option>
+                            <option value="normal">Người dân</option>
+                        </select>
+                    </div> */}
                     <p 
                         className={!auth.messageLogin ? "loginCorrect" : "loginCorrect loginCorrectShow"}
                     >
