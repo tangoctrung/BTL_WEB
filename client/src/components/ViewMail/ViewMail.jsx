@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './ViewMail.css';
 import * as ACTIONS from "../../redux/constants/mailContant";
@@ -7,7 +7,7 @@ function ViewMail() {
 
     const dispatch = useDispatch();
     const { mail } = useSelector(state => state);
-    const [mailOpen, setMailOpen] = useState(mail.emailIsOpen);
+    const mailOpen = mail.emailIsOpen;
 
     const handleBackListMail = () => {
         dispatch({type: ACTIONS.CLEAR_EMAIL_IS_OPEN});

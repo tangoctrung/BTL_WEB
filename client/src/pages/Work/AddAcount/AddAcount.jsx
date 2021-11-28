@@ -10,20 +10,28 @@ function AddAcount() {
                 <div className="addAcount-top-container">
                     <div className="addAcount-top-content">
                         <div className="addAcount-top-content-username">
-                            <span>Tài khoản :</span>
+                            <p>Tài khoản :</p>
                             <input type="text" placeholder="Tên tài khoản chỉ bao gồm kí tự số"/>
                         </div>
                         <div className="addAcount-top-content-password">
-                            <span>Mật khẩu :</span>
-                            <input type="text" placeholder="Mật khẩu ít nhất 8 kí tự"/>
-                            <Button 
+                            <p>Mật khẩu :</p>
+                            <div className="addAcount-top-content-password-text">
+                                <input type="text" placeholder="Mật khẩu ít nhất 8 kí tự"/>
+                                <Button 
+                                    typeButton="default" 
+                                    width={50} 
+                                    height={50} 
+                                    title="Hệ thống sẽ tự động cấp mật khẩu" 
+                                />
+                            </div>
+                            {/* <Button 
                                 width={140} 
                                 height={44} 
                                 typeButton="normal" 
                                 text="Mặc định" 
                                 fontSize={18} 
                                 title="Hệ thống sẽ tự động cấp mật khẩu cho bạn" 
-                            />
+                            /> */}
                         </div>
                         <div className="addAcount-top-content-button">
                             <p>Tài khoản này đã được cấp phép, bạn không thể cấp lại.<b>Xem thêm</b></p>

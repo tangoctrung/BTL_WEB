@@ -1,7 +1,7 @@
 .addAcount{
     width: 100%;
     min-height: calc(100vh - 70px);
-    padding: 20px;
+    padding: 10px;
 }
 
 
@@ -23,26 +23,30 @@
     padding: 15px;
     border: 1px solid gray;
     display: flex;
+    background-color: white;
     flex-direction: column;
 }
 .addAcount-top-content-username{
     margin-bottom: 20px;
 }
-.addAcount-top-content-username span, .addAcount-top-content-password span{
+.addAcount-top-content-username p, .addAcount-top-content-password p{
     font-size: 18px;
     font-weight: bold;
     margin-right: 10px;
 }
 .addAcount-top-content-username input, .addAcount-top-content-password input{
     padding: 10px 10px 8px 10px;
-    width: 300px;
+    width: 90%;
     outline: none;
     border: none;
     border-bottom: 1.5px solid gray;
     font-family: 'Quicksand', sans-serif;
     font-size: 16px;
-    background-color: rgb(240,242,245);
     margin-bottom: 15px;
+    margin-right: 10px;
+}
+.addAcount-top-content-password-text{
+    display: flex;
 }
 .addAcount-top-content-button{
     margin-top: 20px;
@@ -56,6 +60,9 @@
 }
 .addAcount-top-button-text{
     color: red;
+}
+.addAcount-top-content-button p b{
+    cursor: pointer;
 }
 
 
@@ -80,12 +87,10 @@
 }
 .addAcount-bottom-container table{
     border-collapse: collapse;
+    background-color: white;
 }
 
 @media screen and (max-width: 768px){
-    .addAcount{
-        padding: 20px;
-    }
     .addAcount-bottom h3, .addAcount-top h3{
         font-size: 24px;
     }

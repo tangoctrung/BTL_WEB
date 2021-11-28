@@ -1,3 +1,156 @@
 .openCensus{
     width: 100%;
+    min-height: calc(100vh - 70px);
+    padding: 20px;
+}
+
+.openCensus-top{
+    width: 100%;
+}
+.openCensus-top h3{
+    font-size: 32px;
+    font-weight: bold;
+    color: gray;
+}
+.openCensus-top-container{
+    width: 100%;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}
+.openCensus-top-content{
+    background-color: white;
+    padding: 15px;
+    border: 1px solid gray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.openCensus-content-timeOpen label, .openCensus-content-timeClose label{
+    font-size: 18px;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 10px;
+}
+.openCensus-content-timeOpen input, .openCensus-content-timeClose input{
+    padding: 10px 10px 8px 10px;
+    width: 250px;
+    outline: none;
+    border: none;
+    border-bottom: 1.5px solid gray;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 16px;
+    /* background-color: rgb(240,242,245); */
+    margin-bottom: 15px;
+}
+.openCensus-content-buttonText{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.openCensus-content-buttonText p{
+    margin-bottom: 10px;
+}
+
+.openCensus-content-button-text{
+    color: red;
+}
+.openCensus-content-listButton{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+
+
+/* css bottom */
+.openCensus-bottom{
+    width: 100%;
+    margin-top: 50px;
+}
+.openCensus-bottom h3{
+    font-size: 32px;
+    font-weight: bold;
+    color: gray;
+}
+.openCensus-bottom-container{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.openCensus-bottom-itemTable{
+    width: 300px;
+    min-height: 200px;
+    margin: 20px;
+    background-color: white;
+    border: 1.5px solid gray;
+}
+.openCensus-bottom-itemTable-title{
+    margin-bottom: 10px;
+    padding: 10px 0px 10px 0px;
+    font-size: 20px;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1.5px solid gray;
+}
+.openCensus-listLocalName{
+    width: 100%;
+    min-height: 350px;
+    max-height: 400px;
+    overflow-y: scroll;
+    padding: 10px;
+}
+.openCensus-listLocalName-text{
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    margin-top: 100px;
+}
+.openCensus-listLocalName::-webkit-scrollbar{
+    width: 0px;
+}
+.openCensus-itemLocalName{
+    width: 100%;
+    margin-bottom: 10px;
+}
+.openCensus-itemLocalName-content{
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: rgb(243, 243, 243);
+}
+.openCensus-itemLocalName>b{
+    cursor: pointer;
+    padding: 0px 0px 0px 10px;
+}
+
+.openCensus-bottom-itemTable-total{
+    padding: 10px 0px 10px 0px;
+    width: 100%;
+    text-align: center;
+    border-top: 1.5px solid gray;
+}
+.openCensus-bottom-itemTable-total p{
+    padding: 0px 10px;
+}
+.openCensus-bottom-itemTable-total-text{
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+
+/* css responsive */
+@media screen and (max-width: 768px){
+    .openCensus{
+        padding: 20px;
+    }
+    .openCensus-bottom h3, .openCensus-top h3{
+        font-size: 24px;
+    }
 }

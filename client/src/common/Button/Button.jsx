@@ -13,10 +13,15 @@ function Button({ typeButton, text, width, height, fontSize, borderRadius, onCli
       }}
       title={title}
     >
+      
       {typeButton === "normal" && (
         <button onClick={onClick} className="buttonType buttonNormal">
           {text ? text : ""}
         </button>
+      )}
+
+      {typeButton === "default" && (
+          <i className="fas fa-sync-alt iconDefault" onClick={onClick}></i>
       )}
 
       {typeButton === "black-white" && (

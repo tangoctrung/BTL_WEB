@@ -18,6 +18,18 @@
   background-color: rgb(228, 228, 228);
 }
 
+/* buttonDefault */
+.iconDefault{
+  border-radius: 50%;
+  padding: 10px;
+  border: 1.5px solid gray;
+  color: gray;
+  cursor: pointer;
+}
+.iconDefault:hover{
+  background-color: rgb(228, 228, 228);
+}
+
 /* buttonBlackWhite */
 .buttonBlackWhite {
   border-radius: 100px;
@@ -60,12 +72,12 @@
 .buttonDelete{
     border-radius: 10px;
     border: none;
-    background-color: rgb(177, 177, 177);
+    background-color: rgb(201, 35, 35);
     color: rgb(255, 255, 255);
     transition: all 0.2s infinite;
 }
 .buttonDelete:hover{
-    background-color: rgb(145, 145, 145);
+    background-color: rgb(212, 29, 29);
     color: rgb(255, 255, 255);
 }
 
