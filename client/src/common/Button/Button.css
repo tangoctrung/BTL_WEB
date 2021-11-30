@@ -94,6 +94,18 @@
     color: rgb(255, 255, 255);
 }
 
+/* buttonSearch */
+.buttonSearch{
+  border-radius: 10px;
+  border: none;
+  background-color: rgb(51, 163, 255);
+  color: rgb(255, 255, 255);
+  transition: all 0.2s infinite;
+}
+.buttonSearch:hover{
+  background-color: rgb(21, 181, 255);
+}
+
 /* buttonSuccess */
 .buttonSuccess{
     border-radius: 10px;

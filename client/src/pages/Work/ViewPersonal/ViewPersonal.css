@@ -1,4 +1,168 @@
 .viewPersonal{
     width: 100%;
     min-height: calc(100vh - 70px);
+    overflow-y: scroll;
+}
+.viewPersonal-top{
+    width: 100%;
+    padding: 20px;
+    border-bottom: 1px dotted gray;
+}
+.viewPersonal-top h3, .viewPersonal-bottom h3{
+    font-size: 24px;
+    color: gray;
+}
+.viewPersonal-top-content{
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    margin-bottom: 10px;
+}
+.viewPersonal-top-content-item{
+    padding: 0px;
+    margin: 10px;
+}
+.viewPersonal-top-content-button{
+    margin: 10px;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+}
+.viewPersonal-top-content-button-content{
+    width: 100px;
+    height: 40px;
+}
+.viewPersonal-top-content-item p{
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+.viewPersonal-top-content-item input{
+    font-size: 18px;
+    font-family: 'Quicksand', sans-serif;
+    padding: 6px 20px;
+    outline: none;
+    border: 1.5px solid gray;
+}
+.viewPersonal-top-search{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.viewPersonal-top-input{
+    position: relative;
+}
+.viewPersonal-top-input input{
+    width: 400px;
+    outline: none;
+    border: none;
+    padding: 8px 10px 8px 40px;
+    font-size: 18px;
+    font-family: 'Quicksand', sans-serif;
+    border-bottom: 1.5px solid gray;
+    background-color: rgba(240, 242,245);
+}
+.viewPersonal-top-input i{
+    cursor: pointer;
+    position: absolute;
+    padding: 10px;
+    font-size: 18px;
+    color: gray;
+}
+
+.viewPersonal-bottom{
+    width: 100%;
+    padding: 20px;
+}
+.viewPersonal-bottom-text{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: gray;
+    margin-bottom: 15px;
+}
+
+.viewPersonal-modeView{
+    border-bottom: 1px dotted gray;
+    padding-bottom: 10px;
+}
+.viewPersonal-modeView p{
+    font-size: 18px;
+    color: gray;
+    margin-bottom: 10px;
+    
+}
+.viewPersonal-listModeView {
+    width: 350px;
+    display: flex;
+    justify-content: space-around;
+    
+}
+.viewPersonal-modeItem{
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    color: gray;
+}
+.viewPersonal-modeItem-isActive{
+    background-color: rgb(216, 216, 216);
+}
+.viewPersonal-modeItem i{
+    margin-right: 5px;
+}
+.viewPersonal-bottom-container{
+    width: 100%;
+    margin-top: 20px;
+}
+.viewPersonal-bottom-listPerson{
+    padding: 0px 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.viewPersonal-bottom-itemPerson{
+    width: 260px;
+    height: 160px;
+    margin: 10px;
+}
+.viewPersonal-bottom-listPersonTable{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.viewPersonal-bottom-listPersonTable table{
+    border-collapse: collapse;
+    background-color: white;
+}
+.viewPersonal-bottom-listPersonTable table thead tr{
+    background-color: rgb(153, 153, 153);
+}
+.viewPersonal-bottom-listPersonTable table tbody tr{
+    cursor: pointer;
+}
+.viewPersonal-bottom-listPersonTable table tbody tr:nth-child(odd) {
+    background-color: rgb(223, 223, 223);
+}
+
+
+@media screen and (max-width: 767px) {
+    .viewPersonal-top h3, .viewPersonal-bottom h3{
+        font-size: 20px;
+    }
+    .viewPersonal-top-content-item p{
+        font-size: 16px;
+        margin-bottom: 6px;
+    }
+    .viewPersonal-top-input input{
+        width: 320px;    
+        padding: 6px 10px 6px 40px;
+        font-size: 16px;
+    }
+    .viewPersonal-bottom-listPersonTable{
+        overflow-x: scroll;
+        display: block;
+    }
+
 }

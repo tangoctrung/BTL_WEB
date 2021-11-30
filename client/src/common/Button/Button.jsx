@@ -54,6 +54,12 @@ function Button({ typeButton, text, width, height, fontSize, borderRadius, onCli
         </button>
       )}
 
+      {typeButton === "search" && (
+        <button onClick={onClick} className="buttonType buttonSearch">
+          <i className="fas fa-search"></i> {text ? text : ""}
+        </button>
+      )}
+
       {typeButton === "success" && (
         <button onClick={onClick} className="buttonType buttonSuccess">
           <i className="fas fa-check-double"></i> {text ? text : ""}
