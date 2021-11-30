@@ -8,6 +8,7 @@ import PageNotFound from './pages/PageNotFound/PageNotFound';
 import { useEffect } from 'react';
 import { getUser } from './redux/actions/authAction';
 import Work from './pages/Work/Work';
+import ViewPersonDetail from './pages/ViewPersonDetail/ViewPersonDetail';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
                     <Route path="/register" exact element={ !auth.accessToken ? <Register /> : <Navigate to="/" /> } />
                     <Route path="/" exact element={ auth.accessToken ? <Home /> : <Navigate to="/login" /> } />
                     <Route path="/work" exact element={ auth.accessToken ? <Work /> : <Navigate to="/login" /> } />
+                    <Route path="/viewpersondetail/:id" exact element={ auth.accessToken ? <ViewPersonDetail /> : <Navigate to="/login" /> } />
                     <Route path="*" exact element={ auth.accessToken ? <PageNotFound /> : <Navigate to="/login" /> } />
                 </Routes>
             </Router>

@@ -1,6 +1,6 @@
 .work{
     background-color: rgb(240,242,245);
-    width: 100%;
+    width: 100vw;
     display: flex;
     min-height: calc(100vh);
 }

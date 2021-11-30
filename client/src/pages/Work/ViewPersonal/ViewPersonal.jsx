@@ -5,6 +5,7 @@ import dataLocal from '../../../data/dataDemo/local.json';
 import Button from '../../../common/Button/Button';
 import CardPerson from '../../../components/CardPerson/CardPerson';
 import * as ACTIONS from '../../../redux/constants/viewPersonContant';
+import { urlClient } from '../../../api/urlApi';
 
 function ViewPersonal() {
 
@@ -18,7 +19,10 @@ function ViewPersonal() {
             dispatch({type: ACTIONS.MODE_VIEW_CARD});
         }
     }
-    console.log(viewPerson);
+
+    const handleClickPerson = () => {
+        window.open(urlClient + `viewpersondetail/123`);
+    }
 
     return (
         <div className="viewPersonal">
@@ -113,7 +117,7 @@ function ViewPersonal() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr onClick={handleClickPerson}>
                                         <td>1</td>
                                         <td>Tạ Ngọc Trung</td>
                                         <td>21 tuổi</td>
@@ -122,7 +126,7 @@ function ViewPersonal() {
                                         <td>0862982787</td>
                                         <td>21/11/2021</td>
                                     </tr>
-                                    <tr>
+                                    <tr onClick={handleClickPerson}>
                                         <td>1</td>
                                         <td>Nguyễn Lê Bảo Nam</td>
                                         <td>21 tuổi</td>
@@ -131,7 +135,7 @@ function ViewPersonal() {
                                         <td>0862982787</td>
                                         <td>21/11/2021</td>
                                     </tr>
-                                    <tr>
+                                    <tr onClick={handleClickPerson}>
                                         <td>1</td>
                                         <td>Tạ Ngọc Trung</td>
                                         <td>21 tuổi</td>
@@ -140,7 +144,7 @@ function ViewPersonal() {
                                         <td>0862982787</td>
                                         <td>21/11/2021</td>
                                     </tr>
-                                    <tr>
+                                    <tr onClick={handleClickPerson}>
                                         <td>1</td>
                                         <td>Tạ Ngọc Trung</td>
                                         <td>21 tuổi</td>
@@ -149,7 +153,7 @@ function ViewPersonal() {
                                         <td>0862982787</td>
                                         <td>21/11/2021</td>
                                     </tr>
-                                    <tr>
+                                    <tr onClick={handleClickPerson}>
                                         <td>1</td>
                                         <td>Tạ Ngọc Trung</td>
                                         <td>21 tuổi</td>
@@ -166,37 +170,37 @@ function ViewPersonal() {
 
                     {viewPerson.modeView === 'card' &&
                         <div className="viewPersonal-bottom-listPerson">
-                            <div className="viewPersonal-bottom-itemPerson">
+                            <div className="viewPersonal-bottom-itemPerson" onClick={handleClickPerson}>
                                 <CardPerson />                        
                             </div>
-                            <div className="viewPersonal-bottom-itemPerson">
+                            <div className="viewPersonal-bottom-itemPerson" onClick={handleClickPerson}>
                                 <CardPerson />                        
                             </div>
-                            <div className="viewPersonal-bottom-itemPerson">
+                            <div className="viewPersonal-bottom-itemPerson" onClick={handleClickPerson}>
                                 <CardPerson />                        
                             </div>
-                            <div className="viewPersonal-bottom-itemPerson">
+                            <div className="viewPersonal-bottom-itemPerson" onClick={handleClickPerson}>
                                 <CardPerson />                        
                             </div>
-                            <div className="viewPersonal-bottom-itemPerson">
+                            <div className="viewPersonal-bottom-itemPerson" onClick={handleClickPerson}>
                                 <CardPerson />                        
                             </div>
-                            <div className="viewPersonal-bottom-itemPerson">
+                            <div className="viewPersonal-bottom-itemPerson" onClick={handleClickPerson}>
                                 <CardPerson />                        
                             </div>
-                            <div className="viewPersonal-bottom-itemPerson">
+                            <div className="viewPersonal-bottom-itemPerson" onClick={handleClickPerson}>
                                 <CardPerson />                        
                             </div>
-                            <div className="viewPersonal-bottom-itemPerson">
+                            <div className="viewPersonal-bottom-itemPerson" onClick={handleClickPerson}>
                                 <CardPerson />                        
                             </div>
-                            <div className="viewPersonal-bottom-itemPerson">
+                            <div className="viewPersonal-bottom-itemPerson" onClick={handleClickPerson}>
                                 <CardPerson />                        
                             </div>
-                            <div className="viewPersonal-bottom-itemPerson">
+                            <div className="viewPersonal-bottom-itemPerson" onClick={handleClickPerson}>
                                 <CardPerson />                        
                             </div>
-                            <div className="viewPersonal-bottom-itemPerson">
+                            <div className="viewPersonal-bottom-itemPerson" onClick={handleClickPerson}>
                                 <CardPerson />                        
                             </div>
 
