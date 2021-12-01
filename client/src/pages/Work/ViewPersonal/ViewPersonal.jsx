@@ -207,6 +207,10 @@ function ViewPersonal() {
                         </div>
                     }
 
+                    <div className="viewPersonal-bottom-notFound">
+                        <p>Không tìm thấy.</p>
+                    </div>
+
 
                 </div>
             </div>

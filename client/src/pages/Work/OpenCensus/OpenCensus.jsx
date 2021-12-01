@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '../../../common/Button/Button';
+import Modal from '../../../common/Modal/Modal';
 import "./OpenCensus.css";
 
 function OpenCensus() {
+
+    const [isOpenModal, setIsOpenModal] = useState(false);
+    const handleShowModal = () => {
+        setIsOpenModal(true);
+    }
+
     return (
         <div className="openCensus">
             <div className="openCensus-top">
@@ -18,7 +25,7 @@ function OpenCensus() {
                             <input type="datetime-local" />
                         </div>
                         <div className="openCensus-content-buttonText">
-                            <p>Thời gian đóng quyền không thể trước thời gian cấp quyền. <b>Xem thêm</b></p>
+                            <p>Thời gian đóng quyền không thể trước thời gian cấp quyền. <b onClick={handleShowModal} >Xem thêm</b></p>
                             <div className="openCensus-content-listButton">
                                 <Button 
                                     typeButton="normal" 
@@ -27,16 +34,14 @@ function OpenCensus() {
                                     text="Xác nhận" 
                                     borderRadius={30}
                                 />
-                                {/* <Button 
-                                    typeButton="delete" 
-                                    width={120} 
-                                    height={45} 
-                                    text="Đóng" 
-                                    color="red"
-                                    fontSize={18}
-                                /> */}
                             </div>
                         </div>
+                        <Modal isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal}>
+                            <div className="modal-provideCode-text">
+                                <h2>Chi tiết lỗi</h2>
+                                <p>Thời gian mở cuộc khảo sát của bạn phải diễn ra trước thời gian đóng cuộc khảo sát.</p>
+                            </div>
+                        </Modal>
                     </div>
                 </div>
             </div>

@@ -51,6 +51,10 @@
 }
 .openCensus-content-buttonText p{
     margin-bottom: 10px;
+    color: red;
+}
+.openCensus-content-buttonText b{
+    cursor: pointer;
 }
 
 .openCensus-content-button-text{

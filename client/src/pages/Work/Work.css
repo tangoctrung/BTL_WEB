@@ -3,6 +3,7 @@
     width: 100vw;
     display: flex;
     min-height: calc(100vh);
+    overflow-x: hidden;
 }
 .work-bottom{
     margin-top: 70px;

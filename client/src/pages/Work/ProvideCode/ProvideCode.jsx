@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./ProvideCode.css";
 import dataLocal from '../../../data/dataDemo/local.json';
 import Button from '../../../common/Button/Button';
+import Modal from '../../../common/Modal/Modal';
 
 function ProvideCode() {
+
+    const [isOpenModal, setIsOpenModal] = useState(false);
+    const handleShowModal = () => {
+        setIsOpenModal(true);
+    }
+
     return (
         <div className="provideCode">
             <div className="provideCode-top">
@@ -27,9 +34,15 @@ function ProvideCode() {
                             </div>
                         </div>
                         <div className="provideCode-top-content-button">
-                            <p>Tỉnh/thành phố <b>Điện Biên</b> đã được khai báo. Không khai báo lại.<b>Xem thêm</b></p>
+                            <p>Tỉnh/thành phố <b>Điện Biên</b> đã được khai báo. Không khai báo lại.<b onClick={handleShowModal}>Xem thêm</b></p>
                             <button>Khai báo</button>
                         </div>
+                        <Modal isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal} >
+                            <div className="modal-provideCode-text">
+                                <h2>Chi tiết lỗi</h2>
+                                <p>Tỉnh thành này đã được cấp mã là 63 vào ngày 22/12/2020 bởi Nguyễn Lâm Thành (cán bộ thành phố Hà Nội).</p>
+                            </div>
+                        </Modal>
                     </div>
                 </div>
             </div>

@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '../../../common/Button/Button';
+import Modal from '../../../common/Modal/Modal';
 import "./AddAcount.css";
 
 function AddAcount() {
+
+    const [isOpenModal, setIsOpenModal] = useState(false);
+    const handleShowModal = () => {
+        setIsOpenModal(true);
+    }
+
     return (
         <div className="addAcount">
             <div className="addAcount-top">
@@ -24,17 +31,9 @@ function AddAcount() {
                                     title="Hệ thống sẽ tự động cấp mật khẩu" 
                                 />
                             </div>
-                            {/* <Button 
-                                width={140} 
-                                height={44} 
-                                typeButton="normal" 
-                                text="Mặc định" 
-                                fontSize={18} 
-                                title="Hệ thống sẽ tự động cấp mật khẩu cho bạn" 
-                            /> */}
                         </div>
                         <div className="addAcount-top-content-button">
-                            <p>Tài khoản này đã được cấp phép, bạn không thể cấp lại.<b>Xem thêm</b></p>
+                            <p>Tài khoản này đã được cấp phép, bạn không thể cấp lại.<b onClick={handleShowModal} >Xem thêm</b></p>
                             <Button 
                                 width={140} 
                                 height={44} 
@@ -43,6 +42,12 @@ function AddAcount() {
                                 fontSize={18} 
                             />
                         </div>
+                        <Modal isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal}>
+                            <div className="modal-provideCode-text">
+                                <h2>Chi tiết lỗi</h2>
+                                <p>Tên tài khoản đã được cấp vào ngày 22/12/2020 bởi Nguyễn Lâm Thành (cán bộ thành phố Hà Nội).</p>
+                            </div>
+                        </Modal>
                     </div>
                 </div>
             </div>
