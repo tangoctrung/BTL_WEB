@@ -68,6 +68,22 @@ function Leftbar() {
                     <i className="fas fa-user-tie"></i>
                     <span>Xem thông tin cá nhân</span>
                 </div>
+
+                <div 
+                    className={`leftbar-item ${user.workingMode==='7' ? 'leftbar-item-isActive' : ''}`}
+                    onClick={() => handleChangeWorkingMode('7')}
+                >
+                    <i className="fas fa-print"></i>
+                    <span>In phiếu</span>
+                </div>
+
+                <div 
+                    className={`leftbar-item ${user.workingMode==='8' ? 'leftbar-item-isActive' : ''}`}
+                    onClick={() => handleChangeWorkingMode('8')}
+                >
+                    <i className="fas fa-file-import"></i>
+                    <span>Nhập dữ liệu</span>
+                </div>
                 
             </div>
         </div>

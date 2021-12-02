@@ -4,6 +4,7 @@ import * as ACTIONS from "../constants/authContant";
 export const login = (data) => async (dispatch) => {
     try {
         const res = await postDataAPI('auth/login', data);
+        console.log(res.data);
         if (res.data.status === true) {
             dispatch({
                 type: ACTIONS.LOGIN_SUCCESS,

@@ -61,6 +61,20 @@ function LetbarSmall() {
                 >
                     <i className="fas fa-user-tie" title="Xem thông tin cá nhân"></i>
                 </div>
+
+                <div 
+                    className={`leftbarSmall-item ${user.workingMode==='7' ? 'leftbarSmall-item-isActive' : ''}`}
+                    onClick={() => handleChangeWorkingMode('7')}
+                >
+                    <i className="fas fa-print"></i>
+                </div>
+
+                <div 
+                    className={`leftbarSmall-item ${user.workingMode==='8' ? 'leftbarSmall-item-isActive' : ''}`}
+                    onClick={() => handleChangeWorkingMode('8')}
+                >
+                    <i className="fas fa-file-import"></i>
+                </div>
                 
             </div>
         </div>

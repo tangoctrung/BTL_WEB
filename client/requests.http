@@ -21,10 +21,16 @@ Content-Type: application/json
 
 {
     "email": "trung@gmail.com",
-    "password": "12345678"
+    "password": "12345678",
+    "position": "admin"
 }
 
 
 ###
 GET http://localhost:8800/api/getuser HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTk3OTE2NjAwMTY0N2Q0YjA5OTU2MjIiLCJpYXQiOjE2MzczMjQxOTF9.2BUoXQRSP-UQr4KFDQHyfC46vlnWmz7L8hoElLUERRU
+
+
+
+###
+GET https://8800-black-rook-9wwxptl9.ws-us21.gitpod.io/students HTTP/1.1

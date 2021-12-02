@@ -20,11 +20,11 @@ function ProvideCode() {
                         <div className="provideCode-top-content-left">
                             <p>Tên tỉnh/thành phố</p>
                             <input list="dataList" />
-                            <dataList id="dataList">
+                            <datalist id="dataList">
                                 { dataLocal.map((city, index) => (
                                     <option key={index} value={city.Name}>{city.Name}</option>
                                 ))}
-                            </dataList>
+                            </datalist>
                         </div>
                         <div className="provideCode-top-content-right">
                             <p>Cấp mã</p>

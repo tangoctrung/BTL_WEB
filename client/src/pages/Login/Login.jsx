@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Login.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { login } from "../../redux/actions/authAction";
 import { useDispatch, useSelector } from 'react-redux';
 import Button from "../../common/Button/Button";
@@ -17,8 +17,8 @@ function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { auth } = useSelector(state => state);
-    const [state, setState] = useState({ email: '', password: '' });
-    const { email, password } = state;
+    const [state, setState] = useState({ email: '', password: '', position: '' });
+    const { email, password, position } = state;
 
     const settings = {
         autoplay: true,
@@ -37,13 +37,13 @@ function Login() {
     const handleLogin = (e) => {
         e.preventDefault();
         if (email && password) {
-            dispatch(login({email, password}));
+            dispatch(login({email, password, position}));
         }
     }
 
     useEffect(() => {
         if (auth.accessToken) {
-            navigate("/");
+            navigate("/work");
         }
     }, [auth.accessToken, navigate]);
 
@@ -85,7 +85,7 @@ function Login() {
                     </div>
                     {/* <div className="inputSelectLogin">
                         <label>Đăng nhập với tư cách</label>
-                        <select>
+                        <select required onChange={handleChange} name="position">
                             <option value=""></option>
                             <option value="admin">Admin</option>
                             <option value="A1">A1 (Tổng cục Dân số thuộc Bộ Y tế)</option>
@@ -93,7 +93,7 @@ function Login() {
                             <option value="A3">A3 (Công chức thực hiện công tác dân số tại Phòng Y tế các huyện/quận)</option>
                             <option value="B2">B1 (Viên chức dân số thuộc Trạm Y tế xã/phường)</option>
                             <option value="B3">B2 (Cộng tác viên dân số tại các thôn, bản, tổ dân phố)</option>
-                            <option value="normal">Người dân</option>
+                            <option value="citizen">Người dân</option>
                         </select>
                     </div> */}
                     <p 
@@ -104,9 +104,9 @@ function Login() {
                     <div className="login-button">
                         <Button typeButton="black-white" width={200} height={60} text="Đăng nhập" fontSize={20} />
                     </div>
-                    <p>Bạn chưa có tài khoản? Hãy đăng kí 
+                    {/* <p>Bạn chưa có tài khoản? Hãy đăng kí 
                         <Link to="/register"><strong>tại đây</strong></Link>
-                    </p>
+                    </p> */}
                 </form>  
                 <div className="login-slider-text">
                     {/* <p>Một số thông tin về dân số Việt Nam.</p> */}

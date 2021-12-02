@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 
+
 // CREATE A USER / REGISTER
 const registerUser = async (req, res) => {
     try {
@@ -37,13 +38,13 @@ const registerUser = async (req, res) => {
 
 // LOGIN
 const loginUser = async (req, res) => {
+    // const { email, password, position } = req.body;
     try {
         const newUser = await User.findOne({email: req.body.email});
         if (!newUser) return res.json({status: false, message: 'Sai email hoặc mật khẩu.'});  
             
         const validate = await bcrypt.compare(req.body.password, newUser.password);
         if (!validate) return res.json({status: false, message: 'Sai email hoặc mật khẩu.'});          
-
         // tạo token
         const token = jwt.sign({_id: newUser._id}, process.env.ACCESS_TOKEN_SECRET);
 

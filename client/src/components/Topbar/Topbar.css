@@ -131,6 +131,21 @@
 .topbar-item i{
     margin-right: 5px;
 }
+.topbar-login{
+    width: 100%;
+
+}
+.topbar-login-link{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    text-decoration: none;
+    color: gray;
+    font-size: 28px;
+    font-weight: bold;
+}
+
 
 
 @media screen and (max-width: 767px) {

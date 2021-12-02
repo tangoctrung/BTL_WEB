@@ -73,10 +73,11 @@
 }
 .inputSelectLogin label{
     display: inline-block;
-    margin-top:10px;
-    font-size: 20px;
+    margin-top:15px;
+    font-size: 18px;
     margin-bottom: 10px;
     font-weight: bold;
+    color: rgb(83, 83, 83);
 }
 .inputSelectLogin select{
     width: 100%;
@@ -84,8 +85,9 @@
     outline: none;
     border: none;
     border-bottom: 1.5px solid gray;
-    font-size: 18px;
+    font-size: 16px;
     font-family: 'Quicksand', sans-serif;
+    background-color: #fff;
 }
 .inputSelectLogin select option{
     width: 100%;

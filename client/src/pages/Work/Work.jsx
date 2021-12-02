@@ -10,6 +10,8 @@ import "./Work.css";
 import { useSelector } from 'react-redux';
 import Topbar from '../../components/Topbar/Topbar';
 import LetbarSmall from './LeftbarSmall/LetbarSmall';
+import ImportData from './ImportData/ImportData';
+import ExportFile from './ExportFile/ExportFile';
 
 function Work() {
 
@@ -39,6 +41,8 @@ function Work() {
                     { user.workingMode === '4' && <div><OpenCensus /></div> }
                     { user.workingMode === '5' && <div><Overview /></div> }
                     { user.workingMode === '6' && <div><ViewPersonal /></div> }
+                    { user.workingMode === '7' && <div><ExportFile /></div> }
+                    { user.workingMode === '8' && <div><ImportData /></div> }
                     
                 </div>
             </div>

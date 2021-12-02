@@ -1,0 +1,111 @@
+.exportFile{
+    width: 100%;
+    min-height: calc(100vh - 70px);
+    padding: 10px;
+}
+.exportFile{
+    /* width: 100vw; */
+    /* height: 100vh; */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 0px;
+    background-color: rgb(209, 209, 209);
+}
+.exportFile-content{
+    width: 1000px;
+    background-color: white;
+    padding: 50px;
+}
+.exportFile-info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px;
+    border-bottom: 2px dotted gray;
+}
+.exportFile-img{
+    width: 300px;
+    height: 400px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.exportFile-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.exportFile-infoBasic{
+    max-width: 50%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.exportFile-infoBasic>b{
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+.exportFile-infoBasic p{
+    margin: 5px;
+}
+
+.exportFile-infoDetail, .exportFile-infoFamily{
+    width: 100%;
+    padding: 20px;
+    border-bottom: 2px dotted gray;
+}
+.exportFile-infoDetail h3, .exportFile-infoFamily h3{
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+.exportFile-infoDetailPerson, .exportFile-infoFamilyDetail{
+    margin-left: 20px;
+    max-height: 400px;
+}
+.exportFile-infoDetailPerson p, .exportFile-infoFamilyDetail p{
+    white-space: pre-line;
+}
+
+.exportFile-content>p{
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1100px) {
+    .exportFile-content{
+        width: 750px;
+        padding: 20px;
+    }
+    .exportFile-img{
+        width: 250px;
+        height: 350px;
+    }
+}
+
+@media screen and (max-width: 767px){
+    .exportFile-content{
+        width: 500px;
+        padding: 10px;
+    }
+    .exportFile-info{   
+        display: block;     
+    }
+    .exportFile-img{
+        width: 200px;
+        height: 300px;
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+    .exportFile-infoBasic{
+        margin-top: 20px;
+        max-width: 100%;
+    }
+    .exportFile-infoBasic>p{
+        margin-left: 20px;
+    }
+}

@@ -2,7 +2,7 @@ import './App.css';
 import { BrowserRouter as Router, Navigate, Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Login from './pages/Login/Login';
-import Register from './pages/Register/Register';
+// import Register from './pages/Register/Register';
 import Home from './pages/Home/Home';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
 import { useEffect } from 'react';
@@ -27,9 +27,9 @@ function App() {
         <div className="App">
             <Router>
                 <Routes>
-                    <Route path="/login" exact element={ !auth.accessToken ? <Login /> : <Navigate to="/" /> } />
-                    <Route path="/register" exact element={ !auth.accessToken ? <Register /> : <Navigate to="/" /> } />
-                    <Route path="/" exact element={ auth.accessToken ? <Home /> : <Navigate to="/login" /> } />
+                    <Route path="/login" exact element={ !auth.accessToken ? <Login /> : <Navigate to="/work" /> } />
+                    {/* <Route path="/register" exact element={ !auth.accessToken ? <Register /> : <Navigate to="/" /> } /> */}
+                    <Route path="/" exact element={ <Home /> } />
                     <Route path="/work" exact element={ auth.accessToken ? <Work /> : <Navigate to="/login" /> } />
                     <Route path="/viewpersondetail/:id" exact element={ auth.accessToken ? <ViewPersonDetail /> : <Navigate to="/login" /> } />
                     <Route path="*" exact element={ auth.accessToken ? <PageNotFound /> : <Navigate to="/login" /> } />

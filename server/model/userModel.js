@@ -1,37 +1,41 @@
 const mongoose = require('mongoose');
 
+// khai báo thông tin cho người dùng hệ thống
 
 const UserSchema = new mongoose.Schema({
 
     lastName: { // họ
         type: String,
-        required: true,
     },
-    firstName: { // tên
+    firstName: { // tên thật
         type: String,
-        required: true,
     },
     bufferName: { // tên đệm
         type: String,
-        required: true,
+    },
+    name: { // họ và tên
+        type: String,
+        default: "Chưa có thông tin",
     },
     numCCCD: {
         type: String,
-        required: true,
         unique: true,
+        default: "Chưa có thông tin",
     },
     phone: {
         type: String,
-        required: true,
+        default: "Chưa có thông tin",
     },
     position: { // vị trí, chức vụ
+        ref: 'code',
         type: String,
         default: 'citizen',
     },
-    email: {
+    accountName: { // tên tài khoản 
         type: String,
         required: true,
         unique: true,
+        default: "",
     },
     password: {
         type: String,
@@ -54,61 +58,33 @@ const UserSchema = new mongoose.Schema({
     date: {
         type: Date,
         required: false,
+        default: "Chưa có thông tin",
     },
     job: {
         type: String,
         required: false,
-        default: "",
-    },
-    status: {
-        type: String,
-        required: false,
-        default: "",
+        default: "Chưa có thông tin",
     },
     address: {
-        city: {
-            type: String,
-            required: false,
-            default: "",
-        },
-        district: {
-            type: String,
-            required: false,
-            default: "",
-        },
-        ward: {
-            type: String,
-            required: false,
-            default: "",
-        }
+        type: String,
+        required: false,
+        default: "Chưa có thông tin",
     },
     hometown: {
-        city: {
-            type: String,
-            required: false,
-            default: "",
-        },
-        district: {
-            type: String,
-            required: false,
-            default: "",
-        },
-        ward: {
-            type: String,
-            required: false,
-            default: "",
-        }
+        type: String,
+        required: false,
+        default: "Chưa có thông tin",
     },
     gender: {
         type: String,
         required: false,
-        default: "",
+        default: "Chưa có thông tin",
     },
     infoOther: {
         type: String,
         required: false,
-        default: "",
-    }
+        default: "Chưa có thông tin",
+    },
 
 }, { timestamps: true });
 
