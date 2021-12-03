@@ -1,13 +1,56 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Button from '../../../common/Button/Button';
 import Modal from '../../../common/Modal/Modal';
+import generator from 'generate-password';
 import "./AddAcount.css";
+import { useDispatch, useSelector } from 'react-redux';
+import { register } from "../../../redux/actions/authAction";
 
 function AddAcount() {
 
+    const { auth } = useSelector(state => state);
+    const dispatch = useDispatch();
+
     const [isOpenModal, setIsOpenModal] = useState(false);
+    const [state, setState] = useState({
+        accountName: "", 
+        password: "", 
+        typeAccount: "",
+        providerAccount: auth?.user?._id,
+    });
+    // const {accountName, password, typeAccount, providerAccount} = state;
+    const inputPasswordRef = useRef();
+
     const handleShowModal = () => {
         setIsOpenModal(true);
+    }
+
+    // khi người dùng nhập dữ liệu sẽ cập nhật state
+    const handleChane = (e) => {
+        setState({
+            ...state,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    // tự động tạo mk ngẫu nhiên
+    const handleCreatePassword = () => {
+        var password = generator.generate({
+            length: 10,
+            numbers: true
+        });
+        setState({
+            ...state,
+            password: password,
+        })
+        inputPasswordRef.current.value = password;
+    }
+
+    // khi submit tạo tài khoản
+    const handleAddAccount = (e) => {
+        e.preventDefault();
+        dispatch(register(state))
+        // console.log(state);
     }
 
     return (
@@ -15,20 +58,40 @@ function AddAcount() {
             <div className="addAcount-top">
                 <h3>Cấp tài khoản</h3>
                 <div className="addAcount-top-container">
-                    <div className="addAcount-top-content">
+                    <form className="addAcount-top-content">
                         <div className="addAcount-top-content-username">
                             <p>Tài khoản :</p>
-                            <input type="text" placeholder="Tên tài khoản chỉ bao gồm kí tự số"/>
+                            <input 
+                                type="text" 
+                                placeholder="Tên tài khoản chỉ bao gồm kí tự số" 
+                                name="accountName" 
+                                onChange={handleChane}
+                            />
+                            <select name="typeAccount" onChange={handleChane} required >
+                                <option value="">Loại tài khoản</option>
+                                <option value="A1">A1</option>
+                                <option value="A2">A2</option>
+                                <option value="A3">A3</option>
+                                <option value="B1">B1</option>
+                                <option value="B2">B2</option>
+                            </select>
                         </div>
                         <div className="addAcount-top-content-password">
                             <p>Mật khẩu :</p>
                             <div className="addAcount-top-content-password-text">
-                                <input type="text" placeholder="Mật khẩu ít nhất 8 kí tự"/>
+                                <input 
+                                    type="text" 
+                                    placeholder="Mật khẩu ít nhất 8 kí tự" 
+                                    name="password" 
+                                    ref={inputPasswordRef}
+                                    onChange={handleChane}
+                                />
                                 <Button 
                                     typeButton="default" 
                                     width={50} 
                                     height={50} 
                                     title="Hệ thống sẽ tự động cấp mật khẩu" 
+                                    onClick = {handleCreatePassword}
                                 />
                             </div>
                         </div>
@@ -40,6 +103,7 @@ function AddAcount() {
                                 typeButton="normal" 
                                 text="Xác nhận" 
                                 fontSize={18} 
+                                onClick={handleAddAccount}
                             />
                         </div>
                         <Modal isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal}>
@@ -48,7 +112,7 @@ function AddAcount() {
                                 <p>Tên tài khoản đã được cấp vào ngày 22/12/2020 bởi Nguyễn Lâm Thành (cán bộ thành phố Hà Nội).</p>
                             </div>
                         </Modal>
-                    </div>
+                    </form>
                 </div>
             </div>
             <div className="addAcount-bottom">

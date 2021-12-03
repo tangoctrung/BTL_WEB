@@ -3,24 +3,25 @@ const mongoose = require('mongoose');
 
 const CodeSchema = new mongoose.Schema({
 
-    code: {
+    code: {  // mã vùng
         type: String,
         required: true,
         unique: true,
     },
-    name: {
+    name: {  // tên vùng
         type: String,
         required: true,
     },
-    provider: {
+    provider: { // người cấp mã
+        ref: 'user',
         type: String,
         required: true,
     },
-    level: {
+    level: {  // vùng đó thuộc cấp tỉnh, huyện hay xã, thôn
         type: String,
         required: true,
     },
-    namePosition: {
+    namePosition: {  // tên vị trí: ví dụ cán bộ tỉnh hà nội,...
         type: String,
         required: true,
     }

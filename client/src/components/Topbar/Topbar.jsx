@@ -3,12 +3,13 @@ import './Topbar.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/actions/authAction';
 import { Link } from 'react-router-dom';
-import { noAvatar } from '../../api/urlApi';
 
 function Topbar() {
 
     const dispatch = useDispatch();
     const { auth } = useSelector(state => state);
+
+    
 
     const handleLogout = () => {
         dispatch(logout());
@@ -36,17 +37,18 @@ function Topbar() {
                 { auth.accessToken ?
                     <div className="topbar-right-info">
                         <div className="topbar-right-img">
-                            <img src={noAvatar} alt="avatar" />
+                            <img src={auth?.user?.avatar} alt="avatar" />
                         </div>
                         <div className="topbar-menu">
                             <Link to="/profile" className="topbar-item topbar-profile">
                                 <i className="fas fa-id-card-alt"></i>
                                 <span>Thông tin cá nhân</span>
                             </Link>
-                            <Link to="/witerpost" className="topbar-item topbar-blog">
-                                <i className="fas fa-marker"></i>
-                                <span>Viết báo</span>
-                            </Link>
+                            {!auth?.user?.isAdmin && 
+                                <Link to="/witerpost" className="topbar-item topbar-blog">
+                                    <i className="fas fa-marker"></i>
+                                    <span>Viết báo</span>
+                                </Link>}
                             <Link to="/saved"className="topbar-item topbar-saved">
                                 <i className="fas fa-save"></i>
                                 <span>Bài viết đã lưu</span>

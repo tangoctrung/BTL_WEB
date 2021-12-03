@@ -4,15 +4,15 @@ const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
 
-    lastName: { // họ
-        type: String,
-    },
-    firstName: { // tên thật
-        type: String,
-    },
-    bufferName: { // tên đệm
-        type: String,
-    },
+    // lastName: { // họ
+    //     type: String,
+    // },
+    // firstName: { // tên thật
+    //     type: String,
+    // },
+    // bufferName: { // tên đệm
+    //     type: String,
+    // },
     name: { // họ và tên
         type: String,
         default: "Chưa có thông tin",
@@ -27,9 +27,13 @@ const UserSchema = new mongoose.Schema({
         default: "Chưa có thông tin",
     },
     position: { // vị trí, chức vụ
-        ref: 'code',
         type: String,
-        default: 'citizen',
+        // required: true,
+        default: "",
+    },
+    typeAccount:{
+        type: String,
+        required: true,
     },
     accountName: { // tên tài khoản 
         type: String,
@@ -41,6 +45,11 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    providerAccount: {
+        type: String,
+        required: true,
+        ref: 'user',
+    },
     refreshToken: {
         type: String,
         default: "",
@@ -48,7 +57,7 @@ const UserSchema = new mongoose.Schema({
     avatar: {
         type: String,
         required: false,
-        default: "",
+        default: "https://www.seekpng.com/png/detail/428-4287240_no-avatar-user-circle-icon-png.png",
     },
     nickname: {
         type: String,

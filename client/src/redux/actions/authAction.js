@@ -27,20 +27,21 @@ export const login = (data) => async (dispatch) => {
 export const register = (data) => async (dispatch) => {
     try {
         const res = await postDataAPI('auth/register', data);
-        if (res.data.status === true) {
-            dispatch({
-                type: ACTIONS.REGISTER_SUCCESS,
-                payload: {
-                    accessToken: res.data.token,
-                    user: res.data.user,
-                }
-            });
-            localStorage.setItem('accessToken', JSON.stringify(res.data.token));
-        } else {
-            dispatch({type: ACTIONS.REGISTER_ERROR, payload: {
-                message: res.data.message,
-            }})
-        }
+        console.log(res.data);
+        // if (res.data.status === true) {
+        //     dispatch({
+        //         type: ACTIONS.REGISTER_SUCCESS,
+        //         payload: {
+        //             accessToken: res.data.token,
+        //             user: res.data.user,
+        //         }
+        //     });
+        //     localStorage.setItem('accessToken', JSON.stringify(res.data.token));
+        // } else {
+        //     dispatch({type: ACTIONS.REGISTER_ERROR, payload: {
+        //         message: res.data.message,
+        //     }})
+        // }
     } catch (err) {
         console.log(err);
     }
