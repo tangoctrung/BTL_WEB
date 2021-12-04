@@ -35,6 +35,11 @@ const auth = (state = initialState, action) => {
                 ...state,
                 isLoading: true,
             };
+        case ACTIONS.GET_USER:
+            return {
+                ...state,
+                user: action.payload.user,
+            };
         case ACTIONS.REGISTER_SUCCESS:
             return {
                 ...state,
@@ -53,11 +58,6 @@ const auth = (state = initialState, action) => {
                 ...state,
                 messageRegister: '',
                 messageLogin: '',
-            };
-        case ACTIONS.GET_USER:
-            return {
-                ...state,
-                user: action.payload.user,
             };
         case ACTIONS.LOGOUT: 
             return {

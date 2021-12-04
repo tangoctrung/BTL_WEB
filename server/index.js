@@ -14,8 +14,9 @@ app.use(express.json());
 
 
 // kết nối db
+// mongodb+srv://trungtn:tnkg23072001@cluster0.xspgv.mongodb.net/CitizenV?retryWrites=true&w=majority
 mongoose
-  .connect(process.env.DB_URL, {
+  .connect("mongodb://localhost:27017/CitizenV", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })

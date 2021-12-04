@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import * as ACTIONS from "../../../redux/constants/userContant";
 import "./Leftbar.css";
+import { noAvatar } from "../../../api/urlApi";
 
 function Leftbar() {
 
@@ -17,8 +18,8 @@ function Leftbar() {
     return (
         <div className="leftbar">
             <Link to="/profile" className="leftbar-user">
-                <img src={auth?.user?.avatar} alt="avatar" />
-                <span>Tạ Ngọc Trung</span>
+                <img src={auth?.user?.avatar ? auth?.user?.avatar : noAvatar } alt="avatar" />
+                <span>{ auth?.user?.name }</span>
             </Link>
             <div className="leftbar-listMenu">
                 <div 
@@ -29,7 +30,7 @@ function Leftbar() {
                     <span>Hòm thư</span>
                 </div>
 
-                {!auth?.user?.typeAccount ==="admin" && 
+                {auth?.user?.typeAccount === "admin" ? "" :
                     <div 
                         className={`leftbar-item ${user.workingMode==='2' ? 'leftbar-item-isActive' : ''}`}
                         onClick={() => handleChangeWorkingMode('2')}
@@ -46,7 +47,7 @@ function Leftbar() {
                     <span>Cấp tài khoản</span>
                 </div>
 
-                {!auth?.user?.typeAccount ==="admin" && 
+                {auth?.user?.typeAccount === "admin" ? "" :
                     <>
                         <div 
                         className={`leftbar-item ${user.workingMode==='4' ? 'leftbar-item-isActive' : ''}`}
@@ -72,21 +73,25 @@ function Leftbar() {
                             <span>Xem thông tin cá nhân</span>
                         </div>
 
-                        <div 
-                            className={`leftbar-item ${user.workingMode==='7' ? 'leftbar-item-isActive' : ''}`}
-                            onClick={() => handleChangeWorkingMode('7')}
-                        >
-                            <i className="fas fa-print"></i>
-                            <span>In phiếu</span>
-                        </div>
+                        {(auth?.user?.typeAccount === "A1" || auth?.user?.typeAccount === "A2" || auth?.user?.typeAccount === "A3") ? "" :
+                            <>
+                                <div 
+                                className={`leftbar-item ${user.workingMode==='7' ? 'leftbar-item-isActive' : ''}`}
+                                onClick={() => handleChangeWorkingMode('7')}
+                                >
+                                    <i className="fas fa-print"></i>
+                                    <span>In phiếu</span>
+                                </div>
 
-                        <div 
-                            className={`leftbar-item ${user.workingMode==='8' ? 'leftbar-item-isActive' : ''}`}
-                            onClick={() => handleChangeWorkingMode('8')}
-                        >
-                            <i className="fas fa-file-import"></i>
-                            <span>Nhập dữ liệu</span>
-                        </div>
+                                <div 
+                                    className={`leftbar-item ${user.workingMode==='8' ? 'leftbar-item-isActive' : ''}`}
+                                    onClick={() => handleChangeWorkingMode('8')}
+                                >
+                                    <i className="fas fa-file-import"></i>
+                                    <span>Nhập dữ liệu</span>
+                                </div>
+                            </>
+                        }
                     </>
                 }
                 

@@ -1,14 +1,17 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Button from '../../../common/Button/Button';
 import Modal from '../../../common/Modal/Modal';
 import generator from 'generate-password';
 import "./AddAcount.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from "../../../redux/actions/authAction";
+import { getAllUser } from "../../../redux/actions/userAction";
+import moment from "moment";
+
 
 function AddAcount() {
 
-    const { auth } = useSelector(state => state);
+    const { auth, user } = useSelector(state => state);
     const dispatch = useDispatch();
 
     const [isOpenModal, setIsOpenModal] = useState(false);
@@ -24,6 +27,11 @@ function AddAcount() {
     const handleShowModal = () => {
         setIsOpenModal(true);
     }
+
+    // get tất cả người dùng
+    useEffect(() => {
+        dispatch(getAllUser(auth?.accessToken));
+    }, [auth?.accessToken])
 
     // khi người dùng nhập dữ liệu sẽ cập nhật state
     const handleChane = (e) => {
@@ -50,7 +58,6 @@ function AddAcount() {
     const handleAddAccount = (e) => {
         e.preventDefault();
         dispatch(register(state))
-        // console.log(state);
     }
 
     return (
@@ -129,20 +136,22 @@ function AddAcount() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                               <td>1</td>
-                               <td><b>01</b> (Nguyễn Văn Vinh)</td>
-                               <td>Cán bộ thành phố Hà Nội</td>
-                               <td><b>TW</b> (Lê Mạnh Lâm)</td>
-                               <td>22/11/2020</td>
-                            </tr>
-                            <tr>
+                            { user.listUser && user.listUser.map((user, index) => (
+                                <tr key={index}>
+                                    <td>{index + 1}</td>
+                                    <td><b>{user.typeAccount}</b> ({user.name})</td>
+                                    <td>{ user.position }</td>
+                                    <td><b>{user?.providerAccount?.typeAccount}</b> ({user?.providerAccount?.name})</td>
+                                    <td>{moment(user.createdAt).format('DD/MM/YYYY')}</td>
+                                </tr>
+                            )) }
+                            {/* <tr>
                                <td>2</td>
                                <td><b>0101</b> (Nguyễn Ngọc Hà)</td>
                                <td>Cán bộ quận Cầu Giấy</td>
                                <td><b>01</b> (Nguyễn Văn Vinh)</td>
                                <td>3/1/2021</td>
-                            </tr>
+                            </tr> */}
                         </tbody>
                     </table>
                 </div>

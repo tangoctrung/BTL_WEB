@@ -4,7 +4,6 @@ import * as ACTIONS from "../constants/authContant";
 export const login = (data) => async (dispatch) => {
     try {
         const res = await postDataAPI('auth/login', data);
-        console.log(res.data);
         if (res.data.status === true) {
             dispatch({
                 type: ACTIONS.LOGIN_SUCCESS,
@@ -26,8 +25,7 @@ export const login = (data) => async (dispatch) => {
 
 export const register = (data) => async (dispatch) => {
     try {
-        const res = await postDataAPI('auth/register', data);
-        console.log(res.data);
+        await postDataAPI('auth/register', data);
         // if (res.data.status === true) {
         //     dispatch({
         //         type: ACTIONS.REGISTER_SUCCESS,
@@ -46,7 +44,6 @@ export const register = (data) => async (dispatch) => {
         console.log(err);
     }
 }
-
 
 export const getUser = (token) => async (dispatch) => {
     try {
@@ -68,7 +65,6 @@ export const getUser = (token) => async (dispatch) => {
         console.log(err);
     }
 }
-
 
 export const logout = () => async (dispatch) => {
     try {

@@ -4,32 +4,17 @@ const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
 
-    // lastName: { // họ
-    //     type: String,
-    // },
-    // firstName: { // tên thật
-    //     type: String,
-    // },
-    // bufferName: { // tên đệm
-    //     type: String,
-    // },
     name: { // họ và tên
         type: String,
-        default: "Chưa có thông tin",
-    },
-    numCCCD: {
-        type: String,
-        unique: true,
-        default: "Chưa có thông tin",
+        default: "",
     },
     phone: {
         type: String,
-        default: "Chưa có thông tin",
+        default: "",
     },
     position: { // vị trí, chức vụ
         type: String,
-        // required: true,
-        default: "",
+        required: true,
     },
     typeAccount:{
         type: String,
@@ -39,7 +24,6 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-        default: "",
     },
     password: {
         type: String,
@@ -57,7 +41,7 @@ const UserSchema = new mongoose.Schema({
     avatar: {
         type: String,
         required: false,
-        default: "https://www.seekpng.com/png/detail/428-4287240_no-avatar-user-circle-icon-png.png",
+        default: "",
     },
     nickname: {
         type: String,
@@ -67,32 +51,32 @@ const UserSchema = new mongoose.Schema({
     date: {
         type: Date,
         required: false,
-        default: "Chưa có thông tin",
+        default: "",
     },
     job: {
         type: String,
         required: false,
-        default: "Chưa có thông tin",
+        default: "",
     },
     address: {
         type: String,
         required: false,
-        default: "Chưa có thông tin",
+        default: "",
     },
     hometown: {
         type: String,
         required: false,
-        default: "Chưa có thông tin",
+        default: "",
     },
     gender: {
         type: String,
         required: false,
-        default: "Chưa có thông tin",
+        default: "",
     },
     infoOther: {
         type: String,
         required: false,
-        default: "Chưa có thông tin",
+        default: "",
     },
 
 }, { timestamps: true });

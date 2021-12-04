@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { registerUser, loginUser, getUser } = require('../controller/userController');
+const { registerUser, loginUser, getUser, getAllUser } = require('../controller/userController');
 const verifyToken = require('../middleware/auth');
 
 
@@ -12,6 +12,9 @@ router.post("/auth/login", loginUser);
 // GET USER
 router.get("/getuser", verifyToken, getUser);
 
+
+// GET ALL USER
+router.get("/getalluser", verifyToken, getAllUser);
 
 
 

@@ -4,6 +4,7 @@ import * as ACTIONS from '../constants/userContant';
 const initialState = {
     articleView: '1',
     workingMode: '0',
+    listUser: null,
 };
 
 
@@ -19,6 +20,11 @@ const user = (state = initialState, action) => {
                 ...state,
                 workingMode: action.payload.workingMode,
             };
+        case ACTIONS.GET_ALL_USER:
+            return {
+                ...state,
+                listUser: action.payload.listUser,
+            };      
         
         default:
             return state;

@@ -8,6 +8,6 @@ export const REGISTER_ERROR = "REGISTER_ERROR";
 
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 
-export const GET_USER = "GET_USER";
+export const GET_USER = "GET_USER"; // lấy người dùng hiện tại
 
 export const LOGOUT = "LOGOUT";

@@ -1,11 +1,12 @@
+
 POST http://localhost:8800/api/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-    "accountName": "a@gmail.com", 
+    "accountName": "a1@gmail.com", 
     "password": "12345678", 
     "typeAccount": "A1",
-    "providerAccount": "61aa0e9b12c55f28a34ef61a"
+    "providerAccount": "61ab69a480482f0d9c708ba4"
 }
 
 

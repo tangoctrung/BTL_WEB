@@ -3,6 +3,7 @@ import './LeftbarSmall.css';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import * as ACTIONS from "../../../redux/constants/userContant";
+import { noAvatar } from "../../../api/urlApi";
 
 function LetbarSmall() {
 
@@ -17,7 +18,7 @@ function LetbarSmall() {
     return (
         <div className="leftbarSmall">
             <Link to="/profile" className="leftbarSmall-user">
-                <img src={auth?.user?.avatar} alt="avatar" />
+                <img src={auth?.user?.avatar ? auth?.user?.avatar : noAvatar} alt="avatar" />
             </Link>
             <div className="leftbarSmall-listMenu">
                 <div 
@@ -27,7 +28,7 @@ function LetbarSmall() {
                     <i className="fas fa-envelope" title="Hòm thư"></i>
                 </div>
 
-                {!auth?.user?.typeAccount ==="admin" && 
+                {auth?.user?.typeAccount ==="admin" ? "" :
                     <div 
                         className={`leftbarSmall-item ${user.workingMode==='2' ? 'leftbarSmall-item-isActive' : ''}`}
                         onClick={() => handleChangeWorkingMode('2')}
@@ -42,7 +43,7 @@ function LetbarSmall() {
                     <i className="fas fa-user-plus" title="Cấp tài khoản"></i>
                 </div>
 
-                {!auth?.user?.typeAccount ==="admin" && 
+                {auth?.user?.typeAccount === "admin" ? "" :
                     <>
                         <div 
                         className={`leftbarSmall-item ${user.workingMode==='4' ? 'leftbarSmall-item-isActive' : ''}`}
@@ -65,20 +66,25 @@ function LetbarSmall() {
                             <i className="fas fa-user-tie" title="Xem thông tin cá nhân"></i>
                         </div>
 
-                        <div 
-                            className={`leftbarSmall-item ${user.workingMode==='7' ? 'leftbarSmall-item-isActive' : ''}`}
-                            onClick={() => handleChangeWorkingMode('7')}
-                        >
-                            <i className="fas fa-print"></i>
-                        </div>
+                        {(auth?.user?.typeAccount === "A1" || auth?.user?.typeAccount === "A2" || auth?.user?.typeAccount === "A3") ? "" :
+                            <>
+                                <div 
+                                className={`leftbarSmall-item ${user.workingMode==='7' ? 'leftbar-item-isActive' : ''}`}
+                                onClick={() => handleChangeWorkingMode('7')}
+                                >
+                                    <i className="fas fa-print"></i>
+                                </div>
 
-                        <div 
-                            className={`leftbarSmall-item ${user.workingMode==='8' ? 'leftbarSmall-item-isActive' : ''}`}
-                            onClick={() => handleChangeWorkingMode('8')}
-                        >
-                            <i className="fas fa-file-import"></i>
-                        </div>
-                    </>}
+                                <div 
+                                    className={`leftbarSmall-item ${user.workingMode==='8' ? 'leftbar-item-isActive' : ''}`}
+                                    onClick={() => handleChangeWorkingMode('8')}
+                                >
+                                    <i className="fas fa-file-import"></i>
+                                </div>
+                            </>
+                        }
+                    </>
+                }
                 
             </div>
         </div>

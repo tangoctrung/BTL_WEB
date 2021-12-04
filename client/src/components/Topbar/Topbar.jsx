@@ -3,6 +3,7 @@ import './Topbar.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/actions/authAction';
 import { Link } from 'react-router-dom';
+import { noAvatar } from '../../api/urlApi';
 
 function Topbar() {
 
@@ -37,7 +38,7 @@ function Topbar() {
                 { auth.accessToken ?
                     <div className="topbar-right-info">
                         <div className="topbar-right-img">
-                            <img src={auth?.user?.avatar} alt="avatar" />
+                            <img src={auth?.user?.avatar ? auth?.user?.avatar : noAvatar} alt="avatar" />
                         </div>
                         <div className="topbar-menu">
                             <Link to="/profile" className="topbar-item topbar-profile">
