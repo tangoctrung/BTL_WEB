@@ -31,7 +31,7 @@ function AddAcount() {
     // get tất cả người dùng
     useEffect(() => {
         dispatch(getAllUser(auth?.accessToken));
-    }, [auth?.accessToken])
+    }, [auth?.accessToken]);
 
     // khi người dùng nhập dữ liệu sẽ cập nhật state
     const handleChane = (e) => {

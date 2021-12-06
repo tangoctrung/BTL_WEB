@@ -16,6 +16,10 @@ const CitizenSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    name: { // tên
+        type: String,
+        required: true,
+    },
     numCCCD: {
         type: String,
         required: true,
@@ -26,12 +30,12 @@ const CitizenSchema = new mongoose.Schema({
         required: false,
         default: "",
     },
-    nation: {
+    nation: { // dân tộc: KINH, MÔNG, ...
         type: String,
         required: false,
         default: "",
     },
-    religion: {
+    religion: { // tôn giáo
         type: String,
         required: false,
         default: "",

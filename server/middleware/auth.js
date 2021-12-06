@@ -5,12 +5,13 @@ const verifyToken = (req, res, next) => {
 	const token = authHeader && authHeader.split(' ')[1]
 
 	if (!token)
-		return res.json('Từ chối kết nối.')
+		return res.json({success: false, message: 'Error token'})
 
 	try {
 		const data = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
 		req.userId = data._id;
-		next();
+		req.position = data.position;
+		return next();
 	} catch (error) {
 		console.log(error)
 		return res.json({ success: false, message: 'Invalid token' })

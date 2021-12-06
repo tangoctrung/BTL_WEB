@@ -20,10 +20,6 @@ const CodeSchema = new mongoose.Schema({
     level: {  // vùng đó thuộc cấp tỉnh, huyện hay xã, thôn
         type: String,
         required: true,
-    },
-    namePosition: {  // tên vị trí: ví dụ cán bộ tỉnh hà nội,...
-        type: String,
-        required: true,
     }
 
 

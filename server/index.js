@@ -6,6 +6,9 @@ const cors = require('cors');
 const app = express();
 
 const userRouter = require('./router/userRouter');
+const codeRouter = require('./router/codeRouter');
+const citizenRouter = require('./router/citizenRouter');
+
 
 // config middleware
 app.use(cors());
@@ -26,6 +29,8 @@ mongoose
 
 // setup router
 app.use("/api", userRouter);
+app.use("/api", codeRouter);
+app.use("/api", citizenRouter);
 
 
 const PORT = process.env.PORT || 8800;
