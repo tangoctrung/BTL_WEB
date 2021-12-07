@@ -55,3 +55,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTk3OTE2N
 {
     "date": 12-22-2001,
 }
+
+
+###
+GET http://localhost:8800/api/getallcitizenconditions?name=%%Tạ%Ngọc%Trung%% HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTk3OTE2NjAwMTY0N2Q0YjA5OTU2MjIiLCJpYXQiOjE2MzczMjQxOTF9.2BUoXQRSP-UQr4KFDQHyfC46vlnWmz7L8hoElLUERRU

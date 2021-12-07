@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { getUser } from './redux/actions/authAction';
 import Work from './pages/Work/Work';
 import ViewPersonDetail from './pages/ViewPersonDetail/ViewPersonDetail';
+import Profile from './pages/Profile/Profile';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
                     {/* <Route path="/register" exact element={ !auth.accessToken ? <Register /> : <Navigate to="/" /> } /> */}
                     <Route path="/" exact element={ <Home /> } />
                     <Route path="/work" exact element={ auth.accessToken ? <Work /> : <Navigate to="/login" /> } />
+                    <Route path="/profile/:id" exact element={ auth.accessToken ? <Profile /> : <Navigate to="/login" /> } />
                     <Route path="/viewpersondetail/:id" exact element={ auth.accessToken ? <ViewPersonDetail /> : <Navigate to="/login" /> } />
                     <Route path="*" exact element={ auth.accessToken ? <PageNotFound /> : <Navigate to="/login" /> } />
                 </Routes>

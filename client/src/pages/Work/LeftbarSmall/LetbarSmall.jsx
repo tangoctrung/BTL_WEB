@@ -17,7 +17,7 @@ function LetbarSmall() {
 
     return (
         <div className="leftbarSmall">
-            <Link to="/profile" className="leftbarSmall-user">
+            <Link to={`/profile/${auth?.user?._id}`} className="leftbarSmall-user">
                 <img src={auth?.user?.avatar ? auth?.user?.avatar : noAvatar} alt="avatar" />
             </Link>
             <div className="leftbarSmall-listMenu">

@@ -17,7 +17,7 @@ function Leftbar() {
 
     return (
         <div className="leftbar">
-            <Link to="/profile" className="leftbar-user">
+            <Link to={`/profile/${auth?.user?._id}`} className="leftbar-user">
                 <img src={auth?.user?.avatar ? auth?.user?.avatar : noAvatar } alt="avatar" />
                 <span>{ auth?.user?.name }</span>
             </Link>

@@ -22,7 +22,7 @@ const CitizenSchema = new mongoose.Schema({
     },
     numCCCD: {
         type: String,
-        required: true,
+        required: false,
         unique: true,
     },
     education: {
@@ -63,39 +63,35 @@ const CitizenSchema = new mongoose.Schema({
         required: false,
         default: "",
     },
-    address: {
-        city: {
-            type: String,
-            required: false,
-            default: "",
-        },
-        district: {
-            type: String,
-            required: false,
-            default: "",
-        },
-        ward: {
-            type: String,
-            required: false,
-            default: "",
-        }
+    addressCity: {     
+        type: String,
+        required: false,
+        default: "",
     },
-    hometown: {
-        city: {
-            type: String,
-            required: false,
-            default: "",
-        },
-        district: {
-            type: String,
-            required: false,
-            default: "",
-        },
-        ward: {
-            type: String,
-            required: false,
-            default: "",
-        }
+    addressDistrict: {
+        type: String,
+        required: false,
+        default: "",
+    },
+    addressWard: {
+        type: String,
+        required: false,
+        default: "",
+    },
+    hometownCity: {
+        type: String,
+        required: false,
+        default: "",
+    },
+    hometownDistrict: {
+        type: String,
+        required: false,
+        default: "",
+    },
+    hometownWard: {
+        type: String,
+        required: false,
+        default: "",
     },
     gender: {
         type: String,

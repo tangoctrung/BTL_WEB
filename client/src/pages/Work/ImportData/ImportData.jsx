@@ -1,6 +1,10 @@
 import React from 'react';
 import './ImportData.css';
 import Button from '../../../common/Button/Button';
+import { dataNation } from "../../../data/dataDemo/dataNation";
+import { dataReligion } from "../../../data/dataDemo/dataReligion";
+import { dataEducation } from '../../../data/dataDemo/dataEducation';
+import dataLocal from "../../../data/dataDemo/local.json";
 
 function ImportData() {
     return (
@@ -19,18 +23,97 @@ function ImportData() {
                             <input type="text" placeholder="Tên đệm" />
                             <input type="text" placeholder="Tên thật" />
                             <p><b>Ngày sinh:</b><input type="date" /></p>
-                            <p><b>Giới tính: </b><input type="text" /></p>
-                            <p><b>Dân tộc: </b><input type="text" /></p>
-                            <p><b>Tôn giáo: </b><input type="text" /></p>
-                            <p><b>Học vấn: </b><input type="text" /></p>
+                            <p>
+                                <b>Giới tính: </b>
+                                <input type="text" list="gioitinh" />
+                                <datalist id="gioitinh">
+                                    <option key={1} value="Nam"></option>
+                                    <option key={2} value="Nữ"></option>
+                                    <option key={3} value="Khác"></option>
+                                </datalist>
+                            </p>
+                            <p>
+                                <b>Dân tộc: </b>
+                                <input type="text" list="dantoc" />
+                                <datalist id="dantoc">
+                                    {dataNation.map((item, index) => (
+                                        <option key={index} value={item.name}></option>
+                                    ))}
+                                </datalist>
+                            </p>
+                            <p>
+                                <b>Tôn giáo: </b>
+                                <input type="text" list="tongiao" />
+                                <datalist id="tongiao">
+                                    {dataReligion.map((item, index) => (
+                                        <option key={index} value={item.name}></option>
+                                    ))}
+                                </datalist>
+                            </p>
+                            <p>
+                                <b>Học vấn: </b>
+                                <input type="text" list="hocvan" />
+                                <datalist id="hocvan">
+                                    {dataEducation.map((item, index) => (
+                                        <option key={index} value={item.name}></option>
+                                    ))}
+                                </datalist>
+                            </p>
                             <p><b>Số điện thoại: </b><input type="text" /></p>
                             <p><b>Số CCCD: </b><input type="text" /></p>
                             <p><b>Email: </b><input type="text" /></p>
-                            <p><b>Công việc: </b><input type="text" /></p>
-                            <p><b>Quê quán: </b><input type="text" /></p>
-                            <p><b>Nơi ở hiện tại: </b><input type="text" /></p>
+                            <p><b>Công việc: </b><input type="text" /></p>                          
                         </div>
                     </div>
+
+                    <p>Nơi ở hiện tại</p>
+                    <div className="importData-address">
+                        <div className="importData-address-city">
+                            <input type="text" list="addresscity" placeholder="Tỉnh/Thành phố" />
+                            <datalist id="addresscity" >
+                                { dataLocal.map((city, index) => (
+                                    <option key={index} value={city.Name}>{city.Name}</option>
+                                ))}
+                            </datalist>
+                        </div>  
+                        <div className="importData-address-city">
+                            <input type="text" list="addresshuyen" placeholder="Huyện/Quận" />
+                            <datalist id="addresshuyen" >
+
+                            </datalist>
+                        </div>
+                        <div className="importData-address-city">
+                            <input type="text" list="addressxa" placeholder="Xã/Phường" />
+                            <datalist id="addressxa" >
+
+                            </datalist>
+                        </div>     
+                    </div>
+
+                    <p>Quê quán</p>
+                    <div className="importData-hometown">
+                        <div className="importData-hometown-city">
+                            <input type="text" list="hometowncity" placeholder="Tỉnh/Thành phố" />
+                            <datalist id="hometowncity" >
+                                { dataLocal.map((city, index) => (
+                                    <option key={index} value={city.Name}>{city.Name}</option>
+                                ))}
+                            </datalist>
+                        </div>  
+                        <div className="importData-hometown-city">
+                            <input type="text" list="hometownhuyen" placeholder="Huyện/Quận" />
+                            <datalist id="hometownhuyen" >
+
+                            </datalist>
+                        </div>
+                        <div className="importData-hometown-city">
+                            <input type="text" list="hometownxa"  placeholder="Xã/Phường" />
+                            <datalist id="hometownxa" >
+
+                            </datalist>
+                        </div>   
+                    </div>
+
                     <div className="importData-infoDetail">
                         <h3>Thông tin chi tiết hơn</h3>
                         <div className="importData-infoDetailPerson">

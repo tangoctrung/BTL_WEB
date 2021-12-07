@@ -41,7 +41,7 @@ function Topbar() {
                             <img src={auth?.user?.avatar ? auth?.user?.avatar : noAvatar} alt="avatar" />
                         </div>
                         <div className="topbar-menu">
-                            <Link to="/profile" className="topbar-item topbar-profile">
+                            <Link to={`/profile/${auth?.user?._id}`} className="topbar-item topbar-profile">
                                 <i className="fas fa-id-card-alt"></i>
                                 <span>Thông tin cá nhân</span>
                             </Link>

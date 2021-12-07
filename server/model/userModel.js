@@ -43,20 +43,25 @@ const UserSchema = new mongoose.Schema({
         required: false,
         default: "",
     },
-    nickname: {
-        type: String,
-        required: false,
-        default: "",
-    },
     date: {
         type: Date,
         required: false,
         default: "",
     },
-    job: {
+    nation: {
         type: String,
         required: false,
         default: "",
+    },
+    religion: {
+        type: String,
+        required: false,
+        default: "",
+    },
+    numCCCD: {
+        type: String,
+        required: false,
+        unique: true,
     },
     address: {
         type: String,

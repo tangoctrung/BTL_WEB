@@ -5,7 +5,8 @@ const validator = require('validator');
 // khai báo thông tin của một người dân
 const AddCitizen = async (req, res) => {
     const { lastName, firstName, bufferName, numCCCD, education, nation, religion,
-        phone, email, avatar, date, job, address, hometown, gender, infoDetail, infoFamily,
+        phone, email, avatar, date, job, addressCity, addressDistrict, addressWard,
+        hometownCity, hometownDistrict, hometownWard, gender, infoDetail, infoFamily,
     } = req.body;
 
     try {
@@ -46,7 +47,8 @@ const AddCitizen = async (req, res) => {
         // nếu tất cả thông tin hợp lệ thì lưu citizen vào database
         const newCitizen = new Citizen({
             lastName, firstName, bufferName, numCCCD, education, nation, religion,
-            phone, email, avatar, date, job, address, hometown, gender, infoDetail, infoFamily,
+            phone, email, avatar, date, job, addressCity, addressDistrict, addressWard,
+            hometownCity, hometownDistrict, hometownWard, gender, infoDetail, infoFamily,
         });
         await newCitizen.save();
 
@@ -100,11 +102,25 @@ const getAllCitizen = async (req, res) => {
     }
 }
 
-// lấy tất cả công dân theo một vùng có code nào đó
+// lấy tất cả công dân theo một vùng quê quán có code nào đó
 const getAllCitizenCode = async (req, res) => {
     const code = req.query.code;
+    const level = req.query.level;
     try {
-        const citizens = await Citizen.find();
+        const citizens = null;
+        if (level === "Tỉnh") {
+            citizens = await Citizen.find({"hometownCity": code});
+        } else if (level === "Huyện") {
+            citizens = await Citizen.find({"hometownDistrict": code});
+        } else if (level === "Xã") {
+            citizens = await Citizen.find({"hometownWard": code});
+        } else {
+            return res.json({
+                status: false,
+                message: "Không có dữ liệu",
+            })
+        }
+        
         res.json({
             status: true, 
             message: "Lấy dữ liệu của tất cả công dân thành công.",
@@ -118,13 +134,28 @@ const getAllCitizenCode = async (req, res) => {
 
 // lấy thông tin của 1 công dân với điều kiện nào đó
 const getAllCitizenConditions = async (req, res) => {
+    const citizenId = req.params.id;
+    let numCCCD = req.query.numCCCD;
+
     try {
-        const citizens = await Citizen.find();
-        res.json({
-            status: true, 
-            message: "Lấy dữ liệu của tất cả công dân thành công.",
-            citizens,
-        })
+        // nếu tìm kiếm theo id của citizen
+        if (citizenId) {
+            const citizen = await Citizen.findById({_id: citizenId});
+            return res.json({
+                status: true,
+                message: "Lấy dữ liệu thành công",
+                data: citizen,
+            })
+        }
+        // nếu tìm kiếm theo numCCCD citizen
+        if (numCCCD) {
+            const citizen = await Citizen.find({numCCCD: numCCCD});
+            res.json({
+                status: true, 
+                message: "Lấy dữ liệu của tất cả công dân thành công.",
+                data: citizen,
+            })
+        }
 
     } catch (err) {
         res.status(500).json(err);
@@ -138,4 +169,5 @@ module.exports = {
     DeleteCitizen,
     getAllCitizen,
     getAllCitizenCode,
+    getAllCitizenConditions,
 }
