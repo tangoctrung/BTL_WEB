@@ -2,110 +2,109 @@
     width: 100%;
     min-height: calc(100vh - 70px);
     padding: 10px;
+    background-color: rgb(236, 236, 236);
 }
-.exportFile{
-    /* width: 100vw; */
-    /* height: 100vh; */
+.exportFile-top{
     width: 100%;
-    height: 100%;
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 50px 0px;
-    background-color: rgb(209, 209, 209);
+}
+.exportFile-list{
+    display: flex;
+}
+.exportFile-item{
+    margin: 10px;
+}
+.exportFile-item p{
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: rgb(206, 206, 206);
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+.exportFile-item p:hover{
+    background-color: rgb(196, 196, 196);
+}
+.exportFile-item p i{
+    color:rgb(80, 80, 80);
+}
+.exportFile-isActive{
+    background-color: rgb(206, 206, 206);
+}
+.exportFile-bottom{
+    margin-top:20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    overflow-x: scroll;
 }
 .exportFile-content{
     width: 1000px;
+    min-height: 500px;
     background-color: white;
-    padding: 50px;
+    padding: 30px;
 }
-.exportFile-info{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 20px;
-    border-bottom: 2px dotted gray;
-}
-.exportFile-img{
-    width: 300px;
-    height: 400px;
-    border-radius: 10px;
-    overflow: hidden;
-}
-.exportFile-img img{
+.exportFile-content>h1, .exportFile-content>i{
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    text-align: center;
+    display: inline-block;
 }
-.exportFile-infoBasic{
-    max-width: 50%;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+.exportFile-content i{
+    margin-bottom: 15px;
 }
-.exportFile-infoBasic>b{
-    font-size: 24px;
-    margin-bottom: 10px;
+.exportFile-content h3{
+    margin-top: 20px;
+    color: rgb(80, 80, 80);
 }
-.exportFile-infoBasic p{
-    margin: 5px;
-}
-
-.exportFile-infoDetail, .exportFile-infoFamily{
-    width: 100%;
-    padding: 20px;
-    border-bottom: 2px dotted gray;
-}
-.exportFile-infoDetail h3, .exportFile-infoFamily h3{
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-.exportFile-infoDetailPerson, .exportFile-infoFamilyDetail{
-    margin-left: 20px;
-    max-height: 400px;
-}
-.exportFile-infoDetailPerson p, .exportFile-infoFamilyDetail p{
-    white-space: pre-line;
-}
-
 .exportFile-content>p{
     width: 100%;
     text-align: center;
-    margin-top: 20px;
+    margin: 20px 0px 10px 0px;
+    font-size: 20px;
     font-weight: bold;
 }
-
-@media screen and (min-width: 768px) and (max-width: 1100px) {
-    .exportFile-content{
-        width: 750px;
-        padding: 20px;
-    }
-    .exportFile-img{
-        width: 250px;
-        height: 350px;
-    }
+.exportFile-content h3 i{
+    font-size: 16px;
+    color: gray;
+    font-weight: 500;
 }
-
-@media screen and (max-width: 767px){
-    .exportFile-content{
-        width: 500px;
-        padding: 10px;
-    }
-    .exportFile-info{   
-        display: block;     
-    }
-    .exportFile-img{
-        width: 200px;
-        height: 300px;
-        margin-left: 50%;
-        transform: translateX(-50%);
-    }
-    .exportFile-infoBasic{
-        margin-top: 20px;
-        max-width: 100%;
-    }
-    .exportFile-infoBasic>p{
-        margin-left: 20px;
-    }
+.exportFile-infoBasic{
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+}
+.exportFile-img{
+    flex: 3;
+    display: flex;
+    justify-content: center;
+    
+}
+.exportFile-img-content{
+    width: 230px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1.5px solid gray;
+}
+.exportFile-listInfo{
+    flex: 4;
+}
+.exportFile-itemInfo{
+    width: 100%;
+    margin-bottom: 5px;
+    display: flex;
+}
+.exportFile-itemInfo b{
+    width: 100px;
+}
+.exportFile-itemInfo span{
+    width: calc(100% - 100px);
+    border-bottom: 1px dotted gray;
+}
+.exportFile-infoDetail p{
+    width: 100%;
+    padding: 15px 0px 15px 0px;
+    border-bottom: 1.5px dotted gray;
 }

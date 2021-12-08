@@ -19,10 +19,8 @@ function ImportData() {
                             </label>
                         </div>
                         <div className="importData-infoBasic">
-                            <input type="text" placeholder="Họ" />
-                            <input type="text" placeholder="Tên đệm" />
-                            <input type="text" placeholder="Tên thật" />
-                            <p><b>Ngày sinh:</b><input type="date" /></p>
+                            <p><b>Họ và tên:</b><input type="text" /></p>
+                            <p><b>Ngày sinh:</b><input type="date" placeholder="DD/MM/YYYY" /></p>
                             <p>
                                 <b>Giới tính: </b>
                                 <input type="text" list="gioitinh" />
@@ -59,7 +57,7 @@ function ImportData() {
                                     ))}
                                 </datalist>
                             </p>
-                            <p><b>Số điện thoại: </b><input type="text" /></p>
+                            <p><b>SĐT: </b><input type="text" /></p>
                             <p><b>Số CCCD: </b><input type="text" /></p>
                             <p><b>Email: </b><input type="text" /></p>
                             <p><b>Công việc: </b><input type="text" /></p>                          
@@ -88,6 +86,12 @@ function ImportData() {
 
                             </datalist>
                         </div>     
+                        <div className="importData-address-city">
+                            <input type="text" list="addressxa" placeholder="Thôn/Phố/Bản" />
+                            <datalist id="addressxa" >
+
+                            </datalist>
+                        </div>
                     </div>
 
                     <p>Quê quán</p>
@@ -111,7 +115,13 @@ function ImportData() {
                             <datalist id="hometownxa" >
 
                             </datalist>
-                        </div>   
+                        </div>  
+                        <div className="importData-hometown-city">
+                            <input type="text" list="hometownthon"  placeholder="Thôn/Phố/Bản" />
+                            <datalist id="hometownthon" >
+
+                            </datalist>
+                        </div>  
                     </div>
 
                     <div className="importData-infoDetail">

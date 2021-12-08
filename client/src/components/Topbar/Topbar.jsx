@@ -46,11 +46,11 @@ function Topbar() {
                                 <span>Thông tin cá nhân</span>
                             </Link>
                             {!auth?.user?.isAdmin && 
-                                <Link to="/witerpost" className="topbar-item topbar-blog">
+                                <Link to="/writepost" className="topbar-item topbar-blog">
                                     <i className="fas fa-marker"></i>
                                     <span>Viết báo</span>
                                 </Link>}
-                            <Link to="/saved"className="topbar-item topbar-saved">
+                            <Link to="/postsaved"className="topbar-item topbar-saved">
                                 <i className="fas fa-save"></i>
                                 <span>Bài viết đã lưu</span>
                             </Link>

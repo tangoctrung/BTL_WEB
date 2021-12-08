@@ -10,6 +10,9 @@ import { getUser } from './redux/actions/authAction';
 import Work from './pages/Work/Work';
 import ViewPersonDetail from './pages/ViewPersonDetail/ViewPersonDetail';
 import Profile from './pages/Profile/Profile';
+import PostSaved from './pages/PostSaved/PostSaved';
+import WritePost from './pages/WritePost/WritePost';
+import PostDetail from './pages/PostDetail/PostDetail';
 
 function App() {
 
@@ -33,6 +36,9 @@ function App() {
                     <Route path="/" exact element={ <Home /> } />
                     <Route path="/work" exact element={ auth.accessToken ? <Work /> : <Navigate to="/login" /> } />
                     <Route path="/profile/:id" exact element={ auth.accessToken ? <Profile /> : <Navigate to="/login" /> } />
+                    <Route path="/postsaved" exact element={ auth.accessToken ? <PostSaved /> : <Navigate to="/login" /> } />
+                    <Route path="/writepost" exact element={ auth.accessToken ? <WritePost /> : <Navigate to="/login" /> } />
+                    <Route path="/postDetail/:id" exact element={ auth.accessToken ? <PostDetail /> : <Navigate to="/login" /> } />
                     <Route path="/viewpersondetail/:id" exact element={ auth.accessToken ? <ViewPersonDetail /> : <Navigate to="/login" /> } />
                     <Route path="*" exact element={ auth.accessToken ? <PageNotFound /> : <Navigate to="/login" /> } />
                 </Routes>
