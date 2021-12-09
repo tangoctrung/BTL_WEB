@@ -1,4 +1,4 @@
-import { getDataAPI, postDataAPI } from '../../api/api';
+import { getDataAPI, postDataAPI, putDataAPI } from '../../api/api';
 import * as ACTIONS from "../constants/authContant";
 
 export const login = (data) => async (dispatch) => {
@@ -60,6 +60,24 @@ export const getUser = (token) => async (dispatch) => {
             // dispatch({type: ACTIONS.LOGIN_ERROR, payload: {
             //     message: res.data.message,
             // }})
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const updateUser = (data, userId, token) => async (dispatch) => {
+    try {
+        const res = await putDataAPI('updateuser/' + userId, data, token);
+        if (res.data.status === true) {
+            dispatch({
+                type: ACTIONS.UPDATE_USER,
+                payload: {
+                    user: res.data.user,
+                }
+            });
+            window.location.reload();
+        } else {
         }
     } catch (err) {
         console.log(err);

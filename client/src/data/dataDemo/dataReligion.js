@@ -1,5 +1,10 @@
 export const dataReligion = [
     {
+        id: 0,
+        name: "Không",
+        value: "khong",
+    },
+    {
         id: 1,
         name: "Phật giáo",
         value: "phatgiao",
@@ -28,5 +33,10 @@ export const dataReligion = [
         id: 6,
         name: "Nho giáo",
         value: "nhogiao",
+    },
+    {
+        id: 7,
+        name: "Khác",
+        value: "khac",
     },
 ]

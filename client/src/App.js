@@ -38,7 +38,7 @@ function App() {
                     <Route path="/profile/:id" exact element={ auth.accessToken ? <Profile /> : <Navigate to="/login" /> } />
                     <Route path="/postsaved" exact element={ auth.accessToken ? <PostSaved /> : <Navigate to="/login" /> } />
                     <Route path="/writepost" exact element={ auth.accessToken ? <WritePost /> : <Navigate to="/login" /> } />
-                    <Route path="/postDetail/:id" exact element={ auth.accessToken ? <PostDetail /> : <Navigate to="/login" /> } />
+                    <Route path="/postDetail/:id" exact element={<PostDetail /> } />
                     <Route path="/viewpersondetail/:id" exact element={ auth.accessToken ? <ViewPersonDetail /> : <Navigate to="/login" /> } />
                     <Route path="*" exact element={ auth.accessToken ? <PageNotFound /> : <Navigate to="/login" /> } />
                 </Routes>

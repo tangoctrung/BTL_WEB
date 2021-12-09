@@ -39,72 +39,11 @@
     justify-content: center;
     overflow-x: scroll;
 }
+
+
 .exportFile-content{
-    width: 1000px;
+    width: 900px;
     min-height: 500px;
     background-color: white;
     padding: 30px;
-}
-.exportFile-content>h1, .exportFile-content>i{
-    width: 100%;
-    text-align: center;
-    display: inline-block;
-}
-.exportFile-content i{
-    margin-bottom: 15px;
-}
-.exportFile-content h3{
-    margin-top: 20px;
-    color: rgb(80, 80, 80);
-}
-.exportFile-content>p{
-    width: 100%;
-    text-align: center;
-    margin: 20px 0px 10px 0px;
-    font-size: 20px;
-    font-weight: bold;
-}
-.exportFile-content h3 i{
-    font-size: 16px;
-    color: gray;
-    font-weight: 500;
-}
-.exportFile-infoBasic{
-    margin-top: 30px;
-    width: 100%;
-    display: flex;
-}
-.exportFile-img{
-    flex: 3;
-    display: flex;
-    justify-content: center;
-    
-}
-.exportFile-img-content{
-    width: 230px;
-    height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1.5px solid gray;
-}
-.exportFile-listInfo{
-    flex: 4;
-}
-.exportFile-itemInfo{
-    width: 100%;
-    margin-bottom: 5px;
-    display: flex;
-}
-.exportFile-itemInfo b{
-    width: 100px;
-}
-.exportFile-itemInfo span{
-    width: calc(100% - 100px);
-    border-bottom: 1px dotted gray;
-}
-.exportFile-infoDetail p{
-    width: 100%;
-    padding: 15px 0px 15px 0px;
-    border-bottom: 1.5px dotted gray;
 }

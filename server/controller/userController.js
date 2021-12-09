@@ -142,7 +142,27 @@ const getAllUser = async (req, res) => {
     }
 }
 
+// UPDATE A USER
+const updateUser = async (req, res) => {
+    const { name, phone, avatar, date, nation, religion, gender, address,
+    hometown, infoOther } = req.body;
+    const userId = req.params.id;
+    try {
+        const user = await User.findByIdAndUpdate({_id: userId},
+            { 
+                name, phone, avatar, date, nation, religion, gender, address,
+                hometown, infoOther 
+            }, {new: true});
+        res.status(200).json({
+            status: true,
+            message: "Cập nhật dữ liệu thành công.",
+            data: user,
+        })
 
+    } catch (err) {
+        res.status(500).json({err});
+    }
+}
 
 
 module.exports = {
@@ -150,4 +170,5 @@ module.exports = {
     loginUser,
     getUser,
     getAllUser,
+    updateUser,
 }

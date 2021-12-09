@@ -4,6 +4,7 @@ import Button from '../../../common/Button/Button';
 import { dataNation } from "../../../data/dataDemo/dataNation";
 import { dataReligion } from "../../../data/dataDemo/dataReligion";
 import { dataEducation } from '../../../data/dataDemo/dataEducation';
+import { dataJob } from '../../../data/dataDemo/dataJob';
 import dataLocal from "../../../data/dataDemo/local.json";
 
 function ImportData() {
@@ -60,7 +61,15 @@ function ImportData() {
                             <p><b>SĐT: </b><input type="text" /></p>
                             <p><b>Số CCCD: </b><input type="text" /></p>
                             <p><b>Email: </b><input type="text" /></p>
-                            <p><b>Công việc: </b><input type="text" /></p>                          
+                            <p>
+                                <b>Học vấn: </b>
+                                <input type="text" list="congviec" />
+                                <datalist id="congviec">
+                                    {dataJob.map((item, index) => (
+                                        <option key={index} value={item.value}>{item.name}</option>
+                                    ))}
+                                </datalist>
+                            </p>                          
                         </div>
                     </div>
 

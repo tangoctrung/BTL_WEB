@@ -29,6 +29,10 @@
     font-weight: bold;
     color: rgb(49, 46, 46);
 }
+.leftbar-infoUser>p{
+    font-size: 14px;
+    color: gray;
+}
 
 .leftbar-listMenu{
     width: 100%;

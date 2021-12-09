@@ -21,30 +21,177 @@ function LetbarSmall() {
                 <img src={auth?.user?.avatar ? auth?.user?.avatar : noAvatar} alt="avatar" />
             </Link>
             <div className="leftbarSmall-listMenu">
-                <div 
-                    className={`leftbarSmall-item ${user.workingMode==='1' ? 'leftbarSmall-item-isActive' : ''}`}
-                    onClick={() => handleChangeWorkingMode('1')}
-                >
-                    <i className="fas fa-envelope" title="Hòm thư"></i>
-                </div>
-
-                {auth?.user?.typeAccount ==="admin" ? "" :
-                    <div 
-                        className={`leftbarSmall-item ${user.workingMode==='2' ? 'leftbarSmall-item-isActive' : ''}`}
-                        onClick={() => handleChangeWorkingMode('2')}
-                    >
-                        <i className="fas fa-city" title="Khai báo, cấp mã" ></i>
-                    </div>}
-
-                <div 
-                    className={`leftbarSmall-item ${user.workingMode==='3' ? 'leftbarSmall-item-isActive' : ''}`}
-                    onClick={() => handleChangeWorkingMode('3')}
-                >
-                    <i className="fas fa-user-plus" title="Cấp tài khoản"></i>
-                </div>
-
-                {auth?.user?.typeAccount === "admin" ? "" :
+                { auth?.user?.typeAccount==="admin" &&
                     <>
+                        <div 
+                            className={`leftbarSmall-item ${user.workingMode==='1' ? 'leftbarSmall-item-isActive' : ''}`}
+                            onClick={() => handleChangeWorkingMode('1')}
+                        >
+                            <i className="fas fa-envelope" title="Hòm thư"></i>
+                        </div>
+                    </>
+                }
+
+                { auth?.user?.typeAccount==="A1" &&
+                    <>
+                        <div 
+                            className={`leftbarSmall-item ${user.workingMode==='1' ? 'leftbarSmall-item-isActive' : ''}`}
+                            onClick={() => handleChangeWorkingMode('1')}
+                        >
+                            <i className="fas fa-envelope" title="Hòm thư"></i>
+                        </div>
+                        <div 
+                            className={`leftbarSmall-item ${user.workingMode==='2' ? 'leftbarSmall-item-isActive' : ''}`}
+                            onClick={() => handleChangeWorkingMode('2')}
+                        >
+                            <i className="fas fa-city" title="Khai báo, cấp mã" ></i>
+                        </div>
+
+                        <div 
+                            className={`leftbarSmall-item ${user.workingMode==='3' ? 'leftbarSmall-item-isActive' : ''}`}
+                            onClick={() => handleChangeWorkingMode('3')}
+                        >
+                            <i className="fas fa-user-plus" title="Cấp tài khoản"></i>
+                        </div>
+
+                        <div 
+                        className={`leftbarSmall-item ${user.workingMode==='4' ? 'leftbarSmall-item-isActive' : ''}`}
+                        onClick={() => handleChangeWorkingMode('4')}
+                        >
+                            <i className="fas fa-users" title="Mở cuộc điều tra dân số"></i>
+                        </div>
+
+                        <div 
+                            className={`leftbarSmall-item ${user.workingMode==='5' ? 'leftbarSmall-item-isActive' : ''}`}
+                            onClick={() => handleChangeWorkingMode('5')}
+                        >
+                            <i className="fas fa-chart-bar" title="Xem tổng quan dân số"></i>
+                        </div>
+
+                        <div 
+                            className={`leftbarSmall-item ${user.workingMode==='6' ? 'leftbarSmall-item-isActive' : ''}`}
+                            onClick={() => handleChangeWorkingMode('6')}
+                        >
+                            <i className="fas fa-user-tie" title="Xem thông tin cá nhân"></i>
+                        </div>
+                    
+                    </>
+                }
+
+                { auth?.user?.typeAccount==="A2" &&
+                    <>
+                        <div 
+                            className={`leftbarSmall-item ${user.workingMode==='1' ? 'leftbarSmall-item-isActive' : ''}`}
+                            onClick={() => handleChangeWorkingMode('1')}
+                        >
+                            <i className="fas fa-envelope" title="Hòm thư"></i>
+                        </div>
+                        <div 
+                            className={`leftbarSmall-item ${user.workingMode==='2' ? 'leftbarSmall-item-isActive' : ''}`}
+                            onClick={() => handleChangeWorkingMode('2')}
+                        >
+                            <i className="fas fa-city" title="Khai báo, cấp mã" ></i>
+                        </div>
+
+                        <div 
+                            className={`leftbarSmall-item ${user.workingMode==='3' ? 'leftbarSmall-item-isActive' : ''}`}
+                            onClick={() => handleChangeWorkingMode('3')}
+                        >
+                            <i className="fas fa-user-plus" title="Cấp tài khoản"></i>
+                        </div>
+
+                        <div 
+                        className={`leftbarSmall-item ${user.workingMode==='4' ? 'leftbarSmall-item-isActive' : ''}`}
+                        onClick={() => handleChangeWorkingMode('4')}
+                        >
+                            <i className="fas fa-users" title="Mở cuộc điều tra dân số"></i>
+                        </div>
+
+                        <div 
+                            className={`leftbarSmall-item ${user.workingMode==='5' ? 'leftbarSmall-item-isActive' : ''}`}
+                            onClick={() => handleChangeWorkingMode('5')}
+                        >
+                            <i className="fas fa-chart-bar" title="Xem tổng quan dân số"></i>
+                        </div>
+
+                        <div 
+                            className={`leftbarSmall-item ${user.workingMode==='6' ? 'leftbarSmall-item-isActive' : ''}`}
+                            onClick={() => handleChangeWorkingMode('6')}
+                        >
+                            <i className="fas fa-user-tie" title="Xem thông tin cá nhân"></i>
+                        </div>
+                    
+                    </>
+                }
+
+                { auth?.user?.typeAccount==="A3" &&
+                    <>
+                        <div 
+                            className={`leftbarSmall-item ${user.workingMode==='1' ? 'leftbarSmall-item-isActive' : ''}`}
+                            onClick={() => handleChangeWorkingMode('1')}
+                        >
+                            <i className="fas fa-envelope" title="Hòm thư"></i>
+                        </div>
+                        <div 
+                            className={`leftbarSmall-item ${user.workingMode==='2' ? 'leftbarSmall-item-isActive' : ''}`}
+                            onClick={() => handleChangeWorkingMode('2')}
+                        >
+                            <i className="fas fa-city" title="Khai báo, cấp mã" ></i>
+                        </div>
+
+                        <div 
+                            className={`leftbarSmall-item ${user.workingMode==='3' ? 'leftbarSmall-item-isActive' : ''}`}
+                            onClick={() => handleChangeWorkingMode('3')}
+                        >
+                            <i className="fas fa-user-plus" title="Cấp tài khoản"></i>
+                        </div>
+
+                        <div 
+                        className={`leftbarSmall-item ${user.workingMode==='4' ? 'leftbarSmall-item-isActive' : ''}`}
+                        onClick={() => handleChangeWorkingMode('4')}
+                        >
+                            <i className="fas fa-users" title="Mở cuộc điều tra dân số"></i>
+                        </div>
+
+                        <div 
+                            className={`leftbarSmall-item ${user.workingMode==='5' ? 'leftbarSmall-item-isActive' : ''}`}
+                            onClick={() => handleChangeWorkingMode('5')}
+                        >
+                            <i className="fas fa-chart-bar" title="Xem tổng quan dân số"></i>
+                        </div>
+
+                        <div 
+                            className={`leftbarSmall-item ${user.workingMode==='6' ? 'leftbarSmall-item-isActive' : ''}`}
+                            onClick={() => handleChangeWorkingMode('6')}
+                        >
+                            <i className="fas fa-user-tie" title="Xem thông tin cá nhân"></i>
+                        </div>
+                    
+                    </>
+                }
+
+                { auth?.user?.typeAccount==="B1" &&
+                    <>
+                        <div 
+                            className={`leftbarSmall-item ${user.workingMode==='1' ? 'leftbarSmall-item-isActive' : ''}`}
+                            onClick={() => handleChangeWorkingMode('1')}
+                        >
+                            <i className="fas fa-envelope" title="Hòm thư"></i>
+                        </div>
+                        <div 
+                            className={`leftbarSmall-item ${user.workingMode==='2' ? 'leftbarSmall-item-isActive' : ''}`}
+                            onClick={() => handleChangeWorkingMode('2')}
+                        >
+                            <i className="fas fa-city" title="Khai báo, cấp mã" ></i>
+                        </div>
+
+                        <div 
+                            className={`leftbarSmall-item ${user.workingMode==='3' ? 'leftbarSmall-item-isActive' : ''}`}
+                            onClick={() => handleChangeWorkingMode('3')}
+                        >
+                            <i className="fas fa-user-plus" title="Cấp tài khoản"></i>
+                        </div>
+
                         <div 
                         className={`leftbarSmall-item ${user.workingMode==='4' ? 'leftbarSmall-item-isActive' : ''}`}
                         onClick={() => handleChangeWorkingMode('4')}
@@ -66,26 +213,45 @@ function LetbarSmall() {
                             <i className="fas fa-user-tie" title="Xem thông tin cá nhân"></i>
                         </div>
 
-                        {(auth?.user?.typeAccount === "A1" || auth?.user?.typeAccount === "A2" || auth?.user?.typeAccount === "A3") ? "" :
-                            <>
-                                <div 
-                                className={`leftbarSmall-item ${user.workingMode==='7' ? 'leftbar-item-isActive' : ''}`}
-                                onClick={() => handleChangeWorkingMode('7')}
-                                >
-                                    <i className="fas fa-print"></i>
-                                </div>
-
-                                <div 
-                                    className={`leftbarSmall-item ${user.workingMode==='8' ? 'leftbar-item-isActive' : ''}`}
-                                    onClick={() => handleChangeWorkingMode('8')}
-                                >
-                                    <i className="fas fa-file-import"></i>
-                                </div>
-                            </>
-                        }
+                        <div 
+                            className={`leftbarSmall-item ${user.workingMode==='7' ? 'leftbar-item-isActive' : ''}`}
+                            onClick={() => handleChangeWorkingMode('7')}
+                            >
+                            <i className="fas fa-print" title="In phiếu khai báo dân số"></i>
+                        </div>
+                    
                     </>
                 }
-                
+
+                { auth?.user?.typeAccount==="B2" && 
+                    <>
+                        <div 
+                            className={`leftbarSmall-item ${user.workingMode==='1' ? 'leftbarSmall-item-isActive' : ''}`}
+                            onClick={() => handleChangeWorkingMode('1')}
+                        >
+                            <i className="fas fa-envelope" title="Hòm thư"></i>
+                        </div>                
+
+                        <div 
+                            className={`leftbarSmall-item ${user.workingMode==='5' ? 'leftbarSmall-item-isActive' : ''}`}
+                            onClick={() => handleChangeWorkingMode('5')}
+                        >
+                            <i className="fas fa-chart-bar" title="Xem tổng quan dân số"></i>
+                        </div>
+                        <div 
+                            className={`leftbarSmall-item ${user.workingMode==='6' ? 'leftbarSmall-item-isActive' : ''}`}
+                            onClick={() => handleChangeWorkingMode('6')}
+                        >
+                            <i className="fas fa-user-tie" title="Xem thông tin cá nhân"></i>
+                        </div>
+                        <div 
+                            className={`leftbarSmall-item ${user.workingMode==='8' ? 'leftbar-item-isActive' : ''}`}
+                            onClick={() => handleChangeWorkingMode('8')}
+                        >
+                            <i className="fas fa-file-import"></i>
+                        </div>
+                    </>
+                }                               
             </div>
         </div>
     )

@@ -52,14 +52,18 @@
     align-items: center;
 }
 .profile-infoBasic-img{
-    width: 250px;
-    height: 250px;
+    flex: 4;
+    display: flex;
+    justify-content: center;
 }
 .profile-infoBasic-img img{
-    width: 100%;
-    height: 100%;
+    width: 250px;
+    height: 250px;
     object-fit: cover;
     border-radius: 50%;
+}
+.profile-infoBasic-listInfo{
+    flex: 5;
 }
 .profile-infoBasic-listInfo p{
     margin: 5px;
@@ -98,6 +102,18 @@
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
+}
+.modal-profile-img{
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+}
+.modal-profile-infoBasic img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
 }
 .modal-profile-infoBasic p{
     margin: 5px 0px;

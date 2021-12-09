@@ -10,4 +10,7 @@ export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 
 export const GET_USER = "GET_USER"; // lấy người dùng hiện tại
 
+export const UPDATE_USER = "UPDATE_USER";
+export const UPDATE_ERROR = "UPDATE_ERROR";
+
 export const LOGOUT = "LOGOUT";

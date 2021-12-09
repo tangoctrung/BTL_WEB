@@ -49,4 +49,9 @@ export const dataNation = [
         name: "Chăm",
         value: "cham",
     },
+    {
+        id: 11,
+        name: "Khác",
+        value: "khac",
+    },
 ]

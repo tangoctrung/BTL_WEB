@@ -7,6 +7,7 @@ const initialState = {
     messageRegister: "",
     messageLogin: "",
     isLoading: false,
+    messageError: "",
 };
 
 
@@ -58,6 +59,16 @@ const auth = (state = initialState, action) => {
                 ...state,
                 messageRegister: '',
                 messageLogin: '',
+            };
+        case ACTIONS.UPDATE_USER:
+            return {
+                ...state,
+                user: action.payload.user,
+            };
+        case ACTIONS.UPDATE_ERROR:
+            return {
+                ...state,
+                messageError: action.payload.messageError,
             };
         case ACTIONS.LOGOUT: 
             return {
