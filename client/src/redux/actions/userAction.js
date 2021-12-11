@@ -21,3 +21,20 @@ export const getAllUser = (token) => async (dispatch) => {
         console.log(err);
     }
 }
+
+export const getAllUserIsProvied = (userId, token) => async (dispatch) => {
+    try {
+        const res = await getDataAPI(`getalluserisprovied/${userId}`, token);
+        if (res.data.status === true) {
+            dispatch({
+                type: ACTIONS.GET_ALL_USER_IS_PROVIED,
+                payload: {
+                    listUser: res.data.users,
+                }
+            });
+        } else {
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}

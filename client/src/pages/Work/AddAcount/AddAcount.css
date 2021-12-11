@@ -13,6 +13,11 @@
     font-weight: bold;
     color: gray;
 }
+.addAcount-top>p{
+    font-size: 16px;
+    font-style: italic;
+    color: gray;
+}
 .addAcount-top-container{
     width: 100%;
     margin-top: 40px;
@@ -92,6 +97,12 @@
 .addAcount-bottom-container table{
     border-collapse: collapse;
     background-color: white;
+}
+.addAcount-bottom>p{
+    width: 100%;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 10px;
 }
 
 @media screen and (max-width: 768px){

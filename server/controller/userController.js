@@ -134,13 +134,27 @@ const getUser = async (req, res) => {
 const getAllUser = async (req, res) => {
     try {
         const users = await User.find({typeAccount: {"$ne": "admin"}}).select('-password').populate("providerAccount", [
-            "name","typeAccount"
+            "name","typeAccount", "accountName", 
         ]);
         res.status(200).json({status: true, users});
     } catch (error) {
         res.status(500).json(error);
     }
 }
+
+// lấy tất cả user mà bạn đã cấp
+const getAllUserIsProvied = async (req, res) => {
+    const userId = req.params.id;
+    try {
+        const users = await User.find({providerAccount: userId}).select('-password').populate("providerAccount", [
+            "name","typeAccount", "accountName", 
+        ]);
+        res.status(200).json({status: true, users});
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
 
 // UPDATE A USER
 const updateUser = async (req, res) => {
@@ -171,4 +185,5 @@ module.exports = {
     getUser,
     getAllUser,
     updateUser,
+    getAllUserIsProvied,
 }

@@ -26,6 +26,11 @@ GET http://localhost:8800/api/getuser HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTk3OTE2NjAwMTY0N2Q0YjA5OTU2MjIiLCJpYXQiOjE2MzczMjQxOTF9.2BUoXQRSP-UQr4KFDQHyfC46vlnWmz7L8hoElLUERRU
 
 
+###
+GET http://localhost:8800/api/getalluserisprovied/61ae1d9612c1e9d3988b83d3 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTk3OTE2NjAwMTY0N2Q0YjA5OTU2MjIiLCJpYXQiOjE2MzczMjQxOTF9.2BUoXQRSP-UQr4KFDQHyfC46vlnWmz7L8hoElLUERRU
+
+
 
 ###
 POST http://localhost:8800/api/addcode HTTP/1.1

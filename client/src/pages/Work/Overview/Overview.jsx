@@ -5,6 +5,7 @@ import "./Overview.css";
 import dataLocal from '../../../data/dataDemo/local.json';
 import {dataViewMode} from '../../../data/dataDemo/dataViewMode';
 import Button from '../../../common/Button/Button';
+import { useSelector } from 'react-redux';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -39,38 +40,58 @@ export const data = {
 
   
 function Overview() {
+
+    const { auth } = useSelector(state => state);
     return (
         <div className="overview">
             <div className="overview-top">
-                <h3>Chọn địa phương muốn xem</h3>
+                <h3>Chọn địa phương/tiêu chí muốn xem</h3>
                 <div className="overview-country">
-                    <div className="overview-itemCountry">
-                        <p>Tên tỉnh(thành phố)</p>
-                        <input list="dataCity" />
-                        <datalist id="dataCity">
-                            { dataLocal.map((city, index) => (
-                                <option key={index} value={city.Name}>{city.Name}</option>
-                            ))}
-                        </datalist>
-                    </div>
-                    <div className="overview-itemCountry">
-                        <p>Tên huyện(quận)</p>
-                        <input list="dataDistrict" />
-                        <datalist id="dataDistrict">
-                            { dataLocal.map((city, index) => (
-                                <option key={index} value={city.Name}>{city.Name}</option>
-                            ))}
-                        </datalist>
-                    </div>
-                    <div className="overview-itemCountry">
-                        <p>Tên xã(phường)</p>
-                        <input list="dataWard" />
-                        <datalist id="dataWard">
-                            { dataLocal.map((city, index) => (
-                                <option key={index} value={city.Name}>{city.Name}</option>
-                            ))}
-                        </datalist>
-                    </div>
+
+                    { auth?.user?.typeAccount==="A1" &&
+                        <div className="overview-itemCountry">
+                            <p>Tên tỉnh(thành phố)</p>
+                            <input list="dataCity" />
+                            <datalist id="dataCity">
+                                { dataLocal.map((city, index) => (
+                                    <option key={index} value={city.Name}>{city.Name}</option>
+                                ))}
+                            </datalist>
+                        </div>}
+
+                    { ["A1", "A2"].includes(auth?.user?.typeAccount) &&
+                        <div className="overview-itemCountry">
+                            <p>Tên huyện(quận)</p>
+                            <input list="dataDistrict" />
+                            <datalist id="dataDistrict">
+                                { dataLocal.map((city, index) => (
+                                    <option key={index} value={city.Name}>{city.Name}</option>
+                                ))}
+                            </datalist>
+                        </div>}
+
+                    { ["A1", "A2", "A3"].includes(auth?.user?.typeAccount) &&
+                        <div className="overview-itemCountry">
+                            <p>Tên xã(phường)</p>
+                            <input list="dataWard" />
+                            <datalist id="dataWard">
+                                { dataLocal.map((city, index) => (
+                                    <option key={index} value={city.Name}>{city.Name}</option>
+                                ))}
+                            </datalist>
+                        </div>}
+
+                    { ["A1", "A2", "A3", "B1"].includes(auth?.user?.typeAccount) &&
+                        <div className="overview-itemCountry">
+                            <p>Tên thôn(phố, bản, làng)</p>
+                            <input list="dataVillage" />
+                            <datalist id="dataVillage">
+                                { dataLocal.map((city, index) => (
+                                    <option key={index} value={city.Name}>{city.Name}</option>
+                                ))}
+                            </datalist>
+                        </div>}
+
                     <div className="overview-itemCountry">
                         <p>Chọn tiêu chí xem</p>
                         <input list="dataViewMode" />

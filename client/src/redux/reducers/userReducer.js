@@ -24,7 +24,12 @@ const user = (state = initialState, action) => {
             return {
                 ...state,
                 listUser: action.payload.listUser,
-            };      
+            };    
+        case ACTIONS.GET_ALL_USER_IS_PROVIED:
+            return {
+                ...state,
+                listUser: action.payload.listUser,
+            };   
         
         default:
             return state;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Button from '../../../common/Button/Button';
 import Modal from '../../../common/Modal/Modal';
 import "./OpenCensus.css";
@@ -6,6 +7,7 @@ import "./OpenCensus.css";
 function OpenCensus() {
 
     const [isOpenModal, setIsOpenModal] = useState(false);
+    const { auth } = useSelector(state => state);
     const handleShowModal = () => {
         setIsOpenModal(true);
     }
@@ -48,83 +50,90 @@ function OpenCensus() {
             <div className="openCensus-bottom">
                 <h3>Theo dõi tiến độ</h3>
                 <div className="openCensus-bottom-container">
-                    <div className="openCensus-bottom-itemTable">
-                        <div className="openCensus-bottom-itemTable-title">
-                            <p>Tỉnh (Thành phố)</p>
-                        </div>
-                        <div className="openCensus-listLocalName">
-                            <div className="openCensus-itemLocalName">
-                                <div className="openCensus-itemLocalName-content">
-                                    <b>Hà Nội - 00</b>
-                                    <p>Tính đến hiện tại: <b>234 người</b> được khai báo</p>
-                                </div>
-                                <b>Chi tiết</b>
-                            </div>  
-                            <div className="openCensus-itemLocalName">
-                                <div className="openCensus-itemLocalName-content">
-                                    <b>Hà Nam - 01</b>
-                                    <p>Tính đến hiện tại: <b>356 người</b> được khai báo</p>
-                                </div>
-                                <b>Chi tiết</b>
-                            </div>  
-                            <div className="openCensus-itemLocalName">
-                                <div className="openCensus-itemLocalName-content">
-                                    <b>Quảng Ninh - 02</b>
-                                    <p>Tính đến hiện tại: <b>492 người</b> được khai báo</p>
-                                </div>
-                                <b>Chi tiết</b>
-                            </div>                                         
-                        </div>
-                        <div className="openCensus-bottom-itemTable-total">
-                            <p>Tổng cộng: <b>23 tỉnh(thành)</b> và <b>10034 người </b>được khai báo</p>
-                        </div>
-                    </div>
 
-                    <div className="openCensus-bottom-itemTable">
-                        <div className="openCensus-bottom-itemTable-title">
-                            <p>Huyện (Quận)</p>
-                        </div>
-                        <div className="openCensus-listLocalName">
-                            <div className="openCensus-listLocalName-text">
-                                <p>Chọn tỉnh(thành phố) để xem thêm</p>
-                            </div>                                         
-                        </div>
-                        <div className="openCensus-bottom-itemTable-total">
-                            <div className="openCensus-bottom-itemTable-total-text">
-                                <p>Chưa có thông tin</p>
-                            </div>                       
-                        </div>
-                    </div>
-                    <div className="openCensus-bottom-itemTable">
-                        <div className="openCensus-bottom-itemTable-title">
-                            <p>Xã (Phường)</p>
-                        </div>
-                        <div className="openCensus-listLocalName">
-                            <div className="openCensus-listLocalName-text">
-                                <p>Chọn huyện(quận) để xem thêm</p>
-                            </div>                                         
-                        </div>
-                        <div className="openCensus-bottom-itemTable-total">
-                            <div className="openCensus-bottom-itemTable-total-text">
-                                <p>Chưa có thông tin</p>
-                            </div>                       
-                        </div>
-                    </div>
-                    <div className="openCensus-bottom-itemTable">
-                        <div className="openCensus-bottom-itemTable-title">
-                            <p>Thôn (Bản, Làng)</p>
-                        </div>
-                        <div className="openCensus-listLocalName">
-                            <div className="openCensus-listLocalName-text">
-                                <p>Chọn xã(phường) để xem thêm</p>
-                            </div>                                         
-                        </div>
-                        <div className="openCensus-bottom-itemTable-total">
-                            <div className="openCensus-bottom-itemTable-total-text">
-                                <p>Chưa có thông tin</p>
-                            </div>                       
-                        </div>
-                    </div>
+                    { auth?.user?.typeAccount ==="A1" &&
+                        <div className="openCensus-bottom-itemTable">
+                            <div className="openCensus-bottom-itemTable-title">
+                                <p>Tỉnh (Thành phố)</p>
+                            </div>
+                            <div className="openCensus-listLocalName">
+                                <div className="openCensus-itemLocalName">
+                                    <div className="openCensus-itemLocalName-content">
+                                        <b>Hà Nội - 00</b>
+                                        <p>Tính đến hiện tại: <b>234 người</b> được khai báo</p>
+                                    </div>
+                                    <b>Chi tiết</b>
+                                </div>  
+                                <div className="openCensus-itemLocalName">
+                                    <div className="openCensus-itemLocalName-content">
+                                        <b>Hà Nam - 01</b>
+                                        <p>Tính đến hiện tại: <b>356 người</b> được khai báo</p>
+                                    </div>
+                                    <b>Chi tiết</b>
+                                </div>  
+                                <div className="openCensus-itemLocalName">
+                                    <div className="openCensus-itemLocalName-content">
+                                        <b>Quảng Ninh - 02</b>
+                                        <p>Tính đến hiện tại: <b>492 người</b> được khai báo</p>
+                                    </div>
+                                    <b>Chi tiết</b>
+                                </div>                                         
+                            </div>
+                            <div className="openCensus-bottom-itemTable-total">
+                                <p>Tổng cộng: <b>23 tỉnh(thành)</b> và <b>10034 người </b>được khai báo</p>
+                            </div>
+                        </div>}
+
+                    { ["A1", "A2"].includes(auth?.user?.typeAccount) &&
+                        <div className="openCensus-bottom-itemTable">
+                            <div className="openCensus-bottom-itemTable-title">
+                                <p>Huyện (Quận)</p>
+                            </div>
+                            <div className="openCensus-listLocalName">
+                                <div className="openCensus-listLocalName-text">
+                                    <p>Chọn tỉnh(thành phố) để xem thêm</p>
+                                </div>                                         
+                            </div>
+                            <div className="openCensus-bottom-itemTable-total">
+                                <div className="openCensus-bottom-itemTable-total-text">
+                                    <p>Chưa có thông tin</p>
+                                </div>                       
+                            </div>
+                        </div>}
+
+                    { ["A1", "A2", "A3"].includes(auth?.user?.typeAccount) &&
+                        <div className="openCensus-bottom-itemTable">
+                            <div className="openCensus-bottom-itemTable-title">
+                                <p>Xã (Phường)</p>
+                            </div>
+                            <div className="openCensus-listLocalName">
+                                <div className="openCensus-listLocalName-text">
+                                    <p>Chọn huyện(quận) để xem thêm</p>
+                                </div>                                         
+                            </div>
+                            <div className="openCensus-bottom-itemTable-total">
+                                <div className="openCensus-bottom-itemTable-total-text">
+                                    <p>Chưa có thông tin</p>
+                                </div>                       
+                            </div>
+                        </div>}
+
+                    { ["A1", "A2", "A3", "B1"].includes(auth?.user?.typeAccount) &&
+                        <div className="openCensus-bottom-itemTable">
+                            <div className="openCensus-bottom-itemTable-title">
+                                <p>Thôn (Bản, Làng)</p>
+                            </div>
+                            <div className="openCensus-listLocalName">
+                                <div className="openCensus-listLocalName-text">
+                                    <p>Chọn xã(phường) để xem thêm</p>
+                                </div>                                         
+                            </div>
+                            <div className="openCensus-bottom-itemTable-total">
+                                <div className="openCensus-bottom-itemTable-total-text">
+                                    <p>Chưa có thông tin</p>
+                                </div>                       
+                            </div>
+                        </div>}
 
                 </div>
             </div>

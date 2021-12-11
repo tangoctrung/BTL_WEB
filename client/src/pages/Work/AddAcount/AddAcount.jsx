@@ -5,7 +5,7 @@ import generator from 'generate-password';
 import "./AddAcount.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from "../../../redux/actions/authAction";
-import { getAllUser } from "../../../redux/actions/userAction";
+import { getAllUser, getAllUserIsProvied } from "../../../redux/actions/userAction";
 import moment from "moment";
 
 
@@ -30,7 +30,11 @@ function AddAcount() {
 
     // get tất cả người dùng
     useEffect(() => {
-        dispatch(getAllUser(auth?.accessToken));
+        if (["admin", "A1"].includes(auth?.user?.typeAccount)) {
+            dispatch(getAllUser(auth?.accessToken));
+        } else {
+            dispatch(getAllUserIsProvied(auth?.user?._id, auth?.accessToken));
+        }
     }, [auth?.accessToken]);
 
     // khi người dùng nhập dữ liệu sẽ cập nhật state
@@ -64,6 +68,11 @@ function AddAcount() {
         <div className="addAcount">
             <div className="addAcount-top">
                 <h3>Cấp tài khoản</h3>
+                { auth?.user?.typeAccount ==="admin" &&  <p>Chú ý: Bạn chỉ có thể cấp được tài khoản cho A1</p>}
+                { auth?.user?.typeAccount ==="A1" &&  <p>Chú ý: Bạn chỉ có thể cấp được tài khoản cho A2</p>}
+                { auth?.user?.typeAccount ==="A2" &&  <p>Chú ý: Bạn chỉ có thể cấp được tài khoản cho A3</p>}
+                { auth?.user?.typeAccount ==="A3" &&  <p>Chú ý: Bạn chỉ có thể cấp được tài khoản cho B1</p>}
+                { auth?.user?.typeAccount ==="B1" &&  <p>Chú ý: Bạn chỉ có thể cấp được tài khoản cho B2</p>}
                 <div className="addAcount-top-container">
                     <form className="addAcount-top-content">
                         <div className="addAcount-top-content-username">
@@ -82,6 +91,7 @@ function AddAcount() {
                                 <option value="B1">B1</option>
                                 <option value="B2">B2</option>
                             </select>
+                            
                         </div>
                         <div className="addAcount-top-content-password">
                             <p>Mật khẩu :</p>
@@ -129,32 +139,30 @@ function AddAcount() {
                         <thead>
                             <tr>
                                <th>STT</th>
-                               <th>Tên tài khoản</th>
+                               <th>Cấp bậc - Tên tài khoản</th>
                                <th>Chức vụ</th>
-                               <th>Người cấp</th>
+                               <th>Cấp bậc - Tên người cấp</th>
                                <th>Ngày cấp</th>
                             </tr>
                         </thead>
                         <tbody>
-                            { user.listUser && user.listUser.map((user, index) => (
+                            { user?.listUser && user.listUser.map((user, index) => (
                                 <tr key={index}>
                                     <td>{index + 1}</td>
-                                    <td><b>{user.typeAccount}</b> ({user.name})</td>
-                                    <td>{ user.position }</td>
-                                    <td><b>{user?.providerAccount?.typeAccount}</b> ({user?.providerAccount?.name})</td>
-                                    <td>{moment(user.createdAt).format('DD/MM/YYYY')}</td>
+                                    <td><b>{user?.typeAccount} -</b> {user?.name ? `${user?.name}` : `${user?.accountName}`}</td>
+                                    <td>{ user?.position }</td>
+                                    <td><b>{user?.providerAccount?.typeAccount} -</b> {user?.providerAccount?.name ? `${user?.providerAccount?.name}` : `${user?.providerAccount?.accountName}`}</td>
+                                    <td>{moment(user?.createdAt).format('DD/MM/YYYY')}</td>
                                 </tr>
                             )) }
-                            {/* <tr>
-                               <td>2</td>
-                               <td><b>0101</b> (Nguyễn Ngọc Hà)</td>
-                               <td>Cán bộ quận Cầu Giấy</td>
-                               <td><b>01</b> (Nguyễn Văn Vinh)</td>
-                               <td>3/1/2021</td>
-                            </tr> */}
                         </tbody>
                     </table>
                 </div>
+                { user?.listUser?.length===0 && 
+                    (
+                        <p>Bạn chưa cấp tài khoản nào.</p>
+                    )
+                }
             </div>
         </div>
     )
