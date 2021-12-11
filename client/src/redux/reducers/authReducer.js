@@ -6,8 +6,9 @@ const initialState = {
     user: null,
     messageRegister: "",
     messageLogin: "",
-    isLoading: false,
     messageError: "",
+    messageDetail: "",
+    messageSuccess: "",
 };
 
 
@@ -31,11 +32,6 @@ const auth = (state = initialState, action) => {
                 messageLogin: action.payload.message,
                 isLoading: false,
             };
-        case ACTIONS.REGISTER_START:
-            return {
-                ...state,
-                isLoading: true,
-            };
         case ACTIONS.GET_USER:
             return {
                 ...state,
@@ -44,21 +40,21 @@ const auth = (state = initialState, action) => {
         case ACTIONS.REGISTER_SUCCESS:
             return {
                 ...state,
-                accessToken: action.payload.accessToken,
-                user: action.payload.user,
-                isLoading: false,
+                messageSuccess: action.payload.message,
             };
         case ACTIONS.REGISTER_ERROR:
             return {
                 ...state,
                 messageRegister: action.payload.message,
-                isLoading: false,
+                messageDetail: action.payload.messageDetail,
             };
         case ACTIONS.CLEAR_MESSAGE:
             return {
                 ...state,
                 messageRegister: '',
                 messageLogin: '',
+                messageDetail: '',
+                messageSuccess: '',
             };
         case ACTIONS.UPDATE_USER:
             return {

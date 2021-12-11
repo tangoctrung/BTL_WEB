@@ -25,6 +25,7 @@
     justify-content: center;
 }
 .addAcount-top-content{
+    min-width: 350px;
     padding: 15px;
     border: 1px solid gray;
     display: flex;

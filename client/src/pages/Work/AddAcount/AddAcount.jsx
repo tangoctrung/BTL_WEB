@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { register } from "../../../redux/actions/authAction";
 import { getAllUser, getAllUserIsProvied } from "../../../redux/actions/userAction";
 import moment from "moment";
+import * as ACTIONS from "../../../redux/constants/authContant";
 
 
 function AddAcount() {
@@ -20,9 +21,52 @@ function AddAcount() {
         password: "", 
         typeAccount: "",
         providerAccount: auth?.user?._id,
+        accountNameProvider: "",
     });
     // const {accountName, password, typeAccount, providerAccount} = state;
     const inputPasswordRef = useRef();
+
+    useEffect(() => {
+        switch (auth?.user?.typeAccount) {
+            case "admin": 
+                setState({
+                    ...state,
+                    typeAccount: "A1",
+                    accountNameProvider: "A1",
+                })
+                break;
+            case "A1": 
+                setState({
+                    ...state,
+                    typeAccount: "A2",
+                    accountNameProvider: auth?.user?.accountName,
+                })
+                break;
+            case "A2": 
+                setState({
+                    ...state,
+                    typeAccount: "A3",
+                    accountNameProvider: auth?.user?.accountName,
+                })
+                break;
+            case "A3": 
+                setState({
+                    ...state,
+                    typeAccount: "B1",
+                    accountNameProvider: auth?.user?.accountName,
+                })
+                break;
+            case "B1": 
+                setState({
+                    ...state,
+                    typeAccount: "B2",
+                    accountNameProvider: auth?.user?.accountName,
+                })
+                break;
+            default: 
+                break;
+        }
+    }, [])
 
     const handleShowModal = () => {
         setIsOpenModal(true);
@@ -58,6 +102,11 @@ function AddAcount() {
         inputPasswordRef.current.value = password;
     }
 
+    // khi người dùng focus sẽ clear thông báo lỗi 
+    const handleFocus = () => {
+        dispatch({type: ACTIONS.CLEAR_MESSAGE});
+    }
+
     // khi submit tạo tài khoản
     const handleAddAccount = (e) => {
         e.preventDefault();
@@ -68,11 +117,11 @@ function AddAcount() {
         <div className="addAcount">
             <div className="addAcount-top">
                 <h3>Cấp tài khoản</h3>
-                { auth?.user?.typeAccount ==="admin" &&  <p>Chú ý: Bạn chỉ có thể cấp được tài khoản cho A1</p>}
-                { auth?.user?.typeAccount ==="A1" &&  <p>Chú ý: Bạn chỉ có thể cấp được tài khoản cho A2</p>}
+                { <p>Chú ý: Bạn chỉ có thể cấp được tài khoản cho {state?.typeAccount}</p>}
+                {/* { auth?.user?.typeAccount ==="A1" &&  <p>Chú ý: Bạn chỉ có thể cấp được tài khoản cho A2</p>}
                 { auth?.user?.typeAccount ==="A2" &&  <p>Chú ý: Bạn chỉ có thể cấp được tài khoản cho A3</p>}
                 { auth?.user?.typeAccount ==="A3" &&  <p>Chú ý: Bạn chỉ có thể cấp được tài khoản cho B1</p>}
-                { auth?.user?.typeAccount ==="B1" &&  <p>Chú ý: Bạn chỉ có thể cấp được tài khoản cho B2</p>}
+                { auth?.user?.typeAccount ==="B1" &&  <p>Chú ý: Bạn chỉ có thể cấp được tài khoản cho B2</p>} */}
                 <div className="addAcount-top-container">
                     <form className="addAcount-top-content">
                         <div className="addAcount-top-content-username">
@@ -82,16 +131,8 @@ function AddAcount() {
                                 placeholder="Tên tài khoản chỉ bao gồm kí tự số" 
                                 name="accountName" 
                                 onChange={handleChane}
+                                onFocus={handleFocus}
                             />
-                            <select name="typeAccount" onChange={handleChane} required >
-                                <option value="">Loại tài khoản</option>
-                                <option value="A1">A1</option>
-                                <option value="A2">A2</option>
-                                <option value="A3">A3</option>
-                                <option value="B1">B1</option>
-                                <option value="B2">B2</option>
-                            </select>
-                            
                         </div>
                         <div className="addAcount-top-content-password">
                             <p>Mật khẩu :</p>
@@ -102,6 +143,7 @@ function AddAcount() {
                                     name="password" 
                                     ref={inputPasswordRef}
                                     onChange={handleChane}
+                                    onFocus={handleFocus}
                                 />
                                 <Button 
                                     typeButton="default" 
@@ -113,7 +155,8 @@ function AddAcount() {
                             </div>
                         </div>
                         <div className="addAcount-top-content-button">
-                            <p>Tài khoản này đã được cấp phép, bạn không thể cấp lại.<b onClick={handleShowModal} >Xem thêm</b></p>
+                            { auth?.messageRegister && <p>{auth?.messageRegister}<b onClick={handleShowModal}> Xem thêm</b></p>}
+                            { auth?.messageSuccess && <p style={{color: "green"}}>{auth?.messageSuccess}</p>}
                             <Button 
                                 width={140} 
                                 height={44} 
@@ -126,7 +169,7 @@ function AddAcount() {
                         <Modal isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal}>
                             <div className="modal-provideCode-text">
                                 <h2>Chi tiết lỗi</h2>
-                                <p>Tên tài khoản đã được cấp vào ngày 22/12/2020 bởi Nguyễn Lâm Thành (cán bộ thành phố Hà Nội).</p>
+                                <p>{auth?.messageDetail}</p>
                             </div>
                         </Modal>
                     </form>

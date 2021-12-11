@@ -9,6 +9,10 @@ const initialState = {
     district: [],
     ward: [],
     village: [],
+    messageCity: "",
+    messageDistrict: "",
+    messageWard: "",
+    messageVillage: "",
 };
 
 
@@ -36,23 +40,52 @@ const addCode = (state = initialState, action) => {
             return {
                 ...state,
                 city: action.payload.city,
+                district: [],
+                ward: [],
+                village: [],
             };
         case ACTIONS.GET_DISTRICT:
             return {
                 ...state,
                 district: action.payload.district,
+                ward: [],
+                village: [],
             };
         case ACTIONS.GET_WARD:
             return {
                 ...state,
                 ward: action.payload.ward,
+                village: [],
             };
         case ACTIONS.GET_VILLAGE:
             return {
                 ...state,
                 village: action.payload.village,
             };
-        
+        case ACTIONS.MESSAGE_CITY:
+            return {
+                ...state,
+                messageCity: action.payload.message || "Không có dữ liệu.",
+                city: [],
+            };
+        case ACTIONS.MESSAGE_DISTRICT:
+            return {
+                ...state,
+                messageDistrict: action.payload.message || "Không có dữ liệu.",
+                district: [],
+            };
+        case ACTIONS.MESSAGE_WARD:
+            return {
+                ...state,
+                messageWard: action.payload.message || "Không có dữ liệu.",
+                ward: [],
+            };
+        case ACTIONS.MESSAGE_VILLAGE:
+            return {
+                ...state,
+                messageVillage: action.payload.message || "Không có dữ liệu.",
+                village: [],
+            };
         default:
             return state;
     }

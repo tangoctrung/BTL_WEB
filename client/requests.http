@@ -47,7 +47,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTk3OTE2N
 
 
 ###
-GET http://localhost:8800/api/getallcode/010201 HTTP/1.1
+GET http://localhost:8800/api/getallcode/02 HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTk3OTE2NjAwMTY0N2Q0YjA5OTU2MjIiLCJpYXQiOjE2MzczMjQxOTF9.2BUoXQRSP-UQr4KFDQHyfC46vlnWmz7L8hoElLUERRU
 
 

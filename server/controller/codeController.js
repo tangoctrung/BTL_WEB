@@ -7,7 +7,7 @@ const moment = require('moment');
 // ADD CODE FOR CITY,...
 const addCode = async (req, res) => {
     try {
-        const { code, name, provider, level, codeLength } = req.body;
+        const { code, name, provider, level, codeLength, accountNameProvider } = req.body;
         // tìm kiếm xem tên tỉnh thành đã được khai báo hay chưa
         const findCode = await Code.findOne({name: name}).populate("provider", ["name", "position"]);
         if (findCode) {
@@ -40,6 +40,7 @@ const addCode = async (req, res) => {
                      " 4 là mã huyện(quận), 6 là mã xã(phường), 8 là mã thôn(bản, làng, phố))",
             })
         }
+        
         // kiểm tra xem người dùng có đủ thẩm quyền cấp mã không
         if (codeLength !== code.length) {
             // codeLength là độ dài mã mà người dùng được phép cấp
@@ -47,6 +48,21 @@ const addCode = async (req, res) => {
                 status: false, 
                 message: "Bạn không đủ thẩm quyền(hoặc không có quyền) cấp mã này.",
                 messageDetail: "Với chức vụ của bạn thì bạn chỉ có quyền cấp mã tương ứng có độ dài là " + codeLength,
+            })
+        }
+
+        // kiểm tra xem code có hợp lệ ko 
+        if (accountNameProvider === "A1" && code.length !== 2) {
+            return res.send({
+                status: false, 
+                message: "Bạn không đủ thẩm quyền hoặc không đủ quyền cấp mã này",
+                messageDetail: "Bạn chỉ có thể cấp  mã code chi các tỉnh/thành phố, và các mã này có độ dài là 2, nên từ 01->63.",
+            })
+        } else if (code.slice(0, accountNameProvider.length) !== accountNameProvider) {
+            return res.send({
+                status: false, 
+                message: "Mã bạn cấp không đúng.",
+                messageDetail: "Mã bạn cấp không nằm trong mã địa phương mà bạn quản lí.(VD: Mã địa phương bạn quản lí là 01, bạn chỉ có thể cấp mã là 0102, 0101,... bạn không thể cấp mã 0201,0202,..)",
             })
         }
 
@@ -74,12 +90,18 @@ const getAllCode = async (req, res) => {
         // nếu yêu cầu lấy tất cả các tỉnh đã được khai báo
         if (codeId === "00") {
             const codes = await Code.find({level: "Tỉnh"}).populate("provider", ["name", "position"]);         
-            return res.json({
-                status: true,
-                message: "Lấy dữ liệu thành công",
-                data: codes,
-            })
-            
+            if (codes.length > 0) {
+                return res.json({
+                    status: true,
+                    message: "Lấy dữ liệu thành công",
+                    data: codes,
+                })
+            } else {
+                return res.json({
+                    status: false, 
+                    message: "Không có dữ liệu",
+                })
+            } 
         }
         // nếu yêu cầu lấy tất cả các huyện trong 1 tỉnh
         if (codeId.length === 2 && codeId !== "00") {

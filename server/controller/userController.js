@@ -10,15 +10,27 @@ var moment = require('moment');
 const registerUser = async (req, res) => {
 
     try {
-        // const {accountName, password, typeAccount, providerAccount} = req.body;
+        const {accountName, typeAccount, accountNameProvider} = req.body;
+        // kiểm tra xem người dùng có đủ thẩm quyền cấp tên tài khoản này hay không
+        if ((typeAccount === "A2" && (accountName.length !== 2)) 
+        || (typeAccount === "A3" && (accountName.length !== 4)) 
+        || (typeAccount === "B1" && (accountName.length !== 6)) 
+        || (typeAccount === "B2" && (accountName.length !== 8)) 
+        ) {
+            return res.json({
+                status: false,
+                message: "Tên tài khoản không hợp lệ",
+                messageDetail: "Bạn không có thẩm quyền hoặc không đủ quyền cấp tài khoản loại này. (Bạn chỉ có thế cấp tài khoản có cấp bậc ngay dưới cấp bậc của mình.)"
+            })
+        }
 
         // kiểm tra xem tên tài khoản đã tồn tại hay chưa
-        const user1 = await User.findOne({accountName: req.body.accountName});
+        const user1 = await User.findOne({accountName: req.body.accountName}).populate("providerAccount", ["name", "accountName"]);
         if (user1) 
             return res.json({
                 success: false, 
                 message: "Tên tài khoản này đã được cấp, bạn không thể cấp lại.",
-                messageDetail: `Tài khoản này được cấp vào ngày ${moment(user1.createdAt).format("DD-MM-YYYY")} bởi ${user1.providerAccount.name} (${user1.position})`,
+                messageDetail: `Tài khoản này được cấp vào ngày ${moment(user1.createdAt).format("DD-MM-YYYY")} bởi ${user1.providerAccount.name ? user1.providerAccount.name : user1.providerAccount.accountName } (${user1.position})`,
 
             });
 
@@ -71,6 +83,22 @@ const registerUser = async (req, res) => {
             }
         } else if (req.body.typeAccount == "A1"){
             position = "Tổng cục Dân số thuộc Bộ Y tế";
+        }
+
+        // kiểm tra xem tên tài khoản có nằm trong mã code mà người dùng đó quản lí hay không
+         // kiểm tra xem code có hợp lệ ko 
+         if (accountNameProvider === "A1" && accountName.length !== 2) {
+            return res.send({
+                status: false, 
+                message: "Bạn không đủ thẩm quyền hoặc không đủ quyền cấp tên tài khoản này",
+                messageDetail: "Bạn chỉ có thể cấp tên tài khoản có độ dài là 2 tương ứng với mã tỉnh/thành phố đã được khai báo.",
+            })
+        } else if (accountName.slice(0, accountNameProvider.length) !== accountNameProvider) {
+            return res.send({
+                status: false, 
+                message: "Tên tài khoản bạn cấp không đúng.",
+                messageDetail: "Tên tài khoản bạn cấp không nằm trong mã địa phương mà bạn quản lí.(VD: Mã địa phương bạn quản lí là 01, bạn chỉ có thể cấp tên tài khoản là 0102, 0101,... bạn không thể cấp tên tài khoản 0201,0202,..)",
+            })
         }
 
         

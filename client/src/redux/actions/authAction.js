@@ -25,21 +25,15 @@ export const login = (data) => async (dispatch) => {
 
 export const register = (data) => async (dispatch) => {
     try {
-        await postDataAPI('auth/register', data);
-        // if (res.data.status === true) {
-        //     dispatch({
-        //         type: ACTIONS.REGISTER_SUCCESS,
-        //         payload: {
-        //             accessToken: res.data.token,
-        //             user: res.data.user,
-        //         }
-        //     });
-        //     localStorage.setItem('accessToken', JSON.stringify(res.data.token));
-        // } else {
-        //     dispatch({type: ACTIONS.REGISTER_ERROR, payload: {
-        //         message: res.data.message,
-        //     }})
-        // }
+        const res = await postDataAPI('auth/register', data);
+        if (res.data.status === true) {
+            dispatch({type: ACTIONS.REGISTER_SUCCESS, payload: {message: res.data.message}});
+        } else {
+            dispatch({type: ACTIONS.REGISTER_ERROR, payload: {
+                message: res.data.message,
+                messageDetail: res.data.messageDetail,
+            }});
+        }
     } catch (err) {
         console.log(err);
     }
@@ -88,6 +82,7 @@ export const logout = () => async (dispatch) => {
     try {
         dispatch({type: ACTIONS.LOGOUT});
         localStorage.setItem('accessToken', null);
+        window.location.reload();
     } catch (err) {
         console.log(err);
     }
