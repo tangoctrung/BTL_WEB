@@ -4,18 +4,18 @@ const mongoose = require('mongoose');
 
 const CitizenSchema = new mongoose.Schema({
 
-    lastName: { // họ
-        type: String,
-        required: true,
-    },
-    firstName: { // tên
-        type: String,
-        required: true,
-    },
-    bufferName: { // tên đệm
-        type: String,
-        required: true,
-    },
+    // lastName: { // họ
+    //     type: String,
+    //     required: true,
+    // },
+    // firstName: { // tên
+    //     type: String,
+    //     required: true,
+    // },
+    // bufferName: { // tên đệm
+    //     type: String,
+    //     required: true,
+    // },
     name: { // tên
         type: String,
         required: true,
@@ -78,6 +78,11 @@ const CitizenSchema = new mongoose.Schema({
         required: false,
         default: "",
     },
+    addressVillage: {
+        type: String,
+        required: false,
+        default: "",
+    },
     hometownCity: {
         type: String,
         required: false,
@@ -89,6 +94,11 @@ const CitizenSchema = new mongoose.Schema({
         default: "",
     },
     hometownWard: {
+        type: String,
+        required: false,
+        default: "",
+    },
+    hometownVillage: {
         type: String,
         required: false,
         default: "",

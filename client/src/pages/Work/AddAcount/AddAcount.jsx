@@ -177,6 +177,9 @@ function AddAcount() {
             </div>
             <div className="addAcount-bottom">
                 <h3>Xem danh sách những tài khoản được cấp</h3>
+                <div className="addAcount-bottom-button">
+                    <Button typeButton="reload" width={120} height={40} text="Tải lại" />
+                </div>
                 <div className="addAcount-bottom-container">
                     <table>
                         <thead>

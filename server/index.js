@@ -8,6 +8,7 @@ const app = express();
 const userRouter = require('./router/userRouter');
 const codeRouter = require('./router/codeRouter');
 const citizenRouter = require('./router/citizenRouter');
+const censusRouter = require('./router/censusRouter');
 
 
 // config middleware
@@ -31,6 +32,7 @@ mongoose
 app.use("/api", userRouter);
 app.use("/api", codeRouter);
 app.use("/api", citizenRouter);
+app.use("/api", censusRouter);
 
 
 const PORT = process.env.PORT || 8800;

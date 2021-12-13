@@ -108,7 +108,9 @@
     margin-top: 50px;
     width: 100%;
 }
-
+.provideCode-bottom-button{
+    margin-left: 20px;
+}
 .provideCode-bottom-listLocal{
     width: 100%;
     display: flex;

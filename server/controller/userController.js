@@ -136,9 +136,16 @@ const loginUser = async (req, res) => {
         }
             
         const validate = await bcrypt.compare(req.body.password, newUser.password);
-        if (!validate) return res.json({status: false, message: 'Sai email hoặc mật khẩu.'});          
+        if (!validate) return res.json({status: false, message: 'Sai email hoặc mật khẩu.'});   
+        
+        // check xem vùng người này quản lí đã hết hạn thời gian khảo sát dân số hay chưa.
+        const code = await Code.findOne({code: accountName});
+        if (moment(code.timeClose).format("YYYY-MM-DD") > moment(Date.now()).format("YYYY-MM-DD")) {
+            await Code.findOneAndUpdate({code: accountName}, {statusCensus: false, timeClose: null, timeOpen: null}, {new: true});
+        }
+
         // tạo token
-        const token = jwt.sign({_id: newUser._id, position: newUser.position}, process.env.ACCESS_TOKEN_SECRET);
+        const token = jwt.sign({_id: newUser._id, typeAccount: newUser.typeAccount, accountName: newUser.accountName}, process.env.ACCESS_TOKEN_SECRET);
 
         res.status(200).json({status: true, newUser, token});
 

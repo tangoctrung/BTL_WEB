@@ -20,6 +20,20 @@ const CodeSchema = new mongoose.Schema({
     level: {  // vùng đó thuộc cấp tỉnh, huyện hay xã, thôn
         type: String,
         required: true,
+    },
+    isComplete: { // đã hoàn thành việc khai báo dân số hay chưa
+        type: Boolean,
+        default: false,
+    },
+    timeOpen: {
+        type: Date,
+    },
+    timeClose: {
+        type: Date,
+    },
+    statusCensus: {
+        type: Boolean,
+        default: false,
     }
 
 

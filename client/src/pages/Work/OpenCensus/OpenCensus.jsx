@@ -49,6 +49,9 @@ function OpenCensus() {
             </div>
             <div className="openCensus-bottom">
                 <h3>Theo dõi tiến độ</h3>
+                <div className="openCensus-bottom-button">
+                    <Button typeButton="reload" width={120} height={40} text="Tải lại" />
+                </div>
                 <div className="openCensus-bottom-container">
 
                     { auth?.user?.typeAccount ==="A1" &&

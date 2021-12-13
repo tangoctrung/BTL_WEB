@@ -8,7 +8,7 @@
     width: 100%;
 }
 .openCensus-top h3{
-    font-size: 32px;
+    font-size: 28px;
     font-weight: bold;
     color: gray;
 }
@@ -74,9 +74,13 @@
     margin-top: 50px;
 }
 .openCensus-bottom h3{
-    font-size: 32px;
+    font-size: 28px;
     font-weight: bold;
     color: gray;
+    margin-bottom: 10px;
+}
+.openCensus-bottom-button{
+    margin-left: 20px;
 }
 .openCensus-bottom-container{
     width: 100%;

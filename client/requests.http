@@ -15,9 +15,8 @@ POST http://localhost:8800/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "trung@gmail.com",
-    "password": "12345678",
-    "position": "admin"
+    "email": "02010102",
+    "password": "12345678"
 }
 
 
@@ -85,5 +84,51 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTk3OTE2N
     "address": "Xã Tượng Lĩnh, Huyện Kim Bảng, Tỉnh Hà Nam",
     "hometown": "Phường Mai Dịch, Quận Cầu Giấy, Thành phố Hà Nội",
     "infoOther": "Không có"
+
+}
+
+
+###
+PUT http://localhost:8800/api/opencensuscode HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWQ5NjEyYzFlOWQzOTg4YjgzZDMiLCJwb3NpdGlvbiI6IkNoaSBj4bulYyBkw6JuIHPhu5EgdGh14buZYyBT4bufIFkgdOG6vyBU4buJbmggSMOgIE5hbSIsImlhdCI6MTYzOTQwMDk4MX0.gYxFDygLjpy9Fa6bul3u2NluDJ5NjXf-WaWS8a3wono
+
+{
+    "timeOpen": "2021-12-13",
+    "timeClose": "2021-12-20",
+    "statusCensus": true,
+    "codeArea": "020101"
+}
+
+###
+POST http://localhost:8800/api/addcitizen HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWVmODEyYzFlOWQzOTg4YjgzZjMiLCJ0eXBlQWNjb3VudCI6IkIyIiwiYWNjb3VudE5hbWUiOiIwMjAxMDEwMiIsImlhdCI6MTYzOTQwNDMwMX0.ECJlULkIRczvIkTpB98WRa98qfxfrhIpjKE2_Kfutrw
+
+{
+    "name": "Kiều Văn Tuyên",
+    "numCCCD": "01238794454854",
+    "education": "Đại học",
+    "nation": "Kinh",
+    "religion": "Không",
+    "phone": "0109209453",
+    "email": "tuyen@gmail.com",
+    "avatar": "",
+    "date": "2001-03-01",
+    "job": "Công nghệ",
+    "gender": "Nam",
+    "infoDetail": "Không có",
+    "infoFamily": "Không có",
+    "hometownCity": "Tỉnh Hà Nam",
+    "hometownDistrict": "Huyện Kim Bảng",
+    "hometownWard": "Xã Tượng Lĩnh",
+    "hometownVillage": "Thôn Phù Đê",
+    "addressCity": "Thành phố Hà Nội",
+    "addressDistrict": "Quận Cầu Giấy",
+    "addressWard": "Phường Mai Dịch",
+    "addressVillage": "Đường Phạm Văn Đồng",
+    "codeArea": "0201",
+    "timeAdd": "2021-12-13",
+    "typeAccount": "B2"
 
 }

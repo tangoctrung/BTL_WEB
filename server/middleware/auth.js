@@ -10,7 +10,8 @@ const verifyToken = (req, res, next) => {
 	try {
 		const data = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
 		req.userId = data._id;
-		req.position = data.position;
+		req.typeAccount = data.typeAccount;
+		req.accountName = data.accountName;
 		return next();
 	} catch (error) {
 		console.log(error)

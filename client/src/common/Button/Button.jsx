@@ -21,7 +21,15 @@ function Button({ typeButton, text, width, height, fontSize, borderRadius, onCli
       )}
 
       {typeButton === "default" && (
-          <i className="fas fa-sync-alt iconDefault" onClick={onClick}></i>
+        <>
+          <i className="fas fa-sync-alt iconDefault" onClick={onClick}></i> 
+        </>
+      )}
+
+      {typeButton === "reload" && (
+        <button onClick={onClick} className="buttonType buttonReload">
+          <i className="fas fa-redo-alt" /> {text ? text : ""}
+        </button>
       )}
 
       {typeButton === "black-white" && (

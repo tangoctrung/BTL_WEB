@@ -1,7 +1,7 @@
 // const User = require('../model/userModel');
 const Code = require('../model/codeModel');
+const Census = require('../model/censusModel');
 const moment = require('moment');
-
 
 
 // ADD CODE FOR CITY,...
@@ -161,7 +161,69 @@ const getAllCode = async (req, res) => {
     }
 }
 
+// mở cuộc điều tra dân số
+const openCensusCode = async (req, res) => {
 
+    const { timeClose, timeOpen, statusCensus, codeArea} = req.body;
+    // kiểm tra xem cấp cao hơn đã mở cuộc khảo sát chưa
+    if (codeArea.length === 2) { // khi cấp tỉnh muốn mở cuộc khảo sát thì check xem ông cục dân số đã mở hay chưa.
+        const census = await Census.findOne({codeArea: "00"});
+        if (!census.statusCensus) {
+            return res.json({
+                status: false,
+                message: "Bạn không thể mở cuộc khảo sát này.",
+                messageDetail: "Lãnh đạo cấp cao hơn bạn chưa mở cuộc khảo sát dân số nên bạn cũng không thể mở cuộc khảo sát dân số này."
+            })
+        }
+    } else if (codeArea.length === 4) { // khi cấp huyện muốn mở cuộc khảo sát thì check xem ông tỉnh đã mở hay chưa.
+        const code = await Code.findOne({code: codeArea.slice(0,2)});
+        if (!code.statusCensus) {
+            return res.json({
+                status: false,
+                message: "Bạn không thể mở cuộc khảo sát này.",
+                messageDetail: "Lãnh đạo cấp cao hơn bạn chưa mở cuộc khảo sát dân số nên bạn cũng không thể mở cuộc khảo sát dân số này."
+            })
+        }
+    } else if (codeArea.length === 6) { // khi cấp xã muốn mở cuộc khảo sát thì check xem ông huyện đã mở hay chưa.
+        const code = await Code.findOne({code: codeArea.slice(0,4)});
+        if (!code.statusCensus) {
+            return res.json({
+                status: false,
+                message: "Bạn không thể mở cuộc khảo sát này.",
+                messageDetail: "Lãnh đạo cấp cao hơn bạn chưa mở cuộc khảo sát dân số nên bạn cũng không thể mở cuộc khảo sát dân số này."
+            })
+        }
+    }
+
+    try {
+        // kiểm tra xem thời gian đóng và thời gian mở có hợp lệ không
+        if (timeClose < timeOpen) {
+            return res.json({
+                status: false,
+                message: "Thời gian mở cuộc khảo sát không hợp lệ",
+                messageDetail: "Thời gian mở cuộc khảo sát bắt buộc phải nhỏ hơn thời gian kết thúc cuộc khảo sát, nhưng bạn lại để nó lớn hơn.",
+            })
+        }
+        if (timeClose < Date.now()) {
+            return res.json({
+                status: false,
+                message: "Thời gian kết thúc khảo sát không hợp lệ",
+                messageDetail: "Thời gian kết thúc cuộc khảo sát bắt buộc phải lớn hơn thời gian hiện tại.",
+            })
+        }
+
+        // sau khi kiểm tra xong sẽ lưu vào database
+        const census = await Code.findOneAndUpdate({code: codeArea}, {timeClose, timeOpen, statusCensus}, { new: true});
+        res.send({
+            status: true,
+            message: "Cuộc khảo sát dân số được mở thành công.",
+            data: census,
+        })
+
+    } catch (e) {
+        res.status(500).send({e});
+    }
+}
 
 
 
@@ -169,4 +231,5 @@ const getAllCode = async (req, res) => {
 module.exports = {
     addCode,
     getAllCode,
+    openCensusCode,
 }

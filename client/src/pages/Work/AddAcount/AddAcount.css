@@ -83,7 +83,11 @@
     font-size: 32px;
     font-weight: bold;
     color: gray;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+}
+.addAcount-bottom-button{
+    margin-left: 20px;
+    margin-bottom: 20px;
 }
 .addAcount-bottom-container{
     width: 100%;

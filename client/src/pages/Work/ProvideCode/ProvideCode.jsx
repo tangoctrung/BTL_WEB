@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { provideCode, getCode } from '../../../redux/actions/addCodeAction';
 import * as ACTIONS from "../../../redux/constants/addCodeContant";
 import moment from "moment";
+import Button from '../../../common/Button/Button';
 
 function ProvideCode() {
 
@@ -162,6 +163,10 @@ function ProvideCode() {
 
             <div className="provideCode-bottom">
                 <h3>Những tỉnh thành, địa phương đã được khai báo</h3>
+                <div className="provideCode-bottom-button">
+                    <Button typeButton="reload" width={120} height={40} text="Tải lại" />
+                </div>
+
                 <div className="provideCode-bottom-listLocal">
                     { auth?.user?.typeAccount==="A1" && 
                         <div className="provideCode-bottom-itemLocal">
@@ -221,9 +226,6 @@ function ProvideCode() {
                                 }
                             </div>
                         </div>}
-                </div>
-                <div className="provideCode-table">
-                    
                 </div>
             </div>
         </div>
