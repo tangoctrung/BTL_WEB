@@ -23,10 +23,15 @@
 .cardPerson-info{
     padding: 5px;
     width: 140px;
-    color: rgb(83, 83, 83);
     height: 100%;
     font-size: 14px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow-y: scroll;
+    color: rgb(32, 32, 32);
+    font-weight: 500;
+}
+.cardPerson-info::-webkit-scrollbar{
+    width: 0px;
 }

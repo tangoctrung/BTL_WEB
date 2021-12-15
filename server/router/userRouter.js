@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { 
-    registerUser, loginUser, getUser, getAllUser, updateUser, getAllUserIsProvied,
+    registerUser, loginUser, getUser, getAllUser, updateUser, getAllUserIsProvied, changePassword
 } = require('../controller/userController');
 
 const verifyToken = require('../middleware/auth');
@@ -24,7 +24,8 @@ router.get("/getalluserisprovied/:id", verifyToken, getAllUserIsProvied);
 // UPDATE A USER
 router.put("/updateuser/:id", verifyToken, updateUser);
 
-
+// CHANGE PASSWORD
+router.put("/changepassword", verifyToken, changePassword);
 
 
 module.exports = router;

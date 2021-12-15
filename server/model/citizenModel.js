@@ -42,12 +42,11 @@ const CitizenSchema = new mongoose.Schema({
     },
     phone: {
         type: String,
-        required: true,
+        default: "",
     },
     email: {
         type: String,
-        required: true,
-        unique: true,
+        default: "",
     },
     avatar: {
         type: String,

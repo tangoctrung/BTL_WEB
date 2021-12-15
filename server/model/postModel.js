@@ -11,7 +11,7 @@ const PostSchema = new mongoose.Schema({
         default: '',
     },
     author: {
-        ref: "cadres",
+        ref: "user",
         type: String,
     },
     totalWatch: [
@@ -20,10 +20,7 @@ const PostSchema = new mongoose.Schema({
             ref: 'user',
         }
     ],
-    city: {
-        type: String,
-    }
-
+   
 }, { timestamps: true });
 
 module.exports = mongoose.model("post", PostSchema);

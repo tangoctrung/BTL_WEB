@@ -73,6 +73,15 @@ function ProvideCode() {
         }
     }, [])
 
+    // khi người dùng bấm reload lại các vùng được cấp mã 
+    const handleReloadProvideCode = () => {
+        if (auth?.user?.typeAccount==="A1") {
+            dispatch(getCode("00", auth?.accessToken));
+        } else {
+            dispatch(getCode(auth?.user?.accountName, auth?.accessToken));
+        }
+    }
+
     const handleShowModal = () => {
         setIsOpenModal(true);
     }
@@ -164,7 +173,7 @@ function ProvideCode() {
             <div className="provideCode-bottom">
                 <h3>Những tỉnh thành, địa phương đã được khai báo</h3>
                 <div className="provideCode-bottom-button">
-                    <Button typeButton="reload" width={120} height={40} text="Tải lại" />
+                    <Button typeButton="reload" width={120} height={40} text="Tải lại" onClick={handleReloadProvideCode} />
                 </div>
 
                 <div className="provideCode-bottom-listLocal">
@@ -179,21 +188,27 @@ function ProvideCode() {
                                     </div>
                                 )) }                              
                             </div>
+                            <div className="listLocalName-bottom">
+                                <span>Có <b>{addCode?.city?.length} tỉnh(thành phố)</b> được khai báo</span>
+                            </div>
                         </div>}
                     { ["A1", "A2"].includes(auth?.user?.typeAccount) &&
                         <div className="provideCode-bottom-itemLocal">
-                        <p>Huyện (Quận)</p>
-                        <div className="listLocalName">
-                            { addCode?.district.length > 0  
-                                ? addCode?.district.map((district, index) => (
-                                    <div className="itemLocalName" key={index} onClick={()=> handleChooseCode(district?.code)} >
-                                        <b>{district?.name} - <b>{district?.code}</b></b>
-                                        <address>Thời gian khai báo: {moment(district?.createdAt).format("DD-MM-YYYY")}</address>
-                                    </div>
-                                ))
-                                : <span>Không có dữ liệu.</span>
-                            }
-                        </div>
+                            <p>Huyện (Quận)</p>
+                            <div className="listLocalName">
+                                { addCode?.district.length > 0  
+                                    ? addCode?.district.map((district, index) => (
+                                        <div className="itemLocalName" key={index} onClick={()=> handleChooseCode(district?.code)} >
+                                            <b>{district?.name} - <b>{district?.code}</b></b>
+                                            <address>Thời gian khai báo: {moment(district?.createdAt).format("DD-MM-YYYY")}</address>
+                                        </div>
+                                    ))
+                                    : <span>Không có dữ liệu.</span>
+                                }
+                            </div>
+                            <div className="listLocalName-bottom">
+                                {addCode?.district?.length > 0 ? <span>Có <b>{addCode?.district?.length} huyện(quận)</b> được khai báo</span> : <span>Không có dữ liệu.</span>}
+                            </div>
                         </div>}
                     { ["A1", "A2", "A3"].includes(auth?.user?.typeAccount) &&
                         <div className="provideCode-bottom-itemLocal">
@@ -208,6 +223,9 @@ function ProvideCode() {
                                     ))
                                     : <span>Không có dữ liệu.</span>
                                 }
+                            </div>
+                            <div className="listLocalName-bottom">
+                                {addCode?.ward?.length > 0 ? <span>Có <b>{addCode?.ward?.length} xã(phường)</b> được khai báo</span> : <span>Không có dữ liệu.</span>}
                             </div>
                         </div>}
 
@@ -224,6 +242,9 @@ function ProvideCode() {
                                     ))
                                     : <span>Không có dữ liệu.</span>
                                 }
+                            </div>
+                            <div className="listLocalName-bottom">
+                                {addCode?.village?.length > 0 ? <span>Có <b>{addCode?.village?.length} thôn(phố, bản, làng)</b> được khai báo</span> : <span>Không có dữ liệu.</span>}
                             </div>
                         </div>}
                 </div>

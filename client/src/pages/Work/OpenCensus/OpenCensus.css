@@ -122,15 +122,18 @@
 }
 .openCensus-itemLocalName{
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 .openCensus-itemLocalName-content{
     width: 100%;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 5px 10px;
+    /* border-radius: 10px; */
     cursor: pointer;
     transition: all 0.3s ease;
-    background-color: rgb(243, 243, 243);
+    border: 1.5px dotted gray;
+}
+.openCensus-itemLocalName-content:hover{
+    background-color: rgb(235, 235, 235);
 }
 .openCensus-itemLocalName>b{
     cursor: pointer;

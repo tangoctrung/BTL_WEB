@@ -3,6 +3,9 @@
     min-height: calc(100vh - 70px);
     overflow-y: scroll;
 }
+.viewPersonal::-webkit-scrollbar{
+    width: 0px;
+}
 .viewPersonal-top{
     width: 100%;
     padding: 20px;
@@ -90,7 +93,7 @@
 }
 .viewPersonal-modeView p{
     font-size: 18px;
-    color: gray;
+    color: rgb(31, 31, 31);
     margin-bottom: 10px;
     
 }
@@ -104,7 +107,8 @@
     cursor: pointer;
     padding: 10px;
     border-radius: 5px;
-    color: gray;
+    color: rgb(46, 46, 46);
+    font-weight: 500;
 }
 .viewPersonal-modeItem-isActive{
     background-color: rgb(216, 216, 216);

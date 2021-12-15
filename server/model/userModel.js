@@ -21,8 +21,9 @@ const UserSchema = new mongoose.Schema({
         required: true,
     },
     accountName: { // tên tài khoản 
+        // type: mongoose.Types.ObjectId,
         type: String,
-        ref: "code",
+        ref: 'code',
         required: true,
         unique: true,
     },

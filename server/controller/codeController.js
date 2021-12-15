@@ -225,11 +225,36 @@ const openCensusCode = async (req, res) => {
     }
 }
 
-
+// kiểm tra xem một địa phương nào đó đã hết thới gian khảo sát dân số hay Chưa
+const checkTimeCensus = async (req, res) => {
+    const { codeId, statusCensus  } = req.body;
+    try {
+        // check xem vùng người này quản lí đã hết hạn thời gian khảo sát dân số hay chưa.
+        const code = await Code.findOne({code: codeId});
+        if (code.statusCensus) {
+            if (moment(code.timeClose).format("YYYY-MM-DD") < moment(Date.now()).format("YYYY-MM-DD")) {
+                await Code.findOneAndUpdate({code: codeId}, {statusCensus}, {new: true});
+            } else {
+                
+                return res.json({
+                    status: true,
+                    message: "Chưa hết thời gian khai báo dân số.",
+                })
+            }
+        }
+        res.json({
+            status: true,
+            message: "Error",
+        })
+    } catch (err) {
+        res.status(500).send({err});
+    }
+}
 
 
 module.exports = {
     addCode,
     getAllCode,
     openCensusCode,
+    checkTimeCensus,
 }

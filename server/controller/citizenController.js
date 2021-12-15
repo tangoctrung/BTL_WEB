@@ -66,7 +66,8 @@ const AddCitizen = async (req, res) => {
             })
         }
         // kiểm tra xem địa chỉ email hợp lệ không
-        if (!validator.isEmail(email)) {
+        if (email !=="") {
+            if (!validator.isEmail(email))
             return res.json({
                 status: false,
                 message: "Địa chỉ email của công dân không hợp lệ, vui lòng kiểm tra lại.",
@@ -84,7 +85,7 @@ const AddCitizen = async (req, res) => {
         // nếu tất cả thông tin hợp lệ thì lưu citizen vào database
         const newCitizen = new Citizen({
             name, numCCCD, education, nation, religion,
-            phone, email, avatar, date, job, addressCity, addressDistrict, addressWard, addressVillage,
+            phone, email: email ? email : "", avatar, date, job, addressCity, addressDistrict, addressWard, addressVillage,
             hometownCity, hometownDistrict, hometownWard, hometownVillage, gender, infoDetail, infoFamily,
         });
         await newCitizen.save();
@@ -97,11 +98,20 @@ const AddCitizen = async (req, res) => {
 
 // cập nhật thông tin cho 1 công dân có numCCCD
 const UpdateCitizen = async (req, res) => {
-    const userId = req.query.userId;
-    const { codeArea, //mã của vùng mở cuộc điều tra dân số
+    const userId = req.params.id;
+    const { 
+         _id, createdAt, updatedAt,
+         name, education, nation, religion, phone, email, avatar, date, job, gender,
+         numCCCD, infoDetail, infoFamily, hometownCity, hometownDistrict, hometownWard, hometownVillage, addressCity, addressDistrict, addressWard, addressVillage,
+        codeArea, //mã của vùng mở cuộc điều tra dân số
         timeAdd, // thời gian lúc thêm citizen
         typeAccount,
     } = req.body;
+    const data = {
+        name, education, nation, religion, phone, email, avatar, date, job, gender,
+        numCCCD, infoDetail, infoFamily, hometownCity, hometownDistrict, hometownWard, hometownVillage, addressCity, addressDistrict, addressWard, addressVillage,
+    }
+    console.log(data);
     // kiểm tra xem còn trong thời gian khai báo dân số không
     if (typeAccount !== "A1") {
         const code = await Code.findOne({code: codeArea});
@@ -136,10 +146,11 @@ const UpdateCitizen = async (req, res) => {
     }
 
     try {
-        await Citizen.findByIdAndUpdate({_id: userId}, req.body);
+        const citizenNew = await Citizen.findByIdAndUpdate({_id: userId}, data, {new: true});
         res.json({
             status: true, 
-            message: "Dữ liệu của công dân này đã được cập nhật thành công."
+            message: "Dữ liệu của công dân này đã được cập nhật thành công.",
+            data: citizenNew,
         })
     } catch (err) {
         res.status(500).json(err);
@@ -148,43 +159,43 @@ const UpdateCitizen = async (req, res) => {
 
 // xóa thông tin của công dân có số CCCD
 const DeleteCitizen = async (req, res) => {
-    const userId = req.query.userId;
-    const { codeArea, //mã của vùng mở cuộc điều tra dân số
-        timeAdd, // thời gian lúc thêm citizen
-        typeAccount,
-    } = req.body;
-    // kiểm tra xem còn trong thời gian khai báo dân số không
-    if (typeAccount !== "A1") {
-        const code = await Code.findOne({code: codeArea});
-        if (!code) {
-            return res.json({
-                status: false,
-                message: "Địa phương này không tồn tại.",
-            })
-        } else {
+    const userId = req.params.id;
+    // const { codeArea, //mã của vùng mở cuộc điều tra dân số
+    //     timeAdd, // thời gian lúc thêm citizen
+    //     typeAccount,
+    // } = req.body;
+    // // kiểm tra xem còn trong thời gian khai báo dân số không
+    // if (typeAccount !== "A1") {
+    //     const code = await Code.findOne({code: codeArea});
+    //     if (!code) {
+    //         return res.json({
+    //             status: false,
+    //             message: "Địa phương này không tồn tại.",
+    //         })
+    //     } else {
 
-            if (!code.statusCensus) {
-                return res.json({
-                    status: false,
-                    message: "Cuộc khảo sát dân số chưa được mở.",
-                })
-            }
+    //         if (!code.statusCensus) {
+    //             return res.json({
+    //                 status: false,
+    //                 message: "Cuộc khảo sát dân số chưa được mở.",
+    //             })
+    //         }
 
-            if (moment(timeAdd).format("YYYY-MM-DD") < moment(code.timeOpen).format("YYYY-MM-DD")) {
-                return res.json({
-                    status: false,
-                    message: "Cuộc khảo sát dân số chưa được mở.",
-                })
-            }
+    //         if (moment(timeAdd).format("YYYY-MM-DD") < moment(code.timeOpen).format("YYYY-MM-DD")) {
+    //             return res.json({
+    //                 status: false,
+    //                 message: "Cuộc khảo sát dân số chưa được mở.",
+    //             })
+    //         }
 
-            if (moment(timeAdd).format("YYYY-MM-DD") > moment(code.timeClose).format("YYYY-MM-DD")) {
-                return res.json({
-                    status: false,
-                    message: "Đã quá hạn thời gian khảo sát dân số, bạn không thể chỉnh sửa gì được nữa.",
-                })
-            }
-        }
-    }
+    //         if (moment(timeAdd).format("YYYY-MM-DD") > moment(code.timeClose).format("YYYY-MM-DD")) {
+    //             return res.json({
+    //                 status: false,
+    //                 message: "Đã quá hạn thời gian khảo sát dân số, bạn không thể chỉnh sửa gì được nữa.",
+    //             })
+    //         }
+    //     }
+    // }
     try {
         await Citizen.findByIdAndDelete({_id: userId});
         res.json({
@@ -216,8 +227,11 @@ const getAllCitizen = async (req, res) => {
 const getAllCitizenCode = async (req, res) => {
     const codeName = req.query.codeName;
     const level = req.query.level;
+    // console.log(codeName, level);
+    // console.log(req.accountName, req.typeAccount);
+    // kiểm tra xem người dùng có thể lấy dữ liệu từ codeName này không
     try {
-        const citizens = null;
+        let citizens = null;
         if (level === "Tỉnh") {
             citizens = await Citizen.find({"hometownCity": codeName});
         } else if (level === "Huyện") {
@@ -226,10 +240,13 @@ const getAllCitizenCode = async (req, res) => {
             citizens = await Citizen.find({"hometownWard": codeName});
         } else if (level === "Thôn") {
             citizens = await Citizen.find({"hometownVillage": codeName});
-        } else {
+        } 
+        
+        if (!citizens.length > 0) {
             return res.json({
                 status: false,
-                message: "Không có dữ liệu",
+                message: "Không tìm thấy dữ liệu",
+                citizens: [],
             })
         }
         
@@ -244,30 +261,45 @@ const getAllCitizenCode = async (req, res) => {
     }
 }
 
-// lấy thông tin của 1 công dân với điều kiện nào đó
-const getAllCitizenConditions = async (req, res) => {
-    const citizenId = req.params.id;
+// lấy thông tin của 1 công dân với số CCCD
+const getCitizenNumCCCD = async (req, res) => {
     let numCCCD = req.query.numCCCD;
 
     try {
-        // nếu tìm kiếm theo id của citizen
-        if (citizenId) {
-            const citizen = await Citizen.findById({_id: citizenId});
-            return res.json({
-                status: true,
-                message: "Lấy dữ liệu thành công",
-                data: citizen,
-            })
-        }
         // nếu tìm kiếm theo numCCCD citizen
         if (numCCCD) {
-            const citizen = await Citizen.find({numCCCD: numCCCD});
-            res.json({
-                status: true, 
-                message: "Lấy dữ liệu của tất cả công dân thành công.",
-                data: citizen,
-            })
+            const citizen = await Citizen.findOne({numCCCD: numCCCD});
+            if (citizen) {
+                return res.json({
+                    status: true, 
+                    message: "Lấy dữ liệu của tất cả công dân thành công.",
+                    data: [citizen],
+                })
+            }
+            return res.json({
+                status: false, 
+                message: "Không tìm thấy dữ liệu.",
+                data: [],
+            });
         }
+
+    } catch (err) {
+        res.status(500).json(err);
+    }
+}
+
+// lấy thông tin của 1 công dân với userId
+const getCitizenId = async (req, res) => {
+    const citizenId = req.params.id;
+
+    try {
+        // nếu tìm kiếm theo id của citizen
+        const citizen = await Citizen.findById({_id: citizenId});
+        return res.json({
+            status: true,
+            message: "Lấy dữ liệu thành công",
+            data: citizen,
+        })
 
     } catch (err) {
         res.status(500).json(err);
@@ -281,5 +313,6 @@ module.exports = {
     DeleteCitizen,
     getAllCitizen,
     getAllCitizenCode,
-    getAllCitizenConditions,
+    getCitizenNumCCCD,
+    getCitizenId,
 }

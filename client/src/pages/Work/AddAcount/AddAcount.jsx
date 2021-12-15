@@ -81,6 +81,15 @@ function AddAcount() {
         }
     }, [auth?.accessToken]);
 
+    // khi người dùng bấm reload lại các tài khoản được cấp
+    const handleReloadAddAccount = () => {
+        if (["admin", "A1"].includes(auth?.user?.typeAccount)) {
+            dispatch(getAllUser(auth?.accessToken));
+        } else {
+            dispatch(getAllUserIsProvied(auth?.user?._id, auth?.accessToken));
+        }
+    }
+
     // khi người dùng nhập dữ liệu sẽ cập nhật state
     const handleChane = (e) => {
         setState({
@@ -178,7 +187,7 @@ function AddAcount() {
             <div className="addAcount-bottom">
                 <h3>Xem danh sách những tài khoản được cấp</h3>
                 <div className="addAcount-bottom-button">
-                    <Button typeButton="reload" width={120} height={40} text="Tải lại" />
+                    <Button typeButton="reload" width={120} height={40} text="Tải lại" onClick={handleReloadAddAccount} />
                 </div>
                 <div className="addAcount-bottom-container">
                     <table>

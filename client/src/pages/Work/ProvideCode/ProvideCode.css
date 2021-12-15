@@ -137,6 +137,7 @@
 .listLocalName{
     width: 100%;
     max-height: 400px;
+    height: 400px;
     overflow-y: scroll;
 }
 .listLocalName::-webkit-scrollbar{
@@ -150,14 +151,26 @@
     margin-top: 50px;
     display: inline-block;
 }
+.listLocalName-bottom{
+    padding: 10px 5px 5px 5px;
+    border-top: 1.5px solid gray;
+}
+.listLocalName-bottom span{
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+}
 .itemLocalName{
     width: 280px;
     padding: 10px;
-    background-color: rgb(241, 241, 241);
-    margin: 10px 10px;
+    /* background-color: rgb(226, 226, 226); */
+    margin: 0px 10px;
     border-radius: 10px;
+    border-bottom: 1.5px dotted gray;
     cursor: pointer;
     transition: all 0.3s ease;
+    font-size: 15px;
+    color: rgb(56, 56, 56);
 }
 .itemLocalName:hover{
     background-color: rgb(226, 226, 226);

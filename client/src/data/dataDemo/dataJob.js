@@ -70,4 +70,14 @@ export const dataJob = [
         value: "Làm thuê chân tay",
         name: "VD: Công nhân, phụ hồ, cai xây,...",
     },
+    {
+        id: 13,
+        value: "Học sinh, sinh viên",
+        name: "Đang đi học",
+    },
+    {
+        id: 14,
+        value: "Thất nghiệp",
+        name: "Không có việc làm ",
+    },
 ]

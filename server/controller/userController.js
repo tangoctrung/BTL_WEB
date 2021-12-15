@@ -74,7 +74,7 @@ const registerUser = async (req, res) => {
                     position = "Viên chức dân số thuộc Trạm Y tế "  + code.name;
                     break;
                 case "B2":
-                    position = "Cộng tác viên dân số tại "  + code.name;
+                    position = "Cộng tác viên dân số Y tế "  + code.name;
                     break;
     
                 default:
@@ -127,6 +127,7 @@ const loginUser = async (req, res) => {
     // const { email, password, position } = req.body;
     try {
         const newUser = await User.findOne({accountName: req.body.email});
+
         if (!newUser) return res.json({status: false, message: 'Sai email hoặc mật khẩu.'});  
 
         if (newUser.isAdmin) {
@@ -137,13 +138,7 @@ const loginUser = async (req, res) => {
             
         const validate = await bcrypt.compare(req.body.password, newUser.password);
         if (!validate) return res.json({status: false, message: 'Sai email hoặc mật khẩu.'});   
-        
-        // check xem vùng người này quản lí đã hết hạn thời gian khảo sát dân số hay chưa.
-        const code = await Code.findOne({code: accountName});
-        if (moment(code.timeClose).format("YYYY-MM-DD") > moment(Date.now()).format("YYYY-MM-DD")) {
-            await Code.findOneAndUpdate({code: accountName}, {statusCensus: false, timeClose: null, timeOpen: null}, {new: true});
-        }
-
+    
         // tạo token
         const token = jwt.sign({_id: newUser._id, typeAccount: newUser.typeAccount, accountName: newUser.accountName}, process.env.ACCESS_TOKEN_SECRET);
 
@@ -213,6 +208,45 @@ const updateUser = async (req, res) => {
     }
 }
 
+// change password
+const changePassword = async (req, res) => {
+    try {
+        const { password,userId, confirmPassword, oldPassword } = req.body;
+        // const userId = req.userId;
+        const newUser = await User.findById({_id: userId});
+        if (!newUser) {
+            return res.json({
+                status: false,
+                message: "Chúng tôi nhận thấy bạn đang cố tấn công vào hệ thống. Hãy dừng lại ngay lập tức.",
+            })
+        }
+        const validate = await bcrypt.compare(oldPassword, newUser.password);
+        if (!validate) return res.json({status: false, message: 'Mật khẩu cũ không chính xác.'});   
+
+        if (password !== confirmPassword) {
+            return res.json({
+                status: false,
+                message: "Mật khẩu nhập lại không khớp nhau.",
+            })
+        }
+        if (password.length < 8) {
+            return res.json({
+                status: false,
+                message: "Mật khẩu mới phải có ít nhất 8 kí tự.",
+            })
+        }
+
+        // mã hóa password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPass = await bcrypt.hash(password, salt);
+        await User.findByIdAndUpdate({_id: userId}, {password: hashedPass}, {new: true});
+
+        res.status(200).json({status: true, message: 'Thay đổi mật khẩu thành công.'});
+
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
 
 module.exports = {
     registerUser,
@@ -221,4 +255,5 @@ module.exports = {
     getAllUser,
     updateUser,
     getAllUserIsProvied,
+    changePassword,
 }
