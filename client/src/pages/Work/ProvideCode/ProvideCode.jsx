@@ -183,7 +183,7 @@ function ProvideCode() {
                             <div className="listLocalName">
                                 { addCode?.city.length > 0   && addCode?.city.map((city, index) => (
                                     <div className="itemLocalName" key={index} onClick={()=> handleChooseCode(city?.code)} >
-                                        <b>{city?.name} - <b>{city?.code}</b></b>
+                                        <b>{index+1}. {city?.name} - <b>{city?.code}</b></b>
                                         <address>Thời gian khai báo: {moment(city?.createdAt).format("DD-MM-YYYY")}</address>
                                     </div>
                                 )) }                              
@@ -199,7 +199,7 @@ function ProvideCode() {
                                 { addCode?.district.length > 0  
                                     ? addCode?.district.map((district, index) => (
                                         <div className="itemLocalName" key={index} onClick={()=> handleChooseCode(district?.code)} >
-                                            <b>{district?.name} - <b>{district?.code}</b></b>
+                                            <b>{index+1}. {district?.name} - <b>{district?.code}</b></b>
                                             <address>Thời gian khai báo: {moment(district?.createdAt).format("DD-MM-YYYY")}</address>
                                         </div>
                                     ))
@@ -217,7 +217,7 @@ function ProvideCode() {
                                 { addCode?.ward.length > 0  
                                     ? addCode?.ward.map((ward, index) => (
                                         <div className="itemLocalName" key={index} onClick={()=> handleChooseCode(ward?.code)} >
-                                            <b>{ward?.name} - <b>{ward?.code}</b></b>
+                                            <b>{index+1}. {ward?.name} - <b>{ward?.code}</b></b>
                                             <address>Thời gian khai báo: {moment(ward?.createdAt).format("DD-MM-YYYY")}</address>
                                         </div>
                                     ))
@@ -236,7 +236,7 @@ function ProvideCode() {
                                 { addCode?.village.length > 0  
                                     ? addCode?.village.map((village, index) => (
                                         <div className="itemLocalName" key={index} onClick={()=> handleChooseCode(village?.code)} >
-                                            <b>{village?.name} - <b>{village?.code}</b></b>
+                                            <b>{index+1}. {village?.name} - <b>{village?.code}</b></b>
                                             <address>Thời gian khai báo: {moment(village?.createdAt).format("DD-MM-YYYY")}</address>
                                         </div>
                                     ))

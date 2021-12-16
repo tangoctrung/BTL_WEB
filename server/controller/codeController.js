@@ -1,5 +1,6 @@
 // const User = require('../model/userModel');
 const Code = require('../model/codeModel');
+const Citizen = require('../model/citizenModel');
 const Census = require('../model/censusModel');
 const moment = require('moment');
 
@@ -58,7 +59,7 @@ const addCode = async (req, res) => {
                 message: "Bạn không đủ thẩm quyền hoặc không đủ quyền cấp mã này",
                 messageDetail: "Bạn chỉ có thể cấp  mã code chi các tỉnh/thành phố, và các mã này có độ dài là 2, nên từ 01->63.",
             })
-        } else if (code.slice(0, accountNameProvider.length) !== accountNameProvider) {
+        } else if (accountNameProvider !== "A1" && code.slice(0, accountNameProvider.length) !== accountNameProvider) {
             return res.send({
                 status: false, 
                 message: "Mã bạn cấp không đúng.",
@@ -97,6 +98,90 @@ const getAllCode = async (req, res) => {
                     data: codes,
                 })
             } else {
+                return res.json({
+                    status: false, 
+                    message: "Không có dữ liệu",
+                })
+            } 
+        }
+        // nếu yêu cầu lấy tất cả các huyện trong 1 tỉnh
+        if (codeId.length === 2 && codeId !== "00") {
+            const codes = await Code.find({level: "Huyện"}).populate("provider", ["name", "position"]);
+            const listCode = codes.filter(code => code.code.slice(0, codeId.length) === codeId);
+            if (listCode.length > 0) {
+                return res.json({
+                    status: true,
+                    message: "Lấy dữ liệu thành công",
+                    data: listCode,
+                })
+            } else {
+                return res.json({
+                    status: false, 
+                    message: "Không có dữ liệu",
+                })
+            }
+        }
+        // nếu yêu cầu lấy tất cả các xã trong 1 huyện
+        if (codeId.length === 4 && codeId !== "00") {
+            const codes = await Code.find({level: "Xã"}).populate("provider", ["name", "position"]);
+            const listCode = codes.filter(code => code.code.slice(0, codeId.length) === codeId);
+            if (listCode.length > 0) {
+                return res.json({
+                    status: true,
+                    message: "Lấy dữ liệu thành công",
+                    data: listCode,
+                })
+            } else {
+                return res.json({
+                    status: false, 
+                    message: "Không có dữ liệu",
+                })
+            }
+        }
+        // nếu yêu cầu lấy tất cả các thôn trong 1 xã
+        if (codeId.length === 6 && codeId !== "00") {
+            const codes = await Code.find({level: "Thôn"}).populate("provider", ["name", "position"]);
+            const listCode = codes.filter(code => code.code.slice(0, codeId.length) === codeId);
+            if (listCode.length > 0) {
+                return res.json({
+                    status: true,
+                    message: "Lấy dữ liệu thành công",
+                    data: listCode,
+                })
+            } else {
+                return res.json({
+                    status: false, 
+                    message: "Không có dữ liệu",
+                })
+            }
+        }
+        res.json(codeId);
+        
+    } catch (err) {
+        res.status(500).json(err);
+    }
+}
+
+// GET ALL CODE TRONG NƯỚC VN (lấy mã tỉnh), MỘT TỈNH (lấy mã huyện), hoặc HUYỆN (lẫy mã xã)
+const getAllCodeAndCitizen = async (req, res) => {
+    try {
+        const codeId = req.params.id; // id truyền vào là một code của vùng muốn lấy các vùng con trong vùng đấy
+        // nếu yêu cầu lấy tất cả các tỉnh đã được khai báo
+        if (codeId === "00") {
+            const codes = await Code.find({level: "Tỉnh"}).populate("provider", ["name", "position"]);         
+            let listData = [];
+            if (codes.length > 0) {
+                codes.forEach(async (code) => {
+                    listData.push({code});
+                    const citizens = await Citizen.find({hometownCity: code.name});
+                    listData.push({citizens});
+                })         
+                return res.json({
+                    status: true,
+                    message: "Lấy dữ liệu thành công",
+                    data: listData,
+                })
+            } else {           
                 return res.json({
                     status: false, 
                     message: "Không có dữ liệu",
@@ -257,4 +342,5 @@ module.exports = {
     getAllCode,
     openCensusCode,
     checkTimeCensus,
+    getAllCodeAndCitizen,
 }

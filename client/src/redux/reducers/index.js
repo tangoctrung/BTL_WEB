@@ -5,6 +5,7 @@ import mail from './mailReducer';
 import viewPerson from './viewPersonReducer';
 import addCode from './addCodeReducer';
 import overView from './overViewReducer';
+import openCensus from './openCensusReducer';
 
 const rootReducer = combineReducers({
     auth,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     viewPerson,
     addCode,
     overView,
+    openCensus,
 });
 
 export default rootReducer;
