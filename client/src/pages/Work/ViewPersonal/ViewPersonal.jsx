@@ -8,7 +8,7 @@ import * as ACTIONS from '../../../redux/constants/viewPersonContant';
 import { urlClient } from '../../../api/urlApi';
 import Modal from '../../../common/Modal/Modal';
 import EditCitizen from '../../../components/EditCitizen/EditCitizen';
-import { getAllCitizenCodename, deleteCitizen, getCitizenNumCCCD, getAllCitizen } from '../../../redux/actions/userAction';
+import { getAllCitizenCodename, deleteCitizen, getCitizenNumCCCD, getAllCitizen, getAllCitizenCodenameDefault } from '../../../redux/actions/userAction';
 import moment from 'moment';
 
 function ViewPersonal() {
@@ -27,8 +27,7 @@ function ViewPersonal() {
         if (auth?.user?.typeAccount !== "A1") {
             let codeName = auth?.user?.position.split("tế ")[1];
             let level = codeName.split(" ")[0];
-    
-            dispatch(getAllCitizenCodename({codeName, level}, auth?.accessToken));
+            dispatch(getAllCitizenCodenameDefault({codeName, level}, auth?.accessToken));
         } else {
             dispatch(getAllCitizen(auth?.accessToken));
         }

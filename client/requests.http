@@ -217,3 +217,34 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWVmO
     "typeAccount": "B2"
 
 }
+
+###
+GET http://localhost:8800/api/getcitizengender?codeName=Huyện Kim Bảng&level=Huyện HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWVmODEyYzFlOWQzOTg4YjgzZjMiLCJ0eXBlQWNjb3VudCI6IkIyIiwiYWNjb3VudE5hbWUiOiIwMjAxMDEwMiIsImlhdCI6MTYzOTQwNDMwMX0.ECJlULkIRczvIkTpB98WRa98qfxfrhIpjKE2_Kfutrw
+
+###
+GET http://localhost:8800/api/getcitizennation?codeName=Tỉnh Hà Nam&level=Tỉnh HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWVmODEyYzFlOWQzOTg4YjgzZjMiLCJ0eXBlQWNjb3VudCI6IkIyIiwiYWNjb3VudE5hbWUiOiIwMjAxMDEwMiIsImlhdCI6MTYzOTQwNDMwMX0.ECJlULkIRczvIkTpB98WRa98qfxfrhIpjKE2_Kfutrw
+
+
+###
+GET http://localhost:8800/api/getcitizenreligion?codeName=Tỉnh Hà Nam&level=Tỉnh HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWVmODEyYzFlOWQzOTg4YjgzZjMiLCJ0eXBlQWNjb3VudCI6IkIyIiwiYWNjb3VudE5hbWUiOiIwMjAxMDEwMiIsImlhdCI6MTYzOTQwNDMwMX0.ECJlULkIRczvIkTpB98WRa98qfxfrhIpjKE2_Kfutrw
+
+###
+GET http://localhost:8800/api/getcitizenage?codeName=Tỉnh Hà Nam&level=Tỉnh HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWVmODEyYzFlOWQzOTg4YjgzZjMiLCJ0eXBlQWNjb3VudCI6IkIyIiwiYWNjb3VudE5hbWUiOiIwMjAxMDEwMiIsImlhdCI6MTYzOTQwNDMwMX0.ECJlULkIRczvIkTpB98WRa98qfxfrhIpjKE2_Kfutrw
+
+###
+GET http://localhost:8800/api/getcitizeneducation?codeName=Tỉnh Hà Nam&level=Tỉnh HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWVmODEyYzFlOWQzOTg4YjgzZjMiLCJ0eXBlQWNjb3VudCI6IkIyIiwiYWNjb3VudE5hbWUiOiIwMjAxMDEwMiIsImlhdCI6MTYzOTQwNDMwMX0.ECJlULkIRczvIkTpB98WRa98qfxfrhIpjKE2_Kfutrw
+
+###
+GET http://localhost:8800/api/getcitizenjob?codeName=Tỉnh Hà Nam&level=Tỉnh HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWVmODEyYzFlOWQzOTg4YjgzZjMiLCJ0eXBlQWNjb3VudCI6IkIyIiwiYWNjb3VudE5hbWUiOiIwMjAxMDEwMiIsImlhdCI6MTYzOTQwNDMwMX0.ECJlULkIRczvIkTpB98WRa98qfxfrhIpjKE2_Kfutrw

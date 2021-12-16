@@ -1,47 +1,36 @@
-import React from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
+import React, { useState } from 'react';
+
 import "./Overview.css";
 import dataLocal from '../../../data/dataDemo/local.json';
 import {dataViewMode} from '../../../data/dataDemo/dataViewMode';
 import Button from '../../../common/Button/Button';
-import { useSelector } from 'react-redux';
-
-ChartJS.register(ArcElement, Tooltip, Legend);
-
-export const data = {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Black'],
-    datasets: [
-        {
-            label: '# of Votes',
-            data: [0.12, 0.19, 0.3, 0.5, 0.2, 0.3, 0.3],
-            backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(0, 0, 0, 0.2)',
-            ],
-            borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)',
-            'rgba(0, 0, 0, 1)',
-            ],
-            borderWidth: 1,
-        },
-    ],
-};
-
+import { useDispatch, useSelector } from 'react-redux';
+import PieChart from '../../../Chart/PieChart/PieChart';
+import { overViewTieuChi } from '../../../redux/actions/overViewAction';
+import * as ACTIONS from "../../../redux/constants/overViewContant";
   
+
+
 function Overview() {
 
-    const { auth } = useSelector(state => state);
+    const { auth, overView } = useSelector(state => state);
+    const dispatch = useDispatch();
+    const [state, setState] = useState({ nameCity: '', nameDistrict: '', nameWard: '', nameVillage: '', tieuChi: ''});
+    // khi người dùng nhập tên vùng
+    const handleChange = (e) => {
+        setState({ 
+            ...state,
+            [e.target.name] : e.target.value,
+        });
+        dispatch({type: ACTIONS.CLEAR_DATA});
+    }
+    
+    // khi người dùng submit việc xem 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(overViewTieuChi(state, auth?.accessToken));
+    }
+
     return (
         <div className="overview">
             <div className="overview-top">
@@ -51,7 +40,7 @@ function Overview() {
                     { auth?.user?.typeAccount==="A1" &&
                         <div className="overview-itemCountry">
                             <p>Tên tỉnh(thành phố)</p>
-                            <input list="dataCity" />
+                            <input type="email" list="dataCity" multiple name="nameCity" onChange={handleChange}/>
                             <datalist id="dataCity">
                                 { dataLocal.map((city, index) => (
                                     <option key={index} value={city.Name}>{city.Name}</option>
@@ -62,7 +51,7 @@ function Overview() {
                     { ["A1", "A2"].includes(auth?.user?.typeAccount) &&
                         <div className="overview-itemCountry">
                             <p>Tên huyện(quận)</p>
-                            <input list="dataDistrict" />
+                            <input list="dataDistrict" type="email" multiple name="nameDistrict" onChange={handleChange}/>
                             <datalist id="dataDistrict">
                                 { dataLocal.map((city, index) => (
                                     <option key={index} value={city.Name}>{city.Name}</option>
@@ -73,7 +62,7 @@ function Overview() {
                     { ["A1", "A2", "A3"].includes(auth?.user?.typeAccount) &&
                         <div className="overview-itemCountry">
                             <p>Tên xã(phường)</p>
-                            <input list="dataWard" />
+                            <input list="dataWard" type="email" multiple name="nameWard" onChange={handleChange}/>
                             <datalist id="dataWard">
                                 { dataLocal.map((city, index) => (
                                     <option key={index} value={city.Name}>{city.Name}</option>
@@ -84,7 +73,7 @@ function Overview() {
                     { ["A1", "A2", "A3", "B1"].includes(auth?.user?.typeAccount) &&
                         <div className="overview-itemCountry">
                             <p>Tên thôn(phố, bản, làng)</p>
-                            <input list="dataVillage" />
+                            <input list="dataVillage" type="email" multiple name="nameVillage" onChange={handleChange} />
                             <datalist id="dataVillage">
                                 { dataLocal.map((city, index) => (
                                     <option key={index} value={city.Name}>{city.Name}</option>
@@ -94,7 +83,7 @@ function Overview() {
 
                     <div className="overview-itemCountry">
                         <p>Chọn tiêu chí xem</p>
-                        <input list="dataViewMode" />
+                        <input list="dataViewMode" name="tieuChi" onChange={handleChange} />
                         <datalist id="dataViewMode">
                             { dataViewMode.map((item, index) => (
                                 <option key={index} value={item.name}>{item.value}</option>
@@ -104,18 +93,18 @@ function Overview() {
                 </div>
                 
                 <div className="overview-button">
-                    <Button typeButton="success" width={120} height={40} text="Xem" />
+                    <Button typeButton="success" width={120} height={40} text="Xem" onClick={handleSubmit} />
                 </div>
             </div>
             <div className="overview-bottom">
                 <h3>Biểu đồ</h3>
                 <div className="overview-bottom-listChart">
-                    <div className="overviewTest">
-                        <Pie data={data} />;
-                    </div>
-                    <div className="overviewTest">
-                        <Pie data={data} />;
-                    </div>
+                    {overView?.dataPie ? 
+                        <div className="overviewPieChart">
+                            <PieChart dataPie={overView?.dataPie} tieuChi={state.tieuChi} />
+                        </div> : 
+                        <p>{overView.messageError}</p>
+                        }        
                 </div>
             </div>
         </div>

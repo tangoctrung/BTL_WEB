@@ -1,43 +1,32 @@
 export const dataViewMode = [
     {
-        id: 0,
-        name: "all",
-        value: "Tất cả",
-    },
-    {
         id: 1,
-        name: "gender",
+        name: "Gender",
         value: "Tỉ lệ nam/nữ",
     },
     {
         id: 2,
-        name: "age",
+        name: "Age",
         value: "Tỉ lệ độ tuổi",
     },
     {
         id: 3,
-        name: "education",
+        name: "Education",
         value: "Trình độ học vấn",
     },
     {
         id: 4,
-        name: "city",
-        value: "Tỉ lệ dân thành thị",
+        name: "Job",
+        value: "Tỉ lệ ngành nghề",
     },
     {
         id: 5,
-        name: "religion",
+        name: "Religion",
         value: "Tỉ lệ tôn giáo",
     },
     {
         id: 6,
-        name: "nation",
+        name: "Nation",
         value: "Tỉ lệ dân tộc",
-    },
-    {
-        id: 7,
-        name: "population",
-        value: "Tỉ lệ dân số các vùng",
-    },
-    
+    }
 ]

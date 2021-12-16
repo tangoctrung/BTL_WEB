@@ -44,4 +44,9 @@ export const dataEducation = [
         name: "Tiến sĩ",
         value: "tiensi",
     },
+    {
+        id: 10,
+        name: "Khác",
+        value: "khac",
+    },
 ]

@@ -53,10 +53,23 @@
     align-items: center;
     flex-wrap: wrap;
 }
+.overview-bottom-listChart p{
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(58, 58, 58);
+}
 
 
-.overviewTest{
+.overviewPieChart{
     margin: 20px;
-    width: 300px;
-    height: 300px;
+    width: 600px;
+    height: 600px;
+}
+
+@media screen and (max-width: 768px) {
+    .overviewPieChart{
+        margin: 20px;
+        width: 450px;
+        height: 600px;
+    }
 }

@@ -96,6 +96,16 @@ export const deleteCitizen = (citizenId, token) => async (dispatch) => {
     }
 }
 
+export const getAllCitizenCodenameDefault = (data, token) => async (dispatch) => {
+    // xác định xem tên vùng người dùng tìm kiếm thuộc level nào: thôn, xã, huyện, tỉnh
+    try {
+        const res = await getDataAPI(`getallcitizencode?codeName=${data.codeName}&level=${data.level}`, token);
+        dispatch({type: ACTIONS.GET_CITIZEN, payload: {citizens: res.data.citizens}});
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 export const getAllCitizenCodename = (data, token) => async (dispatch) => {
     let codeName = "";
     let level = "";

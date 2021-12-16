@@ -78,6 +78,11 @@ export const dataJob = [
     {
         id: 14,
         value: "Thất nghiệp",
-        name: "Không có việc làm ",
+        name: "Không có việc làm",
+    },
+    {
+        id: 15,
+        value: "Khác",
+        name: "Ngành nghề khác với những ngành nghề đã kể ở trên",
     },
 ]
