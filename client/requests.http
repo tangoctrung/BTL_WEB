@@ -15,7 +15,7 @@ POST http://localhost:8800/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "02010101",
+    "email": "a1@gmail.com",
     "password": "12345678"
 }
 
@@ -167,6 +167,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTk3OTE2N
 
 
 ###
+
 PUT http://localhost:8800/api/opencensuscode HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWQ5NjEyYzFlOWQzOTg4YjgzZDMiLCJwb3NpdGlvbiI6IkNoaSBj4bulYyBkw6JuIHPhu5EgdGh14buZYyBT4bufIFkgdOG6vyBU4buJbmggSMOgIE5hbSIsImlhdCI6MTYzOTQwMDk4MX0.gYxFDygLjpy9Fa6bul3u2NluDJ5NjXf-WaWS8a3wono
@@ -179,14 +180,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWQ5N
 }
 
 ###
+
 PUT http://localhost:8800/api/checktimecensus HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWQ5NjEyYzFlOWQzOTg4YjgzZDMiLCJwb3NpdGlvbiI6IkNoaSBj4bulYyBkw6JuIHPhu5EgdGh14buZYyBT4bufIFkgdOG6vyBU4buJbmggSMOgIE5hbSIsImlhdCI6MTYzOTQwMDk4MX0.gYxFDygLjpy9Fa6bul3u2NluDJ5NjXf-WaWS8a3wono
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFiNmE2Y2EyMjQ3NTIyYTBmMmFjMWQiLCJ0eXBlQWNjb3VudCI6IkExIiwiYWNjb3VudE5hbWUiOiJhMUBnbWFpbC5jb20iLCJpYXQiOjE2Mzk3NDg0MzZ9.-y8nXfKuXLB3cOb9Qy14k6Q8SY7aRJDa8E1W40F1vcU
 
-{
-    "codeId": "020101",
-    "statusCensus": true
-}
+
 
 ###
 POST http://localhost:8800/api/addcitizen HTTP/1.1

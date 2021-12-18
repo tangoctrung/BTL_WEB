@@ -1,6 +1,7 @@
 import { getDataAPI, postDataAPI, putDataAPI } from '../../api/api';
 import * as ACTIONS from "../constants/openCensusContant";
 
+// lấy danh sách các tỉnh, huyện, xã, thôn mà người dùng quản lí
 export const getCodeNameOpenCensus = (codeId, token) => async (dispatch) => {
     try {
         const res = await getDataAPI('getallcode/' + codeId, token);
@@ -42,12 +43,73 @@ export const getCodeNameOpenCensus = (codeId, token) => async (dispatch) => {
     }
 }
 
+// lấy danh sách công dân của từng địa phương người dùng quản lí
 export const getCitizenCodename = (codeName, level, token) => async (dispatch) => {
     
     try {
         if (level !== "" && codeName !== "") {
             const res = await getDataAPI(`getallcitizencode?codeName=${codeName}&level=${level}`, token);
             dispatch({type: ACTIONS.GET_CITIZEN_CODENAME, payload: {citizens: res.data.citizens}});
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const checkTimeCensus = (token) => async (dispatch) => {
+    try {
+        const res = await putDataAPI(`checktimecensus`,{}, token);
+        if (res.data.status) {
+            dispatch({type: ACTIONS.CHECK_OPEN_CENSUS, payload: {
+                statusCensus: true, timeOpen: res.data.timeOpen, timeClose: res.data.timeClose
+            }});
+        } else {
+            dispatch({type: ACTIONS.CHECK_OPEN_CENSUS, payload: {
+                statusCensus: false, timeOpen: null, timeClose: null
+            }});
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const openCensusTime = (user, data, token) => async (dispatch) => {
+    try {
+        let res = null;
+        if (user?.typeAccount === "A1") {
+            let data1 = {
+                timeOpen: data.timeOpen,
+                timeClose: data.timeClose,
+                opener: user?._id,
+            }
+            res = await postDataAPI("opencensusa1", data1, token);
+        } else {
+            res = await putDataAPI("opencensuscode", data, token);
+        }
+        if (res.data.status) {
+            dispatch({type: ACTIONS.MESSAGE_SUCCESS, payload: {success: res.data.message}});
+            dispatch({type: ACTIONS.CHECK_OPEN_CENSUS, payload: {
+                statusCensus: true, timeOpen: data.timeOpen, timeClose: data.timeClose
+            }});
+        } else {
+            dispatch({type: ACTIONS.MESSAGE_ERROR, payload: {error: res.data.message, errorDetail: res.data.messageDetail}});
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const editCensusTime = (setIsOpenModalEdit ,data, token) => async (dispatch) => {
+    try {
+        const res = await putDataAPI("edittimecensus", data, token);
+        if (res.data.status) {
+            dispatch({type: ACTIONS.MESSAGE_SUCCESS, payload: {success: res.data.message}});
+            dispatch({type: ACTIONS.CHECK_OPEN_CENSUS, payload: {
+                statusCensus: true, timeOpen: data.timeOpen, timeClose: data.timeClose
+            }});
+            setIsOpenModalEdit(false);
+        } else {
+            dispatch({type: ACTIONS.MESSAGE_ERROR, payload: {error: res.data.message, errorDetail: res.data.messageDetail}});
         }
     } catch (err) {
         console.log(err);

@@ -15,6 +15,9 @@ const initialState = {
     messageVillage: "",
     messageCitizen: "",
     listCitizen: [],
+    statusCensus: false, // kiểm tra xem địa phương của người dùng có đang mở cuộc khảo sát hay không,
+    timeClose: null,
+    timeOpen: null,
 };
 
 
@@ -100,6 +103,14 @@ const openCensus = (state = initialState, action) => {
                 messageCitizen: action.payload.message,
                 listCitizen: [],
             }
+        case ACTIONS.CHECK_OPEN_CENSUS:
+            return {
+                ...state,
+                statusCensus: action.payload.statusCensus,
+                timeClose: action.payload.timeClose,
+                timeOpen: action.payload.timeOpen,
+            }
+        
         default:
             return state;
     }

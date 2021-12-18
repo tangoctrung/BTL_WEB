@@ -5,7 +5,7 @@ const {
 const verifyToken = require('../middleware/auth');
 
 // tạo một cuộc điều tra dân số
-router.post("/opencensus", verifyToken, openCensus);
+router.post("/opencensusa1", verifyToken, openCensus);
 
 
 

@@ -15,7 +15,10 @@ function Overview() {
 
     const { auth, overView } = useSelector(state => state);
     const dispatch = useDispatch();
-    const [state, setState] = useState({ nameCity: '', nameDistrict: '', nameWard: '', nameVillage: '', tieuChi: ''});
+    const [state, setState] = useState({ nameCity: '', nameDistrict: '', 
+    nameWard: '', 
+    nameVillage: auth?.user?.typeAccount === "B2" ? auth?.user?.position.split("tế ")[1] : "", 
+    tieuChi: ''});
     // khi người dùng nhập tên vùng
     const handleChange = (e) => {
         setState({ 

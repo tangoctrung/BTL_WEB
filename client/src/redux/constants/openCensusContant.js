@@ -23,3 +23,5 @@ export const MESSAGE_VILLAGE = "MESSAGE_VILLAGE"; // thông báo không nhận �
 export const GET_CITIZEN_CODENAME = "GET_CITIZEN_CODENAME"; //  nhận được  citizen để hiển thị
 
 export const GET_CITIZEN_CODENAME_ERROR = "GET_CITIZEN_CODENAME_ERROR"; // thông báo không nhận được citizen để hiển thị
+
+export const CHECK_OPEN_CENSUS = "CHECK_OPEN_CENSUS" // kiểm tra xem cuộc khảo sát đã kết thúc hay chưa.

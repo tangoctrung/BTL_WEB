@@ -1,5 +1,7 @@
 const router = require('express').Router();
-const { addCode, getAllCode, openCensusCode, checkTimeCensus, getAllCodeAndCitizen } = require('../controller/codeController');
+const { addCode, getAllCode, openCensusCode, 
+    checkTimeCensus, getAllCodeAndCitizen, editTimeCensus 
+} = require('../controller/codeController');
 const verifyToken = require('../middleware/auth');
 
 
@@ -14,6 +16,10 @@ router.get("/getallcodeandcitizen/:id", verifyToken, getAllCodeAndCitizen);
 
 // tạo một cuộc khảo sát
 router.put("/opencensuscode", verifyToken, openCensusCode);
+
+// edit time một cuộc khảo sát
+router.put("/edittimecensus", verifyToken, editTimeCensus);
+
 
 // kiểm tra xem địa phương đã hết thời gian khai báo hay chưa
 router.put("/checktimecensus", verifyToken, checkTimeCensus);

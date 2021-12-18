@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../../common/Button/Button';
 import Modal from '../../../common/Modal/Modal';
 import "./OpenCensus.css";
-import { getCodeNameOpenCensus, getCitizenCodename } from "../../../redux/actions/openCensusAction";
+import { getCodeNameOpenCensus, getCitizenCodename, checkTimeCensus, openCensusTime, editCensusTime } from "../../../redux/actions/openCensusAction";
 import moment from "moment";
 import { urlClient } from '../../../api/urlApi';
+import * as ACTIONS from "../../../redux/constants/openCensusContant";
 
 function OpenCensus() {
 
@@ -13,7 +14,9 @@ function OpenCensus() {
     const dispatch = useDispatch();
     const { auth, openCensus } = useSelector(state => state);
     const [isOpenModalDetail, setIsOpenModalDetail] = useState(false); 
+    const [isOpenModalEdit, setIsOpenModalEdit] = useState(false);
     const [codeName, setCodeName] = useState();
+    const [time, setTime] = useState({ timeOpen: null, timeClose: null });
 
     const handleShowModal = () => {
         setIsOpenModal(true);
@@ -25,6 +28,7 @@ function OpenCensus() {
         } else {
             dispatch(getCodeNameOpenCensus(auth?.user?.accountName, auth?.accessToken));
         }
+        dispatch(checkTimeCensus(auth?.accessToken));
     }, [])
 
     // khi người dùng click vào xem địa phương được khai báo 
@@ -52,40 +56,103 @@ function OpenCensus() {
     const handleClickPerson = (id) => {
         window.open(urlClient + `viewpersondetail/${id}`);
     }
+    // khi người dùng thay đổi thời gian mở cuộc khảo sát dân số
+    const handleChangeTime = (e) => {
+        dispatch({type: ACTIONS.CLEAR_MESSAGE});
+        setTime({
+            ...time,
+            [e.target.name]: e.target.value,
+        })
+    }
+
+    // khi người dùng submit mở cuộc khảo sát dân số
+    const handleOpenCensus = () => {
+        dispatch(openCensusTime(auth?.user, time, auth?.accessToken));
+    }
+    // khi người dùng mở modal chỉnh sửa thời gian khảo sát dân số
+    const handleOpenModalEditTime = () => {
+        dispatch({type: ACTIONS.CLEAR_MESSAGE});
+        setIsOpenModalEdit(true);
+    }
+    // khi người dùng submit chỉnh sửa lại thời gian khảo sát dân số
+    const handleEditOpenCensus = () => {
+        dispatch(editCensusTime(setIsOpenModalEdit ,time, auth?.accessToken));
+    }
+    //khi người dùng hủy cuộc khảo sát dân số
+    const handleCancelOpenCensus = () => {
+
+    }
+
 
     return (
         <div className="openCensus">
             <div className="openCensus-top">
                 <h3>Cấp quyền khai báo dân số</h3>
                 <div className="openCensus-top-container">
-                    <div className="openCensus-top-content">
-                        <div className="openCensus-content-timeOpen">
-                            <label>Thời gian mở :</label>
-                            <input type="datetime-local" />
-                        </div>
-                        <div className="openCensus-content-timeClose">
-                            <label>Thời gian đóng :</label>
-                            <input type="datetime-local" />
-                        </div>
-                        <div className="openCensus-content-buttonText">
-                            <p>Thời gian đóng quyền không thể trước thời gian cấp quyền. <b onClick={handleShowModal} >Xem thêm</b></p>
-                            <div className="openCensus-content-listButton">
-                                <Button 
-                                    typeButton="normal" 
-                                    width={120} 
-                                    height={45} 
-                                    text="Xác nhận" 
-                                    borderRadius={30}
-                                />
+                    {!openCensus.statusCensus ?
+                        <div className="openCensus-top-content">
+                            <div className="openCensus-content-timeOpen">
+                                <label>Thời gian mở :</label>
+                                <input type="date" name="timeOpen" onChange={handleChangeTime}/>
+                            </div>
+                            <div className="openCensus-content-timeClose">
+                                <label>Thời gian đóng :</label>
+                                <input type="date" name="timeClose" onChange={handleChangeTime} />
+                            </div>
+                            <div className="openCensus-content-buttonText">
+                                {openCensus?.error !=="" ?
+                                    <p >{openCensus?.error} <b onClick={handleShowModal} >Xem thêm</b></p>
+                                    : ""}
+                                <div className="openCensus-content-listButton">
+                                    <Button 
+                                        typeButton="normal" 
+                                        width={120} 
+                                        height={45} 
+                                        text="Xác nhận" 
+                                        borderRadius={30}
+                                        onClick={handleOpenCensus}
+                                    />
+                                </div>
+                            </div>
+                            <Modal isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal}>
+                                <div className="modal-provideCode-text">
+                                    <h2>Chi tiết lỗi</h2>
+                                    <p>{openCensus?.errorDetail}</p>
+                                </div>
+                            </Modal>
+                        </div> :
+                        <div className="openCensus-top-content">
+                            <h3>Cuộc khai báo dân số đang diễn ra.</h3>
+                            <div className="openCensus-open-timeOpen openCensus-open-time">
+                                <label>Thời gian mở : <b>{openCensus?.timeOpen}</b></label>                              
+                            </div>
+                            <div className="openCensus-open-timeClose openCensus-open-time">
+                                <label>Thời gian đóng : <b>{openCensus?.timeClose}</b></label>  
+                            </div>
+                            <div className="openCensus-open-buttonText">
+                                <div className="openCensus-open-itemButton">
+                                    <Button 
+                                        typeButton="normal" 
+                                        width={120} 
+                                        height={45} 
+                                        text="Chỉnh sửa" 
+                                        borderRadius={30}
+                                        onClick={handleOpenModalEditTime}
+                                    />
+                                </div>
+                                <div className="openCensus-open-itemButton">
+                                    <Button 
+                                        typeButton="normal" 
+                                        width={120} 
+                                        height={45} 
+                                        text="Kết thúc" 
+                                        borderRadius={30}
+                                        onClick={handleCancelOpenCensus}
+                                    />
+                                </div>
                             </div>
                         </div>
-                        <Modal isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal}>
-                            <div className="modal-provideCode-text">
-                                <h2>Chi tiết lỗi</h2>
-                                <p>Thời gian mở cuộc khảo sát của bạn phải diễn ra trước thời gian đóng cuộc khảo sát.</p>
-                            </div>
-                        </Modal>
-                    </div>
+                    }
                 </div>
             </div>
             <div className="openCensus-bottom">
@@ -169,6 +236,32 @@ function OpenCensus() {
 
                 </div>
             </div>
+
+            <Modal isOpenModal={isOpenModalEdit} setIsOpenModal={setIsOpenModalEdit}>
+                <div className="modalEdit-content">
+                    <h3>Điều chỉnh thời gian khảo sát</h3>
+                    <div className="modalEdit-content-time">
+                        <label>Thời gian mở :</label>
+                        <input type="date" name="timeOpen" onChange={handleChangeTime}/>
+                    </div>
+                    <div className="modalEdit-content-time">
+                        <label>Thời gian đóng :</label>
+                        <input type="date" name="timeClose" onChange={handleChangeTime} />
+                    </div>
+                    {openCensus?.error !=="" ?
+                        <p >{openCensus?.error}</p>
+                        : ""}
+                    <div className="modalEdit-button">
+                        <Button 
+                            typeButton="normal" 
+                            height={45} 
+                            width={130} 
+                            text="Xác nhận"
+                            onClick={handleEditOpenCensus}
+                        />
+                    </div>
+                </div>
+            </Modal>
 
             <Modal isOpenModal={isOpenModalDetail} setIsOpenModal={setIsOpenModalDetail}>
                 <div className="openCensus-modal-content">

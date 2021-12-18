@@ -65,8 +65,26 @@
     width: 100%;
     justify-content: space-around;
 }
-
-
+.openCensus-open-time{
+    margin: 5px 0px;
+}
+.openCensus-open-timeOpen{
+    margin-top: 20px;
+}
+.openCensus-open-time label{
+    display: inline-block;
+    font-size: 18px;
+    color: rgb(143, 60, 60);
+}
+.openCensus-open-time b{
+    font-size: 20px;
+}
+.openCensus-open-buttonText{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 30px;
+}
 
 /* css bottom */
 .openCensus-bottom{
@@ -190,6 +208,54 @@
 }
 .openCensus-modal-table .iconView{
     cursor: pointer;
+}
+
+
+.modalEdit-content{
+    width: 400px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+}
+.modalEdit-content h3{
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    color: rgb(83, 83, 83);
+    margin-bottom: 20px;
+}
+.modalEdit-content-time{
+    margin: 8px;
+    font-size: 18px;
+    width: 100%;
+    text-align: center;
+}
+.modalEdit-content-time label{
+    font-size: 16px;
+    display: inline-block;
+    width: 120px;
+}
+.modalEdit-content-time input {
+    padding: 10px 10px 3px 10px;
+    outline: none;
+    font-size: 18px;
+    font-family: 'Quicksand' , sans-serif;
+    border: none;
+    border-bottom: 1.5px solid gray;
+    margin-left: 10px;
+}
+.modalEdit-content p{
+    color: red;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+}
+.modalEdit-button{
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
 }
 
 
