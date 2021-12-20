@@ -23,3 +23,11 @@
 .postSaved-listPost{
     width: 1000px;
 }
+.postSaved-listPost>p{
+    text-align: center;
+    width: 100%;
+    font-size: 28px;
+    margin-top: 200px;
+    font-weight: bold;
+    color: rgb(146, 38, 38);
+}

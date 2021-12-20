@@ -52,7 +52,7 @@ function Topbar() {
                                 </Link>}
                             <Link to="/postsaved"className="topbar-item topbar-saved">
                                 <i className="fas fa-save"></i>
-                                <span>Bài viết đã lưu</span>
+                                <span>Bài viết của bạn</span>
                             </Link>
                             <Link to="/work" className="topbar-item topbar-worker">
                                 <i className="fas fa-th-list"></i>

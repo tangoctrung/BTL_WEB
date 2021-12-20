@@ -5,7 +5,7 @@ const initialState = {
     allPosts: [],  // tất cả bài viết
     hotPosts: [],  // bài viết mới nhất
     codenamePosts: [], // bài viết thuộc tỉnh của người dùng
-    savedPosts: [], // bài viết đã lưu
+    userPosts: [], // bài viết của 1 user
     messagePost: "Không tìm thấy bài viết nào.", // message thông báo không tìm thấy bài post nào.
 };
 
@@ -15,7 +15,7 @@ const post = (state = initialState, action) => {
         case ACTIONS.ADD_POST: 
             return {
                 ...state,
-                allPosts:  allPosts.unshift(action.payload.post),
+                allPosts:  state.allPosts.unshift(action.payload.post),
             }
         case ACTIONS.GET_POST_ALL: 
             return {
@@ -32,20 +32,15 @@ const post = (state = initialState, action) => {
                 ...state,
                 codenamePosts: action.payload.listPost,
             }
-        case ACTIONS.GET_POST_SAVED: 
+        case ACTIONS.GET_POST_USER: 
             return {
                 ...state,
-                savedPosts: action.payload.listPost,
+                userPosts: action.payload.listPost,
             }
         case ACTIONS.MESSAGE_POST:
             return {
                 ...state,
                 messagePost: action.payload.message,
-            }
-        case ACTIONS.EDIT_POST:
-            return {
-                ...state,
-                savedPosts: [...state.savedPosts.slice(0, action.payload.index), action.payload.postSaved, ...state.savedPosts.slice(action.payload.index + 1)],
             }
         case ACTIONS.DELETE_POST:
             return {
@@ -54,13 +49,7 @@ const post = (state = initialState, action) => {
                     (post) => post._id !== action.payload.postId
                 ),
             }
-        case ACTIONS.CANCEL_SAVE_POST:
-            return {
-                ...state,
-                savedPosts: state.savedPosts.filter(
-                    (post) => post._id !== action.payload.postId
-                ),
-            }
+
         default:
             return state;
     }

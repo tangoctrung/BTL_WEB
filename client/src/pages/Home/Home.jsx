@@ -1,21 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "./Home.css";
 import ListPost from '../../components/ListPost/ListPost';
 import * as ACTIONS from "../../redux/constants/userContant";
 import { useDispatch, useSelector } from 'react-redux';
 import Topbar from '../../components/Topbar/Topbar';
+import { getAllPosts, getHotPosts, getCodenamePosts, deletePost, updateTotalWatch } from "../../redux/actions/postAction";
 
 
 function Home() {
 
     const dispatch = useDispatch();
-    const { user } = useSelector(state => state);
+    const { auth, user, post } = useSelector(state => state);
+    const codeName = auth?.user?.typeAccount === "A1" ? "Quốc gia" : auth?.user?.position.split("tế ")[1];
 
     const handleChangeArticleView = (s) => {
         dispatch({type: ACTIONS.ARTICLE_VIEW, payload: {
             articleView: s,
         }});
+        console.log(post);
     }
+
+    useEffect(() => {
+        if (user?.articleView === "1") {
+            dispatch(getAllPosts(auth?.accessToken));
+        } else if (user?.articleView === "2") {
+            dispatch(getHotPosts(auth?.accessToken));
+        } else if (user?.articleView === "3") {
+            dispatch(getCodenamePosts(codeName, auth?.accessToken));
+        }
+    }, [user?.articleView])
 
     return (
         <div className="home">
@@ -44,18 +57,21 @@ function Home() {
                                 Hot nhất
                             </span>
                         </div>
-                        <div className="home-news-item">
-                            <span 
-                                title="Tin tức liên quan đến địa phương của bạn"
-                                className={user.articleView==='3' ? "home-news-item-isActive" : ""}
-                                onClick={() => handleChangeArticleView('3')}
-                            >
-                                Liên quan nhất
-                            </span>
-                        </div>
+                        {auth?.accessToken && 
+                            <div className="home-news-item">
+                                <span 
+                                    title="Tin tức liên quan đến địa phương của bạn"
+                                    className={user.articleView==='3' ? "home-news-item-isActive" : ""}
+                                    onClick={() => handleChangeArticleView('3')}
+                                >
+                                    Liên quan nhất
+                                </span>
+                            </div>}
                     </div>
                     <div className="home-news-listPost">
-                        <ListPost />
+                        { user?.articleView ==="1" && <ListPost dataPost={post?.allPosts} />}
+                        { user?.articleView ==="2" && <ListPost dataPost={post?.hotPosts} />}
+                        { user?.articleView ==="3" && <ListPost dataPost={post?.codenamePosts} />}
                     </div>
                 </div>
             </div>
