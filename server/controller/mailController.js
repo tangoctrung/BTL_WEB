@@ -7,6 +7,7 @@ const createMail = async (req, res) => {
     try {
         const newMail = new Mail({title, content, sender, receiver});
         const mail = await newMail.save();
+        await mail.populate("sender", ["name", "avatar", "accountName"]);
         res.json({
             status: true,
             message: "Tạo thành công.",
@@ -35,17 +36,39 @@ const deleteMail = async (req, res) => {
     }
 }
 
-// lấy tất cả mail của 1 người gửi và nhận
-const getAllMail = async (req, res) => {
+// lấy tất cả mail đã gửi của 1 user
+const getAllMailSend = async (req, res) => {
     const userId = req.userId;
     const listMail = [];
     try {
-        const mails = await Mail.find();
+        const mails = await Mail.find({sender: userId}).sort({"createdAt": "desc"}).populate("sender", ["name", "avatar", "accountName"]);
+        mails.forEach((mail) => {       
+            if (!mail.deleted.includes(userId)) {
+                listMail.push(mail);
+            }   
+        })
+        if (listMail.length > 0) {
+            return res.status(200).json({
+                status: true,
+                data: listMail,
+            })
+        } else{
+            return res.json({status: false, message: "Bạn không có email nào."})
+        }
+    } catch (err) {
+        res.status(500).json({err});
+    }
+}
+
+// lấy tất cả mail đã nhận của 1 user
+const getAllMailReceive = async (req, res) => {
+    const userId = req.userId;
+    const listMail = [];
+    try {
+        const mails = await Mail.find({ receiver : { $all : [userId] }}).sort({"createdAt": "desc"}).populate("sender", ["name", "avatar", "accountName"]);
         mails.forEach((mail) => {
-            if (mail.sender === userId ||  mail.receiver.includes(userId)) {
-                if (!mail.deleted.includes(userId)) {
-                    listMail.push(mail);
-                }
+            if (!mail.deleted.includes(userId)) {
+                listMail.push(mail);
             }
         })
         if (listMail.length > 0) {
@@ -69,12 +92,13 @@ const updateWatched = async (req, res) => {
 
     try {
         const mail = await Mail.findById({_id: mailId});
-        console.log(mail);
         // nếu user là người gửi hoặc người nhận thì mới có quyền xem
         await mail.updateOne({$push: {watched: userId}});
+        await mail.populate("sender", ["name", "avatar", "accountName"]);
         return res.json({
             status: true,
             message: "Thành công.",
+            data: mail,
         })
     } catch (err) {
         res.status(500).json({err});
@@ -84,6 +108,7 @@ const updateWatched = async (req, res) => {
 module.exports = {
     createMail,
     deleteMail,
-    getAllMail,
+    getAllMailSend,
+    getAllMailReceive,
     updateWatched,
 }

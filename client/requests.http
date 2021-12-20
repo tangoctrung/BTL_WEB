@@ -15,7 +15,7 @@ POST http://localhost:8800/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "01",
+    "email": "a1@gmail.com",
     "password": "12345678"
 }
 
@@ -293,10 +293,10 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFiNmE2Y2EyMjQ3NTIyYTBmMmFjMWQiLCJ0eXBlQWNjb3VudCI6IkExIiwiYWNjb3VudE5hbWUiOiJhMUBnbWFpbC5jb20iLCJpYXQiOjE2Mzk5NzA4MzN9.-hpx_Ptoj9_mjXct99tZdnzhcPKGFrHFp5RcWLxgPhM
 
 {
-    "title": "Khai báo dân số",
-    "content": "Tình hình khai báo dân số đang có tiến độ rất chậm",
-    "sender": "61ab6a6ca2247522a0f2ac1d",
-    "receiver": ["61ae1d6112c1e9d3988b83cd"]
+    "title": "Báo cáo tình hình khai báo dân số",
+    "content": "Tình hình khai báo dân số đang rất tích cực...",
+    "sender": "61ae1d6112c1e9d3988b83cd",
+    "receiver": ["61ab6a6ca2247522a0f2ac1d"]
 }
 
 
@@ -306,7 +306,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWQ2MTEyYzFlOWQzOTg4YjgzY2QiLCJ0eXBlQWNjb3VudCI6IkEyIiwiYWNjb3VudE5hbWUiOiIwMSIsImlhdCI6MTYzOTk3MTQ0OH0.PDqOjhhQtUFryfC-PUlIymGs5-lELP9gkT1GxcrC52s
 
 {
-    "mailId": "61bffa5670b612483273b18f"
+    "mailId": "61c082984fe1f47571a2ce06"
 }
 
 ###
@@ -321,4 +321,4 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWQ2M
 ###
 GET http://localhost:8800/api/getallmail HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWQ2MTEyYzFlOWQzOTg4YjgzY2QiLCJ0eXBlQWNjb3VudCI6IkEyIiwiYWNjb3VudE5hbWUiOiIwMSIsImlhdCI6MTYzOTk3MTQ0OH0.PDqOjhhQtUFryfC-PUlIymGs5-lELP9gkT1GxcrC52s
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFiNmE2Y2EyMjQ3NTIyYTBmMmFjMWQiLCJ0eXBlQWNjb3VudCI6IkExIiwiYWNjb3VudE5hbWUiOiJhMUBnbWFpbC5jb20iLCJpYXQiOjE2Mzk5ODY2Mjl9.fCMLQS8q6hp0qagoPRmf5Z3v1nsWdwzLhP8j-zugoag

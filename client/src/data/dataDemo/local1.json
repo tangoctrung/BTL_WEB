@@ -1,0 +1,51 @@
+[
+    {
+        "Id": "01",
+        "Name": "Tỉnh Hà Nam",
+        "Districts": [
+            "Huyện Kim Bảng", "Huyện Lý Nhân", "Huyện Duy Tiên", "Huyện Thanh Liêm", "Huyện Bình Lục", "Thành phố Phủ Lý"
+        ]
+    },
+    {
+        "Id": "02",
+        "Name": "Huyện Kim Bảng",
+        "Ward": [
+            "Xã Tượng Lĩnh", "Xã Lê Hồ", "Xã Hoàng Tây", "Xã Khả Phong", "Xã Thụy Lôi", "Xã Tân Sơn", "Xã Ngọc Sơn", "Xã Nguyễn Uý", "Xã Nhật Tân", "Xã Nhật Tựu"
+        ]
+    },
+    {
+        "Id": "03",
+        "Name": "Xã Tượng Lĩnh",
+        "Village": [
+            "Thôn Phù Đê", "Thôn Quang Thừa", "Thôn Phúc Trung", "Thôn Ấp", "Thôn Thợ Cầu"
+        ]
+    },
+    {
+        "Id": "04",
+        "Name": "Xã Lê Hồ",
+        "Village": [
+            "Thôn Phương Đàn", "Thôn Phương Thượng", "Thôn An Đông", "Thôn Đồng Thái", "Thôn Đại Phú"
+        ]
+    },
+    {
+        "Id": "05",
+        "Name": "Huyện Thanh Liêm",
+        "Ward": [
+            "Xã Liêm Phong", "Xã Thanh Hà", "Xã Liêm Cần", "Xã Liêm Thuận", "Xã Thanh Thủy", "Xã Thanh Phong", "Xã Thanh Oai", "Xã Nghi Lộc"
+        ]
+    },
+    {
+        "Id": "06",
+        "Name": "Xã Liêm Phong",
+        "Village": [
+            "Thôn Cự Xá", "Thôn Nguyễn Trung", "Thôn Phú Lộc", "Thôn Thượng Trang", "Thôn Bình Hỏa", "Thôn Nghi Hương"
+        ]
+    },
+    {
+        "Id": "07",
+        "Name": "Xã Thanh Hà",
+        "Village": [
+            "Thôn An Hòa", "Thôn Dương Xá", "Thôn Hòa Ngãi", "Thôn Mậu Chử", "Thôn Quang Trung", "Thôn Bình Đằng"
+        ]
+    }
+]

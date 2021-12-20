@@ -19,7 +19,7 @@ function Post({post}) {
     return (
         <div className="post">
             <div className="post-top">
-                <Link to={`profile/${post?.author?._id}`} className="post-top-imgName">
+                <div className="post-top-imgName">
                     <div className="post-top-img">
                         <img src={post?.author?.avatar ? post?.author?.avatar : noAvatar} alt="avatar" />
                     </div>
@@ -27,7 +27,7 @@ function Post({post}) {
                         <strong>{post?.author?.name}</strong>
                         <p>{post?.author?.position}</p>
                     </div>
-                </Link>
+                </div>
                 <div className="post-top-menu">
                     <div className="post-top-item post-top-itemMenu">
                         <i className="fas fa-ellipsis-h"></i>

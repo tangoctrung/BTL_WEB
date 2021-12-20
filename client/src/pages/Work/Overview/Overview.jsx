@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import "./Overview.css";
 import dataLocal from '../../../data/dataDemo/local.json';
+import dataLocal1 from '../../../data/dataDemo/local1.json';
 import {dataViewMode} from '../../../data/dataDemo/dataViewMode';
 import Button from '../../../common/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,12 +20,41 @@ function Overview() {
     nameWard: '', 
     nameVillage: auth?.user?.typeAccount === "B2" ? auth?.user?.position.split("tế ")[1] : "", 
     tieuChi: ''});
+    const [data, setData] = useState({ huyen: [], xa: [], thon: [] });
     // khi người dùng nhập tên vùng
     const handleChange = (e) => {
         setState({ 
             ...state,
             [e.target.name] : e.target.value,
         });
+        if (e.target.value.includes("Tỉnh")) {
+            dataLocal1.map((data) => {
+                if (data.Name === e.target.value) {
+                    setData({
+                        ...state,
+                        huyen: data.Districts,
+                    })
+                }
+            })
+        } else if (e.target.value.includes("Huyện")) {
+            dataLocal1.map((data) => {
+                if (data.Name === e.target.value) {
+                    setData({
+                        ...state,
+                        xa: data.Ward,
+                    })
+                }
+            })
+        } else if (e.target.value.includes("Xã")) {
+            dataLocal1.map((data) => {
+                if (data.Name === e.target.value) {
+                    setData({
+                        ...state,
+                        thon: data.Village,
+                    })
+                }
+            })
+        }
         dispatch({type: ACTIONS.CLEAR_DATA});
     }
     
@@ -56,8 +86,8 @@ function Overview() {
                             <p>Tên huyện(quận)</p>
                             <input list="dataDistrict" type="email" multiple name="nameDistrict" onChange={handleChange}/>
                             <datalist id="dataDistrict">
-                                { dataLocal.map((city, index) => (
-                                    <option key={index} value={city.Name}>{city.Name}</option>
+                                { data?.huyen?.map((city, index) => (
+                                    <option key={index} value={city}>{city}</option>
                                 ))}
                             </datalist>
                         </div>}
@@ -67,8 +97,8 @@ function Overview() {
                             <p>Tên xã(phường)</p>
                             <input list="dataWard" type="email" multiple name="nameWard" onChange={handleChange}/>
                             <datalist id="dataWard">
-                                { dataLocal.map((city, index) => (
-                                    <option key={index} value={city.Name}>{city.Name}</option>
+                                { data?.xa?.map((city, index) => (
+                                    <option key={index} value={city}>{city}</option>
                                 ))}
                             </datalist>
                         </div>}
@@ -78,8 +108,8 @@ function Overview() {
                             <p>Tên thôn(phố, bản, làng)</p>
                             <input list="dataVillage" type="email" multiple name="nameVillage" onChange={handleChange} />
                             <datalist id="dataVillage">
-                                { dataLocal.map((city, index) => (
-                                    <option key={index} value={city.Name}>{city.Name}</option>
+                                { data?.thon?.map((city, index) => (
+                                    <option key={index} value={city}>{city}</option>
                                 ))}
                             </datalist>
                         </div>}

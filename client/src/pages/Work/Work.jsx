@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Leftbar from './Leftbar/Leftbar';
 import Mail from './Mail/Mail';
 import AddAcount from './AddAcount/AddAcount';
@@ -15,7 +15,8 @@ import ExportFile from './ExportFile/ExportFile';
 
 function Work() {
 
-    const { user } = useSelector(state => state);
+    const { auth, user, socket } = useSelector(state => state);
+    
 
     return (
         <div className="work">

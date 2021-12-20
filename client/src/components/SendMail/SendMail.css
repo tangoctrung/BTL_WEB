@@ -47,23 +47,6 @@
     font-weight: 500;
 }
 
-.sendMail-file{
-    width: 100%;
-    padding: 10px 0px;
-}
-.sendMail-file label{
-    cursor: pointer;
-    display: flex;
-    height: 150px;
-    justify-content: center;
-    align-items: center;
-    border: 1.5px solid gray;
-}
-.sendMail-file label i{
-    font-size: 28px;
-    color: rgb(68, 67, 67);
-    margin-right: 5px;
-}
 .sendMail-buttonSend{
     padding: 0px 10px;
 }

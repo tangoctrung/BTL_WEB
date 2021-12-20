@@ -17,7 +17,6 @@ function Home() {
         dispatch({type: ACTIONS.ARTICLE_VIEW, payload: {
             articleView: s,
         }});
-        console.log(post);
     }
 
     useEffect(() => {
@@ -57,16 +56,7 @@ function Home() {
                                 Hot nhất
                             </span>
                         </div>
-                        {auth?.accessToken && 
-                            <div className="home-news-item">
-                                <span 
-                                    title="Tin tức liên quan đến địa phương của bạn"
-                                    className={user.articleView==='3' ? "home-news-item-isActive" : ""}
-                                    onClick={() => handleChangeArticleView('3')}
-                                >
-                                    Liên quan nhất
-                                </span>
-                            </div>}
+                        
                     </div>
                     <div className="home-news-listPost">
                         { user?.articleView ==="1" && <ListPost dataPost={post?.allPosts} />}

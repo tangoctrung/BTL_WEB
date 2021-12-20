@@ -441,7 +441,7 @@ const getCitizenNation = async (req, res) => {
 
         // nếu có dữ liệu sẽ phân tích theo tỉ lệ dân tộc
         let dataNation = {
-            kinh: {name: "Kinh", quantity: 0}, tay: {name: "Kinh", quantity: 0}, thai: {name: "Thái", quantity: 0},
+            kinh: {name: "Kinh", quantity: 0}, tay: {name: "Tày", quantity: 0}, thai: {name: "Thái", quantity: 0},
             mong: {name: "Mông", quantity: 0}, hoa: {name: "Hoa", quantity: 0}, khmer: {name: "Khmer", quantity: 0}, 
             nung: {name: "Nùng", quantity: 0}, muong: {name: "Mường", quantity: 0}, dao: {name: "Dao", quantity: 0}, 
             cham: {name: "Chăm", quantity: 0}, khac: {name: "Khác", quantity: 0},

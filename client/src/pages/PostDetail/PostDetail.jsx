@@ -30,7 +30,6 @@ function PostDetail() {
     const [post, setPost] = useState();
     const location = useLocation();
     const postId = location.pathname.split("/")[2];
-    console.log(postId);
 
     useEffect(()=> {
         const fetchPost = async () => {
@@ -39,7 +38,6 @@ function PostDetail() {
                     Authorization: 'Bearer ' + auth?.accessToken
                 }
             });
-            console.log(res.data);
             if (res.data.status) {
                 setPost(res.data.data);
             } else {

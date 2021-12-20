@@ -7,6 +7,7 @@ import addCode from './addCodeReducer';
 import overView from './overViewReducer';
 import openCensus from './openCensusReducer';
 import post from './postReducer';
+import socket from './socketReducer';
 
 const rootReducer = combineReducers({
     auth,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     overView,
     openCensus,
     post,
+    socket,
 });
 
 export default rootReducer;
