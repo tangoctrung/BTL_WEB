@@ -65,14 +65,15 @@ export const addCitizen = (data, token) => async (dispatch) => {
     }
 }
 
-export const updateCitizen = (index, data, userId, token) => async (dispatch) => {
+export const updateCitizen = (index, data, userId, setIsOpenModal, token) => async (dispatch) => {
     try {
         const res = await putDataAPI(`updatecitizen/${userId}`, data, token);
         if (res.data.status) {
             dispatch({type: ACTIONS.EDIT_CITIZEN, payload: {
                 index: index,
                 citizen: data,
-            }})
+            }});
+            setIsOpenModal(false);
         } else {
             dispatch({type: ACTIONS.EDIT_CITIZEN_ERROR, payload: {message: res.data.message}})
         }
@@ -81,15 +82,16 @@ export const updateCitizen = (index, data, userId, token) => async (dispatch) =>
     }
 }
 
-export const deleteCitizen = (citizenId, token) => async (dispatch) => {
+export const deleteCitizen = (citizenId, setIsOpenModalDeleteCitizen, token) => async (dispatch) => {
     try {
         const res = await deleteDataAPI(`deletecitizen/${citizenId}`, token);
         if (res.data.status) {
             dispatch({type: ACTIONS.DELETE_CITIZEN, payload: {
                 citizenId: citizenId,
-            }})
+            }});
+            setIsOpenModalDeleteCitizen(false);
         } else {
-            // dispatch({type: ACTIONS.EDIT_CITIZEN_ERROR, payload: {message: res.data.message}})
+            dispatch({type: ACTIONS.DELETE_CITIZEN_ERROR, payload: {message: res.data.message}})
         }
     } catch (err) {
         console.log(err);

@@ -9,14 +9,19 @@ import { updateUser } from "../../redux/actions/authAction";
 import { changePassword } from "../../redux/actions/userAction";
 import {storage} from '../../firebase';
 import "./Profile.css";
-import { noAvatar } from "../../api/urlApi";
+import { noAvatar, urlApi } from "../../api/urlApi";
 import moment from 'moment';
+import { useLocation } from 'react-router';
+import axios from 'axios';
 
 function Profile() {
 
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [isOpenModalPassword, setIsOpenModalPassword] = useState(false);
     const { auth, user } = useSelector(state => state);
+    const location = useLocation();
+    const [userId, setUserId] = useState(location?.pathname?.split("/")[2]);
+    const [dataUser, setDataUser] = useState();
     const dispatch = useDispatch();
     const [state, setState] = useState({name: auth?.user?.name ? auth?.user?.name : '', phone: auth?.user?.phone ? auth?.user?.phone : '', 
         avatar: auth?.user?.avatar ? auth?.user?.avatar : noAvatar, date: auth?.user?.date ? moment(auth?.user?.date).format("YYYY-MM-DD") : '', 
@@ -36,6 +41,25 @@ function Profile() {
         gender: auth?.user?.gender ? auth?.user?.gender : '', address: auth?.user?.address ? auth?.user?.address : '', 
         hometown: auth?.user?.hometown ? auth?.user?.hometown : '', infoOther: auth?.user?.infoOther ? auth?.user?.infoOther : ''});
     }, [ auth?.user])
+
+    // lấy info user từ userId
+    useEffect(() => {
+        if (auth?.user?._id === userId) {
+            setDataUser(auth?.user);
+        } else {
+            const fetchUser = async () => {
+                const res = await axios.get(urlApi + `/getauser/${userId}`, {
+                    headers: {
+                        Authorization: 'Bearer ' + auth?.accessToken
+                    }
+                })
+                if (res.data.status) {
+                    setDataUser(res.data.user);
+                }
+            }
+            fetchUser();
+        }
+    }, [userId, location]);
 
     // khi người dùng chọn avatar
     const handleChooseAvatar = (e) => {
@@ -96,45 +120,46 @@ function Profile() {
             <div className="profile-bottom">
                 <div className="profile-content">
                     <h1>Thông tin cá nhân</h1>
-                    <div className="profile-optionEdit">
-                        <i className="fas fa-cog" title="Chỉnh sửa"></i>
-                        <div className="profile-optionList">
-                            <div className="profile-optionItem" onClick={()=> setIsOpenModalPassword(true)}>
-                                <i className="fas fa-key" 
-                                ></i>
-                                <span> Thay đổi mật khẩu</span>
+                    {auth?.user?._id === userId && 
+                        <div className="profile-optionEdit">
+                            <i className="fas fa-cog" title="Chỉnh sửa"></i>
+                            <div className="profile-optionList">
+                                <div className="profile-optionItem" onClick={()=> setIsOpenModalPassword(true)}>
+                                    <i className="fas fa-key" 
+                                    ></i>
+                                    <span> Thay đổi mật khẩu</span>
+                                </div>
+                                <div className="profile-optionItem" onClick={()=> setIsOpenModal(true)}>
+                                    <i 
+                                        className="fas fa-user-edit"                            
+                                    ></i>
+                                    <span> Sửa thông tin</span>
+                                </div>
                             </div>
-                            <div className="profile-optionItem" onClick={()=> setIsOpenModal(true)}>
-                                <i 
-                                    className="fas fa-user-edit"                            
-                                ></i>
-                                <span> Sửa thông tin</span>
-                            </div>
-                        </div>
-                    </div>
+                        </div>}
                     <div className="profile-infoBasic">
                         <h3>Thông tin cơ bản</h3>
                         <div className="profile-infoBasic-content">
                             <div className="profile-infoBasic-img">
-                                <img src={auth?.user?.avatar ? auth?.user?.avatar : noAvatar} alt="avatar" />
+                                <img src={dataUser?.avatar ? dataUser?.avatar : noAvatar} alt="avatar" />
                             </div>
                             <div className="profile-infoBasic-listInfo">
-                                <p><b>Họ và tên: </b> {auth?.user?.name ? auth?.user?.name : "Anonymous"}</p>
-                                <p><b>Chức vụ: </b> {auth?.user?.position ? auth?.user?.position : "Anonymous"}</p>
-                                <p><b>Ngày sinh: </b> {auth?.user?.date ? moment(auth?.user?.date).format("DD-MM-YYYY") : "Anonymous"}</p>
-                                <p><b>Giới tính: </b> {auth?.user?.gender ? auth?.user?.gender : "Anonymous"}</p>
-                                <p><b>Dân tộc: </b> {auth?.user?.nation ? auth?.user?.nation : "Anonymous"}</p>
-                                <p><b>Tôn giáo: </b> {auth?.user?.religion ? auth?.user?.religion : "Anonymous"}</p>
-                                <p><b>SĐT: </b> {auth?.user?.phone ? auth?.user?.phone : "Anonymous"}</p>
-                                <p><b>Nơi ở: </b>{auth?.user?.address ? auth?.user?.address : "Anonymous"}</p>
-                                <p><b>Quên quán: </b>{auth?.user?.hometown ? auth?.user?.hometown : "Anonymous"}</p>
+                                <p><b>Họ và tên: </b> {dataUser?.name ? dataUser?.name : "Anonymous"}</p>
+                                <p><b>Chức vụ: </b> {dataUser?.position ? dataUser?.position : "Anonymous"}</p>
+                                <p><b>Ngày sinh: </b> {dataUser?.date ? moment(dataUser?.date).format("DD-MM-YYYY") : "Anonymous"}</p>
+                                <p><b>Giới tính: </b> {dataUser?.gender ? dataUser?.gender : "Anonymous"}</p>
+                                <p><b>Dân tộc: </b> {dataUser?.nation ? dataUser?.nation : "Anonymous"}</p>
+                                <p><b>Tôn giáo: </b> {dataUser?.religion ? dataUser?.religion : "Anonymous"}</p>
+                                <p><b>SĐT: </b> {dataUser?.phone ? dataUser?.phone : "Anonymous"}</p>
+                                <p><b>Nơi ở: </b>{dataUser?.address ? dataUser?.address : "Anonymous"}</p>
+                                <p><b>Quên quán: </b>{dataUser?.hometown ? dataUser?.hometown : "Anonymous"}</p>
                             </div>
                         </div>
                     </div>
                     <div className="profile-infoOther">
                         <h3>Thông tin khác</h3>
                         <div className="profile-infoOther-content">
-                            <p>{auth?.user?.infoOther ? auth?.user?.infoOther : "Anonymous"}</p>
+                            <p>{dataUser?.infoOther ? dataUser?.infoOther : "Anonymous"}</p>
                         </div>
                     </div>
                 </div>

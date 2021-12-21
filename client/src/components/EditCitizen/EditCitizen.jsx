@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function EditCitizen({citizen, index, setIsOpenModal}) {
 
-    const { auth } = useSelector(state => state);
+    const { auth, user } = useSelector(state => state);
     const dispatch = useDispatch();
     const [file, setFile] = useState();
     const [state, setState] = useState({
@@ -40,8 +40,8 @@ function EditCitizen({citizen, index, setIsOpenModal}) {
     const handleSubmitUpdate = (e) => {
         e.preventDefault();
         // console.log(state);
-        dispatch(updateCitizen( index, state, citizen?._id, auth?.accessToken));
-        setIsOpenModal(false);
+        dispatch(updateCitizen( index, state, citizen?._id, setIsOpenModal, auth?.accessToken));
+        
     }
 
     return (
@@ -249,6 +249,11 @@ function EditCitizen({citizen, index, setIsOpenModal}) {
                 </div>
             </div>
 
+            <div className="editCitizen-error">
+                <p style={{color: "red", width: "100%", textAlign: "center", marginTop: "10px"}}>
+                    {user?.messageCitizenEdit ? user?.messageCitizenEdit : ''}
+                </p>
+            </div>
             <div className="editCitizen-button">
                 <Button typeButton="normal" text="Cập nhật" width={130} height={50} onClick={handleSubmitUpdate} />
             </div>

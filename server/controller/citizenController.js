@@ -26,10 +26,10 @@ const AddCitizen = async (req, res) => {
                 })
             } else {
     
-                if (!code.statusCensus) {
+                if (!code.statusCensus || code.isComplete) {
                     return res.json({
                         status: false,
-                        message: "Cuộc khảo sát dân số chưa được mở.",
+                        message: "Bạn không có quyền chỉnh sửa nữa.",
                     })
                 }
 
@@ -105,27 +105,26 @@ const UpdateCitizen = async (req, res) => {
          numCCCD, infoDetail, infoFamily, hometownCity, hometownDistrict, hometownWard, hometownVillage, addressCity, addressDistrict, addressWard, addressVillage,
         codeArea, //mã của vùng mở cuộc điều tra dân số
         timeAdd, // thời gian lúc thêm citizen
-        typeAccount,
     } = req.body;
     const data = {
         name, education, nation, religion, phone, email, avatar, date, job, gender,
         numCCCD, infoDetail, infoFamily, hometownCity, hometownDistrict, hometownWard, hometownVillage, addressCity, addressDistrict, addressWard, addressVillage,
     }
-    console.log(data);
+    const typeAccount = req.typeAccount;
     // kiểm tra xem còn trong thời gian khai báo dân số không
     if (typeAccount !== "A1") {
         const code = await Code.findOne({code: codeArea});
         if (!code) {
             return res.json({
                 status: false,
-                message: "Địa phương này không tồn tại.",
+                message: "Bạn không thể xóa công dân này.",
             })
         } else {
 
-            if (!code.statusCensus) {
+            if (!code.statusCensus || code.isComplete) {
                 return res.json({
                     status: false,
-                    message: "Cuộc khảo sát dân số chưa được mở.",
+                    message: "Bạn không có quyền chỉnh sửa nữa.",
                 })
             }
 
@@ -160,42 +159,40 @@ const UpdateCitizen = async (req, res) => {
 // xóa thông tin của công dân có số CCCD
 const DeleteCitizen = async (req, res) => {
     const userId = req.params.id;
-    // const { codeArea, //mã của vùng mở cuộc điều tra dân số
-    //     timeAdd, // thời gian lúc thêm citizen
-    //     typeAccount,
-    // } = req.body;
-    // // kiểm tra xem còn trong thời gian khai báo dân số không
-    // if (typeAccount !== "A1") {
-    //     const code = await Code.findOne({code: codeArea});
-    //     if (!code) {
-    //         return res.json({
-    //             status: false,
-    //             message: "Địa phương này không tồn tại.",
-    //         })
-    //     } else {
+    const typeAccount = req.typeAccount;
+    // kiểm tra xem còn trong thời gian khai báo dân số không
+    if (typeAccount !== "A1") {
+        const codeArea = req.accountName.slice(0, req.accountName.length - 2);
+        const code = await Code.findOne({code: codeArea});
+        if (!code) {
+            return res.json({
+                status: false,
+                message: "Địa phương này không tồn tại.",
+            })
+        } else {
 
-    //         if (!code.statusCensus) {
-    //             return res.json({
-    //                 status: false,
-    //                 message: "Cuộc khảo sát dân số chưa được mở.",
-    //             })
-    //         }
+            if (!code.statusCensus || code.isComplete) {
+                return res.json({
+                    status: false,
+                    message: "Bạn không có quyền chỉnh sửa nữa.",
+                })
+            }
 
-    //         if (moment(timeAdd).format("YYYY-MM-DD") < moment(code.timeOpen).format("YYYY-MM-DD")) {
-    //             return res.json({
-    //                 status: false,
-    //                 message: "Cuộc khảo sát dân số chưa được mở.",
-    //             })
-    //         }
+            if (moment(timeAdd).format("YYYY-MM-DD") < moment(code.timeOpen).format("YYYY-MM-DD")) {
+                return res.json({
+                    status: false,
+                    message: "Cuộc khảo sát dân số chưa được mở.",
+                })
+            }
 
-    //         if (moment(timeAdd).format("YYYY-MM-DD") > moment(code.timeClose).format("YYYY-MM-DD")) {
-    //             return res.json({
-    //                 status: false,
-    //                 message: "Đã quá hạn thời gian khảo sát dân số, bạn không thể chỉnh sửa gì được nữa.",
-    //             })
-    //         }
-    //     }
-    // }
+            if (moment(timeAdd).format("YYYY-MM-DD") > moment(code.timeClose).format("YYYY-MM-DD")) {
+                return res.json({
+                    status: false,
+                    message: "Đã quá hạn thời gian khảo sát dân số, bạn không thể chỉnh sửa gì được nữa.",
+                })
+            }
+        }
+    }
     try {
         await Citizen.findByIdAndDelete({_id: userId});
         res.json({
@@ -309,6 +306,17 @@ const getCitizenId = async (req, res) => {
 // lấy công dân theo tỉ lệ nam nữ của một vùng nào đó
 const getCitizenGender = async (req, res) => {
     const codeName = req.query.codeName; // tên vùng muốn xem
+    if (req.typeAccount !== "A1") {
+        const newCode = await Code.findOne({name: codeName});
+        const code = newCode.code;
+        const codeUser = req.accountName;
+        if (code.slice(0, codeUser.length) !== codeUser) {
+            return res.json({
+                status: false,
+                message: "Bạn không có quyền xem dữ liệu của địa phương này."
+            })
+        }
+    }
     const level = req.query.level;  // level của vùng đó: tỉnh, huyện, xã, thôn
     try {
         let citizens = null;
@@ -356,6 +364,17 @@ const getCitizenGender = async (req, res) => {
 const getCitizenAge = async (req, res) => {
     const codeName = req.query.codeName; // tên vùng muốn xem
     const level = req.query.level;  // level của vùng đó: tỉnh, huyện, xã, thôn
+    if (req.typeAccount !== "A1") {
+        const newCode = await Code.findOne({name: codeName});
+        const code = newCode.code;
+        const codeUser = req.accountName;
+        if (code.slice(0, codeUser.length) !== codeUser) {
+            return res.json({
+                status: false,
+                message: "Bạn không có quyền xem dữ liệu của địa phương này."
+            })
+        }
+    }
     try {
         let citizens = null;
         if (level === "Tỉnh") {
@@ -419,6 +438,17 @@ const getCitizenAge = async (req, res) => {
 const getCitizenNation = async (req, res) => {
     const codeName = req.query.codeName; // tên vùng muốn xem
     const level = req.query.level;  // level của vùng đó: tỉnh, huyện, xã, thôn
+    if (req.typeAccount !== "A1") {
+        const newCode = await Code.findOne({name: codeName});
+        const code = newCode.code;
+        const codeUser = req.accountName;
+        if (code.slice(0, codeUser.length) !== codeUser) {
+            return res.json({
+                status: false,
+                message: "Bạn không có quyền xem dữ liệu của địa phương này."
+            })
+        }
+    }
     try {
         let citizens = null;
         if (level === "Tỉnh") {
@@ -476,6 +506,17 @@ const getCitizenNation = async (req, res) => {
 const getCitizenReligion = async (req, res) => {
     const codeName = req.query.codeName; // tên vùng muốn xem
     const level = req.query.level;  // level của vùng đó: tỉnh, huyện, xã, thôn
+    if (req.typeAccount !== "A1") {
+        const newCode = await Code.findOne({name: codeName});
+        const code = newCode.code;
+        const codeUser = req.accountName;
+        if (code.slice(0, codeUser.length) !== codeUser) {
+            return res.json({
+                status: false,
+                message: "Bạn không có quyền xem dữ liệu của địa phương này."
+            })
+        }
+    }
     try {
         let citizens = null;
         if (level === "Tỉnh") {
@@ -531,6 +572,17 @@ const getCitizenReligion = async (req, res) => {
 const getCitizenEducation = async (req, res) => {
     const codeName = req.query.codeName; // tên vùng muốn xem
     const level = req.query.level;  // level của vùng đó: tỉnh, huyện, xã, thôn
+    if (req.typeAccount !== "A1") {
+        const newCode = await Code.findOne({name: codeName});
+        const code = newCode.code;
+        const codeUser = req.accountName;
+        if (code.slice(0, codeUser.length) !== codeUser) {
+            return res.json({
+                status: false,
+                message: "Bạn không có quyền xem dữ liệu của địa phương này."
+            })
+        }
+    }
     try {
         let citizens = null;
         if (level === "Tỉnh") {
@@ -589,6 +641,17 @@ const getCitizenEducation = async (req, res) => {
 const getCitizenJob = async (req, res) => {
     const codeName = req.query.codeName; // tên vùng muốn xem
     const level = req.query.level;  // level của vùng đó: tỉnh, huyện, xã, thôn
+    if (req.typeAccount !== "A1") {
+        const newCode = await Code.findOne({name: codeName});
+        const code = newCode.code;
+        const codeUser = req.accountName;
+        if (code.slice(0, codeUser.length) !== codeUser) {
+            return res.json({
+                status: false,
+                message: "Bạn không có quyền xem dữ liệu của địa phương này."
+            })
+        }
+    }
     try {
         let citizens = null;
         if (level === "Tỉnh") {

@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Button from '../../../common/Button/Button';
 import Modal from '../../../common/Modal/Modal';
 import "./OpenCensus.css";
-import { getCodeNameOpenCensus, getCitizenCodename, checkTimeCensus, openCensusTime, editCensusTime } from "../../../redux/actions/openCensusAction";
+import { getCodeNameOpenCensus, getCitizenCodename, completeCensus,
+    checkTimeCensus, openCensusTime, editCensusTime } from "../../../redux/actions/openCensusAction";
 import moment from "moment";
 import { urlClient } from '../../../api/urlApi';
 import * as ACTIONS from "../../../redux/constants/openCensusContant";
@@ -15,6 +16,7 @@ function OpenCensus() {
     const { auth, openCensus } = useSelector(state => state);
     const [isOpenModalDetail, setIsOpenModalDetail] = useState(false); 
     const [isOpenModalEdit, setIsOpenModalEdit] = useState(false);
+    const [isOpenModalComplete, setIsOpenModalComplete] = useState(false);
     const [codeName, setCodeName] = useState();
     const [time, setTime] = useState({ timeOpen: null, timeClose: null });
 
@@ -78,10 +80,16 @@ function OpenCensus() {
     const handleEditOpenCensus = () => {
         dispatch(editCensusTime(setIsOpenModalEdit ,time, auth?.accessToken));
     }
-    //khi người dùng hủy cuộc khảo sát dân số
-    const handleCancelOpenCensus = () => {
-
+    // open modal completeCensus
+    const handleOpenModalComplete = () => {
+        dispatch({type: ACTIONS.CLEAR_MESSAGE});
+        setIsOpenModalComplete(true);
     }
+    //khi người dùng hoàn thành cuộc khảo sát dân số
+    const handleComleteOpenCensus = () => {
+        dispatch(completeCensus(setIsOpenModalComplete, auth?.accessToken));
+    }
+
 
 
     return (
@@ -145,9 +153,9 @@ function OpenCensus() {
                                         typeButton="normal" 
                                         width={120} 
                                         height={45} 
-                                        text="Kết thúc" 
+                                        text="Hoàn thành" 
                                         borderRadius={30}
-                                        onClick={handleCancelOpenCensus}
+                                        onClick={handleOpenModalComplete}
                                     />
                                 </div>
                             </div>
@@ -170,8 +178,12 @@ function OpenCensus() {
                             <div className="openCensus-listLocalName">
                                 { openCensus?.city.length > 0   && openCensus?.city.map((city, index) => (
                                     <div className="openCensus-itemLocalName" key={index}>
-                                        <div className="openCensus-itemLocalName-content" onClick={()=> handleChooseCode(city?.code)} >
+                                        <div 
+                                        className="openCensus-itemLocalName-content"
+                                        onClick={()=> handleChooseCode(city?.code)} 
+                                        >
                                             <b>{index+1}. {city?.name} - {city?.code}</b>
+                                            {city?.isComplete && <i className="fas fa-check"></i>}
                                         </div>
                                         <b onClick={()=> handleClickDetail(city?.name, "Tỉnh")}>Chi tiết</b>
                                     </div>
@@ -188,8 +200,12 @@ function OpenCensus() {
                             <div className="openCensus-listLocalName">
                                 { openCensus?.district.length > 0   ? openCensus?.district.map((district, index) => (
                                     <div className="openCensus-itemLocalName" key={index}>
-                                        <div className="openCensus-itemLocalName-content" onClick={()=> handleChooseCode(district?.code)} >
+                                        <div 
+                                        className="openCensus-itemLocalName-content"
+                                        onClick={()=> handleChooseCode(district?.code)} 
+                                        >
                                             <b>{index+1}. {district?.name} - {district?.code}</b>
+                                            {district?.isComplete && <i className="fas fa-check"></i>}
                                         </div>
                                         <b onClick={()=> handleClickDetail(district?.name, "Huyện")}>Chi tiết</b>
                                     </div>
@@ -206,8 +222,12 @@ function OpenCensus() {
                             <div className="openCensus-listLocalName">
                                 { openCensus?.ward.length > 0   ? openCensus?.ward.map((ward, index) => (
                                     <div className="openCensus-itemLocalName" key={index}>
-                                        <div className="openCensus-itemLocalName-content" onClick={()=> handleChooseCode(ward?.code)} >
+                                        <div 
+                                        className="openCensus-itemLocalName-content"
+                                        onClick={()=> handleChooseCode(ward?.code)} 
+                                        >
                                             <b>{index+1}. {ward?.name} - {ward?.code}</b>
+                                            {ward?.isComplete && <i className="fas fa-check"></i>}
                                         </div>
                                         <b onClick={()=> handleClickDetail(ward?.name, "Xã")}>Chi tiết</b>
                                     </div>
@@ -305,6 +325,30 @@ function OpenCensus() {
                         </>
                         : <p>Không có dữ liệu.</p>}
                     
+                </div>
+            </Modal>
+
+            <Modal isOpenModal={isOpenModalComplete} setIsOpenModal={setIsOpenModalComplete}>
+                <div className="modalComplete-content">
+                    <h2>Bạn có chắc muốn hoàn thành không?</h2>
+                    <p>Khi bạn ấn <b>Có</b> thì bạn sẽ kết thúc cuộc khảo sát dân số và không thể thay đổi được gì nữa.</p>
+                    <span>{openCensus?.messageComplete ? openCensus?.messageComplete : ""}</span>
+                    <div className="modalComplete-listButton">
+                        <div className="modalComplete-itemButton">
+                            <Button 
+                            typeButton="normal" 
+                            height={45} width={120} text="Có" 
+                            onClick={handleComleteOpenCensus}
+                            />
+                        </div>
+                        <div className="modalComplete-itemButton">
+                            <Button 
+                            typeButton="normal" 
+                            height={45} width={120} text="Không" 
+                            onClick={()=>setIsOpenModalComplete(false)}
+                            />
+                        </div>
+                    </div>
                 </div>
             </Modal>
         </div>

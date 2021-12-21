@@ -1,6 +1,5 @@
 .postDetail{
     background-color: rgb(207, 207, 207);
-    width: 100vw;
     display: flex;
     min-height: calc(100vh);
 }

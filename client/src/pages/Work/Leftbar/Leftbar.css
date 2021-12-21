@@ -50,6 +50,7 @@
     align-items: center;
     cursor: pointer;
     text-decoration: none;
+    font-weight: 500;
 }
 .leftbar-item-isActive{
     border-radius: 0px;

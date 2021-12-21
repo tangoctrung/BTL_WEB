@@ -281,6 +281,14 @@ const openCensusCode = async (req, res) => {
                     })
                 }
             }
+            // kiểm tra xem thời gian đóng và thời gian mở đã tồn tại hay chưa 
+            if (!timeClose || !timeOpen) {
+                return res.json({
+                    status: false,
+                    message: "Thời gian khai báo đang không hợp lệ.",
+                    messageDetail: "Thời gian mở hoặc thời gian kết thúc cuộc khai báo dân số đang bị rỗng(có thể do bạn chưa điền thời gian), hãy xem lại."
+                })
+            }
             // kiểm tra xem thời gian đóng và thời gian mở có hợp lệ không
             if (timeClose < timeOpen) {
                 return res.json({
@@ -307,6 +315,34 @@ const openCensusCode = async (req, res) => {
         }
     } catch (e) {
         res.status(500).send({e});
+    }
+}
+
+// đánh dầu đã hoàn thành cuộc khảo sát dân Số
+const completeCensus = async (req, res) => {
+    try {
+        const accountName = req.accountName;
+        if (req.typeAccount !== "A1") {
+            // // kiểm tra xem địa phương cấp dưới nó đã hoàn thành khảo sát hay chưa
+            // const codes = await Code.find();
+            // codes.forEach(code => {
+            //     if (code.code.slice(0, accountName.length) === accountName) {
+            //         if (!code.isComplete) {
+            //             return res.json({
+            //                 status: false,
+            //                 message: "Có địa phương cấp dưới bạn chưa hoàn thành nên bạn không thể hoàn thành được."
+            //             });
+            //         }
+            //     }
+            // })
+            await Code.findOneAndUpdate({code: accountName}, {isComplete: true, statusCensus: false});
+            res.json({
+                status: true,
+                message: "Thành công",
+            })
+        }
+    } catch (err) {
+        res.status(500).send(err);
     }
 }
 
@@ -446,4 +482,5 @@ module.exports = {
     getAllCodeAndCitizen,
     checkCodeName,
     editTimeCensus,
+    completeCensus,
 }

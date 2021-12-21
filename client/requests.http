@@ -15,7 +15,7 @@ POST http://localhost:8800/api/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "a1@gmail.com",
+    "email": "0201",
     "password": "12345678"
 }
 
@@ -33,6 +33,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWVmM
 
 ###
 GET http://localhost:8800/api/getuser HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWVmMzEyYzFlOWQzOTg4YjgzZWYiLCJ0eXBlQWNjb3VudCI6IkIyIiwiYWNjb3VudE5hbWUiOiIwMjAxMDEwMSIsImlhdCI6MTYzOTQwOTYzNH0.42v-U8IZy4zv-jxcr_QmbwMSOMLDmw02qm-gL7oWj6Q
+
+###
+GET http://localhost:8800/api/getauser/61ab6a6ca2247522a0f2ac1d HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWVmMzEyYzFlOWQzOTg4YjgzZWYiLCJ0eXBlQWNjb3VudCI6IkIyIiwiYWNjb3VudE5hbWUiOiIwMjAxMDEwMSIsImlhdCI6MTYzOTQwOTYzNH0.42v-U8IZy4zv-jxcr_QmbwMSOMLDmw02qm-gL7oWj6Q
 
 
@@ -322,3 +326,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWQ2M
 GET http://localhost:8800/api/getallmail HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFiNmE2Y2EyMjQ3NTIyYTBmMmFjMWQiLCJ0eXBlQWNjb3VudCI6IkExIiwiYWNjb3VudE5hbWUiOiJhMUBnbWFpbC5jb20iLCJpYXQiOjE2Mzk5ODY2Mjl9.fCMLQS8q6hp0qagoPRmf5Z3v1nsWdwzLhP8j-zugoag
+
+
+###
+PUT http://localhost:8800/api/completecensus HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWU4NDEyYzFlOWQzOTg4YjgzZGYiLCJ0eXBlQWNjb3VudCI6IkEzIiwiYWNjb3VudE5hbWUiOiIwMjAxIiwiaWF0IjoxNjQwMDczNzA2fQ.u3hoPaAMjB8AMnX0zpfVTIN7l9JSKoozTMO6Wy2Qy1s

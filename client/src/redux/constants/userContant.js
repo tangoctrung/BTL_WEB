@@ -16,6 +16,8 @@ export const EDIT_CITIZEN = "EDIT_CITIZEN"; // sửa,cập nhật 1 citizen
 
 export const EDIT_CITIZEN_ERROR = "EDIT_CITIZEN_ERROR"; // sửa,cập nhật 1 citizen bị lỗi
 
+export const DELETE_CITIZEN_ERROR = "DELETE_CITIZEN_ERROR";
+
 export const DELETE_CITIZEN = "DELETE_CITIZEN"; // xóa 1 citizen
 
 export const CLEAR_MESSAGE_CITIZEN = "CLEAR_MESSAGE_CITIZEN"; // thêm 1 citizen

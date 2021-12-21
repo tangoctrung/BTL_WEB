@@ -8,6 +8,7 @@ export const sendMail = (data, socket, token) => async (dispatch) => {
         if (res.data.status) {
             dispatch({type: ACTIONS.SEND_MAIL, payload: {mail: res.data.data}});
             socket.emit("sendMail", res.data.data);
+            dispatch({type: ACTIONS.CLOSE_SEND_MAIL});
         }
     } catch (err) {
         console.log(err);

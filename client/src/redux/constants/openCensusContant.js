@@ -25,3 +25,7 @@ export const GET_CITIZEN_CODENAME = "GET_CITIZEN_CODENAME"; //  nhận được 
 export const GET_CITIZEN_CODENAME_ERROR = "GET_CITIZEN_CODENAME_ERROR"; // thông báo không nhận được citizen để hiển thị
 
 export const CHECK_OPEN_CENSUS = "CHECK_OPEN_CENSUS" // kiểm tra xem cuộc khảo sát đã kết thúc hay chưa.
+
+export const COMPLETE_CENSUS = "COMPLETE_CENSUS" // hoàn thành cuộc khảo sát dân số.
+
+export const COMPLETE_CENSUS_ERROR = "COMPLETE_CENSUS_ERROR" // hoàn thành cuộc khảo sát dân số bị lỗi.

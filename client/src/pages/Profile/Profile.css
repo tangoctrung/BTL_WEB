@@ -1,6 +1,5 @@
 .profile{
     background-color: rgb(214, 214, 214);
-    width: 100vw;
     display: flex;
     min-height: calc(100vh);
     overflow-x: hidden;

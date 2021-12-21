@@ -1,9 +1,12 @@
 .work{
     background-color: rgb(240,242,245);
-    width: 100vw;
     display: flex;
     min-height: calc(100vh);
     overflow-x: hidden;
+}
+.work-top{
+    height: 70px;
+    width: 100%;
 }
 .work-bottom{
     margin-top: 70px;
@@ -12,7 +15,7 @@
     display: block;
     width: 300px;
     height: calc(100vh - 70px);
-    background-color: rgb(226, 226, 226);
+    background-color: rgb(192, 192, 192);
     position: fixed;
     z-index: 2;
     top: 70px;

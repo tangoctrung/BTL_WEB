@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import "./ViewPersonal.css";
 import dataLocal from '../../../data/dataDemo/local.json';
+import dataLocal1 from '../../../data/dataDemo/local1.json';
 import Button from '../../../common/Button/Button';
 import CardPerson from '../../../components/CardPerson/CardPerson';
 import * as ACTIONS from '../../../redux/constants/viewPersonContant';
+import * as ACTION from '../../../redux/constants/userContant';
 import { urlClient } from '../../../api/urlApi';
 import Modal from '../../../common/Modal/Modal';
 import EditCitizen from '../../../components/EditCitizen/EditCitizen';
@@ -22,6 +24,7 @@ function ViewPersonal() {
     const [citizenId, setCitizenId] = useState();
     const [numCCCD, setNumCCCD] = useState();
     const [state, setState] = useState({ nameCity: '', nameDistrict: '', nameWard: '', nameVillage: ''});
+    const [data, setData] = useState({ huyen: [], xa: [], thon: [] });
 
     useEffect(()=> {
         if (auth?.user?.typeAccount !== "A1") {
@@ -48,8 +51,7 @@ function ViewPersonal() {
 
     // khi người dùng xóa 1 citizen
     const handleDeleteCitizen = () => {
-        dispatch(deleteCitizen(citizenId, auth?.accessToken ));
-        setIsOpenModalDeleteCitizen(false);
+        dispatch(deleteCitizen(citizenId, setIsOpenModalDeleteCitizen, auth?.accessToken ));
     }
 
     // khi người dùng nhập numCCCD citizen 
@@ -66,6 +68,34 @@ function ViewPersonal() {
 
     // khi người dùng nhập tên vùng để tìm kiếm citizen 
     const handleChange = (e) => {
+        if (e.target.value.includes("Tỉnh")) {
+            dataLocal1.map((d) => {
+                if (d.Name === e.target.value) {
+                    setData({
+                        ...data,
+                        huyen: d.Districts,
+                    })
+                }
+            })
+        } else if (e.target.value.includes("Huyện")) {
+            dataLocal1.map((d) => {
+                if (d.Name === e.target.value) {
+                    setData({
+                        ...data,
+                        xa: d.Ward,
+                    })
+                }
+            })
+        } else if (e.target.value.includes("Xã")) {
+            dataLocal1.map((d) => {
+                if (d.Name === e.target.value) {
+                    setData({
+                        ...data,
+                        thon: d.Village,
+                    })
+                }
+            })
+        }
         setState({
             ...state,
             [e.target.name]: e.target.value,
@@ -75,6 +105,20 @@ function ViewPersonal() {
     const handleSubmitSearchCitizen = (e) => {
         e.preventDefault();
         dispatch(getAllCitizenCodename(state, auth?.accessToken));
+    }
+    // khi người dùng sua du lieu cua citizen
+    const handleEditCitizen = (citizen, index) => {
+        dispatch({type: ACTION.CLEAR_MESSAGE_CITIZEN});
+        setIsOpenModalEditCitizen(true); 
+        setCitizenCurrent(citizen); 
+        setIndexCitizen(index)
+    }
+    // khi người dùng xoa du lieu citizen
+    const handleOpenModalDeleteCitizen = (citizen, index) => {
+       dispatch({type: ACTION.CLEAR_MESSAGE_CITIZEN});
+       setIsOpenModalDeleteCitizen(true); 
+       setCitizenId(citizen?._id); 
+       setIndexCitizen(index)
     }
 
     return (
@@ -88,7 +132,7 @@ function ViewPersonal() {
                             { auth?.user?.typeAccount==="A1" &&
                                 <div className="viewPersonal-top-content-item">
                                     <p>Tên tỉnh(thành phố)</p>
-                                    <input list="dataCity" name="nameCity" onChange={handleChange} />
+                                    <input type="email" list="dataCity" name="nameCity" onChange={handleChange} />
                                     <datalist id="dataCity">
                                         { dataLocal.map((city, index) => (
                                             <option key={index} value={city.Name}>{city.Name}</option>
@@ -99,10 +143,10 @@ function ViewPersonal() {
                             { ["A1", "A2"].includes(auth?.user?.typeAccount) &&
                                 <div className="viewPersonal-top-content-item">
                                     <p>Tên huyện(quận)</p>
-                                    <input list="dataDistrict" name="nameDistrict" onChange={handleChange}  />
+                                    <input type="email" list="dataDistrict" name="nameDistrict" onChange={handleChange}  />
                                     <datalist id="dataDistrict">
-                                        { dataLocal.map((city, index) => (
-                                            <option key={index} value={city.Name}>{city.Name}</option>
+                                        { data?.huyen?.map((city, index) => (
+                                            <option key={index} value={city}>{city}</option>
                                         ))}
                                     </datalist>
                                 </div>}
@@ -110,10 +154,10 @@ function ViewPersonal() {
                             { ["A1", "A2", "A3"].includes(auth?.user?.typeAccount) &&
                                 <div className="viewPersonal-top-content-item">
                                     <p>Tên xã(phường)</p>
-                                    <input list="dataWard" name="nameWard" onChange={handleChange} />
+                                    <input type="email" list="dataWard" name="nameWard" onChange={handleChange} />
                                     <datalist id="dataWard">
-                                        { dataLocal.map((city, index) => (
-                                            <option key={index} value={city.Name}>{city.Name}</option>
+                                        { data?.xa?.map((city, index) => (
+                                            <option key={index} value={city}>{city}</option>
                                         ))}
                                     </datalist>
                                 </div>}
@@ -121,10 +165,10 @@ function ViewPersonal() {
                             { ["A1", "A2", "A3", "B1"].includes(auth?.user?.typeAccount) &&
                                 <div className="viewPersonal-top-content-item">
                                     <p>Tên thôn(phố, bản, làng)</p>
-                                    <input list="dataVillage" name="nameVillage" onChange={handleChange}  />
+                                    <input type="email" list="dataVillage" name="nameVillage" onChange={handleChange}  />
                                     <datalist id="dataVillage">
-                                        { dataLocal.map((city, index) => (
-                                            <option key={index} value={city.Name}>{city.Name}</option>
+                                        { data?.thon?.map((city, index) => (
+                                            <option key={index} value={city}>{city}</option>
                                         ))}
                                     </datalist>
                                 </div>}
@@ -212,13 +256,13 @@ function ViewPersonal() {
                                                 </div>
                                             </td>
                                             <td>
-                                                <div onClick={()=> {setIsOpenModalEditCitizen(true); setCitizenCurrent(citizen); setIndexCitizen(index)}}>
+                                                <div onClick={() => handleEditCitizen(citizen, index)}>
                                                     <i className="fas fa-edit"></i>
                                                     <span> Sửa</span>                                                  
                                                 </div>
                                             </td>
                                             <td>
-                                                <div onClick={()=> {setIsOpenModalDeleteCitizen(true); setCitizenId(citizen?._id); setIndexCitizen(index)}}>
+                                                <div onClick={() => handleOpenModalDeleteCitizen(citizen, index)}>
                                                     <i className="fas fa-trash"></i>
                                                     <span> Xóa</span>
                                                 </div>
@@ -259,6 +303,10 @@ function ViewPersonal() {
                     <div className="modal-viewPersonal-delete">
                         <div className="modal-delete-content">
                             <p>Bạn có chắc chắn muốn xóa không?</p>
+
+                            <span style={{color: 'red', display: 'inline-block', width: '100%', textAlign: 'center', marginTop: '10px'}}>
+                                {user?.messageCitizenDelete ? user?.messageCitizenDelete : ''}
+                            </span>
                             <div className="modal-delete-listButton">
                                 <button onClick={handleDeleteCitizen} >Muốn xóa</button>
                                 <button onClick={()=> setIsOpenModalDeleteCitizen(false)}>Hủy xóa</button>

@@ -6,7 +6,8 @@ const initialState = {
     workingMode: '0',
     listUser: null,
     messageError: "",
-    messageCitizen: "",
+    messageCitizenEdit: "",
+    messageCitizenDelete: "",
     listCitizen: null,
 };
 
@@ -51,7 +52,12 @@ const user = (state = initialState, action) => {
         case ACTIONS.EDIT_CITIZEN_ERROR:
             return {
                 ...state,
-                messageCitizen: action.payload.message,
+                messageCitizenEdit: action.payload.message,
+            };
+        case ACTIONS.DELETE_CITIZEN_ERROR:
+            return {
+                ...state,
+                messageCitizenDelete: action.payload.message,
             };
         case ACTIONS.DELETE_CITIZEN:
             return {
@@ -63,7 +69,8 @@ const user = (state = initialState, action) => {
         case ACTIONS.CLEAR_MESSAGE_CITIZEN:
             return {
                 ...state,
-                messageCitizen: "",
+                messageCitizenEdit: "",
+                messageCitizenDelete: "",
             };
         case ACTIONS.GET_CITIZEN:
             return {

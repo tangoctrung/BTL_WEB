@@ -16,8 +16,10 @@ const initialState = {
     messageCitizen: "",
     listCitizen: [],
     statusCensus: false, // kiểm tra xem địa phương của người dùng có đang mở cuộc khảo sát hay không,
+    isComplete: false, // kiểm tra xem địa phương đã hoàn thành cuộc khảo sát hay chưa
     timeClose: null,
     timeOpen: null,
+    messageComplete: "",
 };
 
 
@@ -39,7 +41,8 @@ const openCensus = (state = initialState, action) => {
                 ...state,
                 error: '',
                 errorDetail: '',
-                success: '',        
+                success: '',    
+                messageComplete: '',    
             };
         case ACTIONS.GET_CITY:
             return {
@@ -110,7 +113,17 @@ const openCensus = (state = initialState, action) => {
                 timeClose: action.payload.timeClose,
                 timeOpen: action.payload.timeOpen,
             }
-        
+        case ACTIONS.COMPLETE_CENSUS:
+            return {
+                ...state,
+                isComplete: true,
+                statusCensus: false,
+            }    
+        case ACTIONS.COMPLETE_CENSUS_ERROR:
+            return {
+                ...state,
+                messageComplete: action.payload.message,
+            }    
         default:
             return state;
     }

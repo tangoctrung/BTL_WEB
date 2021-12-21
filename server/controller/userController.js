@@ -160,6 +160,17 @@ const getUser = async (req, res) => {
     }
 }
 
+// GET A USER
+const getAUser = async (req, res) => {
+    const userId = req.params.userId;
+    try {
+        const user = await User.findById(userId).select('-password');
+        res.status(200).json({status: true, user});
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
 // GET ALL USER
 const getAllUser = async (req, res) => {
     try {
@@ -252,6 +263,7 @@ module.exports = {
     registerUser,
     loginUser,
     getUser,
+    getAUser,
     getAllUser,
     updateUser,
     getAllUserIsProvied,

@@ -1,6 +1,5 @@
 .postSaved{
     background-color: rgba(240, 242,245);
-    width: 100vw;
     display: flex;
     min-height: calc(100vh);
 }

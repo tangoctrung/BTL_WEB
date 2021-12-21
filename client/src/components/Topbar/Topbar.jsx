@@ -26,25 +26,26 @@ function Topbar() {
                 </Link>
             </div>
             <div className="topbar-center">
-                <div className="topbar-center-input">
-                    {/* <div className="topbar-center-inputSearch">
-                        <i className="fas fa-search"></i>
-                        <input type="text" placeholder="Tìm kiếm bài báo..." />
-                    </div> */}
-                    <Link to={`/profile/${auth?.user?._id}`} className="topbar-center-item topbar-center-profile">
-                            <i className="fas fa-id-card-alt" title="Trang cá nhân"></i>
-                    </Link>
-                    {!auth?.user?.isAdmin && 
-                        <Link to="/writepost" className="topbar-center-item topbar-center-blog">
-                            <i className="fas fa-marker" title="Viết báo"></i>
-                        </Link>}
-                    <Link to="/postsaved"className="topbar-center-item topbar-center-saved">
-                        <i className="fas fa-save" title="Bài viết của bạn"></i>
-                    </Link>
-                    <Link to="/work" className="topbar-center-item topbar-center-worker">
-                        <i className="fas fa-th-list" title="Công việc"></i>
-                    </Link>
-                </div>
+                {auth?.accessToken && 
+                    <div className="topbar-center-input">
+                        {/* <div className="topbar-center-inputSearch">
+                            <i className="fas fa-search"></i>
+                            <input type="text" placeholder="Tìm kiếm bài báo..." />
+                        </div> */}
+                        <Link to={`/profile/${auth?.user?._id}`} className="topbar-center-item topbar-center-profile">
+                                <i className="fas fa-id-card-alt" title="Trang cá nhân"></i>
+                        </Link>
+                        {!auth?.user?.isAdmin && 
+                            <Link to="/writepost" className="topbar-center-item topbar-center-blog">
+                                <i className="fas fa-marker" title="Viết báo"></i>
+                            </Link>}
+                        <Link to="/postsaved"className="topbar-center-item topbar-center-saved">
+                            <i className="fas fa-save" title="Bài viết của bạn"></i>
+                        </Link>
+                        <Link to="/work" className="topbar-center-item topbar-center-worker">
+                            <i className="fas fa-th-list" title="Công việc"></i>
+                        </Link>
+                    </div>}
             </div>
             <div className="topbar-right">
 

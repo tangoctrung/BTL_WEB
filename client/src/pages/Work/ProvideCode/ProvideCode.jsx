@@ -104,8 +104,6 @@ function ProvideCode() {
         e.preventDefault();
         // console.log(auth?.user?.accessToken);
         dispatch(provideCode(state, auth?.accessToken));
-        nameRef.current.value="";
-        codeRef.current.value="";
     }
 
     // khi người dùng click vào xem địa phương được khai báo 

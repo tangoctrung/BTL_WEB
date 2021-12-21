@@ -56,6 +56,7 @@ export const getCitizenCodename = (codeName, level, token) => async (dispatch) =
     }
 }
 
+// kiểm tra thời gian khai báo
 export const checkTimeCensus = (token) => async (dispatch) => {
     try {
         const res = await putDataAPI(`checktimecensus`,{}, token);
@@ -73,6 +74,7 @@ export const checkTimeCensus = (token) => async (dispatch) => {
     }
 }
 
+// mở cuộc khai báo dân số
 export const openCensusTime = (user, data, token) => async (dispatch) => {
     try {
         let res = null;
@@ -99,6 +101,7 @@ export const openCensusTime = (user, data, token) => async (dispatch) => {
     }
 }
 
+// chỉnh sửa thời gian khai báo dân số
 export const editCensusTime = (setIsOpenModalEdit ,data, token) => async (dispatch) => {
     try {
         const res = await putDataAPI("edittimecensus", data, token);
@@ -110,6 +113,20 @@ export const editCensusTime = (setIsOpenModalEdit ,data, token) => async (dispat
             setIsOpenModalEdit(false);
         } else {
             dispatch({type: ACTIONS.MESSAGE_ERROR, payload: {error: res.data.message, errorDetail: res.data.messageDetail}});
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const completeCensus = (setIsOpenModalComplete, token) => async (dispatch) => {
+    try {
+        const res = await putDataAPI("completecensus", {}, token);
+        if (res.data.status) {
+            dispatch({type: ACTIONS.COMPLETE_CENSUS});
+            setIsOpenModalComplete(false);
+        } else {
+            dispatch({type: ACTIONS.COMPLETE_CENSUS_ERROR, payload: {message: res.data.message}})
         }
     } catch (err) {
         console.log(err);

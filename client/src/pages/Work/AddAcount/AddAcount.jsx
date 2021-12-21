@@ -8,6 +8,7 @@ import { register } from "../../../redux/actions/authAction";
 import { getAllUser, getAllUserIsProvied } from "../../../redux/actions/userAction";
 import moment from "moment";
 import * as ACTIONS from "../../../redux/constants/authContant";
+import { Link } from "react-router-dom";
 
 
 function AddAcount() {
@@ -127,10 +128,6 @@ function AddAcount() {
             <div className="addAcount-top">
                 <h3>Cấp tài khoản</h3>
                 { <p>Chú ý: Bạn chỉ có thể cấp được tài khoản cho {state?.typeAccount}</p>}
-                {/* { auth?.user?.typeAccount ==="A1" &&  <p>Chú ý: Bạn chỉ có thể cấp được tài khoản cho A2</p>}
-                { auth?.user?.typeAccount ==="A2" &&  <p>Chú ý: Bạn chỉ có thể cấp được tài khoản cho A3</p>}
-                { auth?.user?.typeAccount ==="A3" &&  <p>Chú ý: Bạn chỉ có thể cấp được tài khoản cho B1</p>}
-                { auth?.user?.typeAccount ==="B1" &&  <p>Chú ý: Bạn chỉ có thể cấp được tài khoản cho B2</p>} */}
                 <div className="addAcount-top-container">
                     <form className="addAcount-top-content">
                         <div className="addAcount-top-content-username">
@@ -204,9 +201,9 @@ function AddAcount() {
                             { user?.listUser && user.listUser.map((user, index) => (
                                 <tr key={index}>
                                     <td>{index + 1}</td>
-                                    <td><b>{user?.typeAccount} -</b> {user?.name ? `${user?.name}` : `${user?.accountName}`}</td>
+                                    <td><Link to={`/profile/${user._id}`} style={{color: 'black', textDecoration: "none"}} ><b>{user?.typeAccount} -</b> {user?.name ? `${user?.name}` : `${user?.accountName}`}</Link></td>
                                     <td>{ user?.position }</td>
-                                    <td><b>{user?.providerAccount?.typeAccount} -</b> {user?.providerAccount?.name ? `${user?.providerAccount?.name}` : `${user?.providerAccount?.accountName}`}</td>
+                                    <td><Link to={`/profile/${user?.providerAccount?._id}`} style={{color: 'black', textDecoration: "none"}} ><b>{user?.providerAccount?.typeAccount} -</b> {user?.providerAccount?.name ? `${user?.providerAccount?.name}` : `${user?.providerAccount?.accountName}`}</Link></td>
                                     <td>{moment(user?.createdAt).format('DD/MM/YYYY')}</td>
                                 </tr>
                             )) }

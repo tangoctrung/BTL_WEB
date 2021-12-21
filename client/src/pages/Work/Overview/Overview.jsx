@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import "./Overview.css";
 import dataLocal from '../../../data/dataDemo/local.json';
@@ -21,46 +21,48 @@ function Overview() {
     nameVillage: auth?.user?.typeAccount === "B2" ? auth?.user?.position.split("tế ")[1] : "", 
     tieuChi: ''});
     const [data, setData] = useState({ huyen: [], xa: [], thon: [] });
+    
     // khi người dùng nhập tên vùng
     const handleChange = (e) => {
-        setState({ 
-            ...state,
-            [e.target.name] : e.target.value,
-        });
         if (e.target.value.includes("Tỉnh")) {
-            dataLocal1.map((data) => {
-                if (data.Name === e.target.value) {
+            dataLocal1.map((d) => {
+                if (d.Name === e.target.value) {
                     setData({
-                        ...state,
-                        huyen: data.Districts,
+                        ...data,
+                        huyen: d.Districts,
                     })
                 }
             })
         } else if (e.target.value.includes("Huyện")) {
-            dataLocal1.map((data) => {
-                if (data.Name === e.target.value) {
+            dataLocal1.map((d) => {
+                if (d.Name === e.target.value) {
                     setData({
-                        ...state,
-                        xa: data.Ward,
+                        ...data,
+                        xa: d.Ward,
                     })
                 }
             })
         } else if (e.target.value.includes("Xã")) {
-            dataLocal1.map((data) => {
-                if (data.Name === e.target.value) {
+            dataLocal1.map((d) => {
+                if (d.Name === e.target.value) {
                     setData({
-                        ...state,
-                        thon: data.Village,
+                        ...data,
+                        thon: d.Village,
                     })
                 }
             })
         }
+        setState({ 
+            ...state,
+            [e.target.name] : e.target.value,
+        });
         dispatch({type: ACTIONS.CLEAR_DATA});
     }
     
     // khi người dùng submit việc xem 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log(data);
         dispatch(overViewTieuChi(state, auth?.accessToken));
     }
 
