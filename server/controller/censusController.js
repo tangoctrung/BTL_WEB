@@ -23,17 +23,26 @@ const openCensus = async (req, res) => {
                     messageDetail: "Thời gian kết thúc cuộc khảo sát bắt buộc phải lớn hơn thời gian hiện tại.",
                 })
             }
-    
-            // sau khi kiểm tra xong sẽ lưu vào database
-            const census = new Census({
-                timeClose, timeOpen, statusCensus: true, codeArea: "00", opener
-            })
-            const newCensus = await census.save();
-            res.send({
-                status: true,
-                message: "Cuộc khảo sát dân số được mở thành công.",
-                data: newCensus,
-            })
+            const census1 = await Census.findOne({codeArea: "00"});
+            if (!census1) {
+                // sau khi kiểm tra xong sẽ lưu vào database
+                const census = new Census({
+                    timeClose, timeOpen, statusCensus: true, codeArea: "00", opener
+                })
+                const newCensus = await census.save();
+                res.send({
+                    status: true,
+                    message: "Cuộc khảo sát dân số được mở thành công.",
+                    data: newCensus,
+                })
+            } else {
+                const newCensus = await census1.updateMany({timeClose, timeOpen, statusCensus: true, codeArea: "00", opener})
+                res.send({
+                    status: true,
+                    message: "Cuộc khảo sát dân số được mở thành công.",
+                    data: newCensus,
+                })
+            }
         } else {
             return res.json({ 
                 status: false,

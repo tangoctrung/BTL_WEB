@@ -4,7 +4,7 @@ import Modal from '../../../common/Modal/Modal';
 import generator from 'generate-password';
 import "./AddAcount.css";
 import { useDispatch, useSelector } from 'react-redux';
-import { register } from "../../../redux/actions/authAction";
+import { register, changePassword } from "../../../redux/actions/authAction";
 import { getAllUser, getAllUserIsProvied } from "../../../redux/actions/userAction";
 import moment from "moment";
 import * as ACTIONS from "../../../redux/constants/authContant";
@@ -17,6 +17,8 @@ function AddAcount() {
     const dispatch = useDispatch();
 
     const [isOpenModal, setIsOpenModal] = useState(false);
+    const [isOpenModalPassword, setIsOpenModalPassword] = useState(false);
+    const [dataUser, setDataUser] = useState({name: '', typeAccount: '', accountName: '', password: ''});
     const [state, setState] = useState({
         accountName: "", 
         password: "", 
@@ -123,6 +125,25 @@ function AddAcount() {
         dispatch(register(state))
     }
 
+    // khi người dùng mở modal thay đổi password
+    const handleOpenModalPassword = (user) => {
+        setIsOpenModalPassword(true);
+        setDataUser({
+            name: user?.name,
+            typeAccount: user?.typeAccount,
+            accountName: user?.accountName,
+        })
+    }
+
+    // khi người dùng thay đổi mật Khẩu
+    const handleSubmitChangePassword = () => {
+        // console.log(dataUser);
+        dispatch(changePassword({
+            accountName: dataUser.accountName, 
+            password: dataUser.password
+        }, setIsOpenModalPassword, auth?.accessToken));
+    }
+
     return (
         <div className="addAcount">
             <div className="addAcount-top">
@@ -195,6 +216,7 @@ function AddAcount() {
                                <th>Chức vụ</th>
                                <th>Cấp bậc - Tên người cấp</th>
                                <th>Ngày cấp</th>
+                               <th>Đổi mật khẩu</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -205,6 +227,12 @@ function AddAcount() {
                                     <td>{ user?.position }</td>
                                     <td><Link to={`/profile/${user?.providerAccount?._id}`} style={{color: 'black', textDecoration: "none"}} ><b>{user?.providerAccount?.typeAccount} -</b> {user?.providerAccount?.name ? `${user?.providerAccount?.name}` : `${user?.providerAccount?.accountName}`}</Link></td>
                                     <td>{moment(user?.createdAt).format('DD/MM/YYYY')}</td>
+                                    <td>
+                                        <i 
+                                        className="fas fa-unlock-alt" 
+                                        onClick={() =>handleOpenModalPassword(user)}
+                                        ></i>
+                                    </td>
                                 </tr>
                             )) }
                         </tbody>
@@ -216,6 +244,20 @@ function AddAcount() {
                     )
                 }
             </div>
+            <Modal isOpenModal={isOpenModalPassword} setIsOpenModal={setIsOpenModalPassword}>
+                <div className="addAccountModal-password-content">
+                    <h2>Thay đổi mật khẩu</h2>
+                    <p>Tài khoản: {dataUser?.accountName} - {dataUser?.name}</p>
+                    <div className="addAccountModal-listInput">
+                        <input type="text" onChange={(e)=> setDataUser({...dataUser, password: e.target.value})} />
+                    </div>
+                    <div className="addAccountModal-button">
+                        <Button typeButton="normal" width={130} height={45} text="Thay đổi"
+                            onClick={handleSubmitChangePassword}
+                        />
+                    </div>
+                </div>
+            </Modal>
         </div>
     )
 }

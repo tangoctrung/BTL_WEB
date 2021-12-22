@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import "./ProvideCode.css";
 import dataLocal from '../../../data/dataDemo/local.json';
+import dataLocal1 from '../../../data/dataDemo/local1.json'; 
 // import Button from '../../../common/Button/Button';
 import Modal from '../../../common/Modal/Modal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,6 +17,7 @@ function ProvideCode() {
     const [isOpenModal, setIsOpenModal] = useState(false);
     const nameRef = useRef();
     const codeRef = useRef();
+    const [listName, setListName] = useState([]);
     const [state, setState] = useState({
         code: '', name: '', 
         provider: auth?.user?._id, // người cấp
@@ -63,6 +65,12 @@ function ProvideCode() {
             default:
                 break;
         }
+        const nameArea = auth?.user?.position.split("tế ")[1];
+        dataLocal1.forEach((code) => {
+            if (code.Name === nameArea) {
+                setListName(code.Data);
+            }
+        })
     }, []);
 
     useEffect(() => {
@@ -127,6 +135,7 @@ function ProvideCode() {
                             { auth?.user?.typeAccount ==="B1" &&  <p>Tên thôn/phố/bản</p>}
                             <input 
                                 list="dataList" 
+                                type="email"
                                 placeholder="Chọn tên địa phương ở đây" 
                                 name="name"
                                 ref={nameRef}
@@ -134,8 +143,8 @@ function ProvideCode() {
                                 onFocus={handleFocus}
                              />
                             <datalist id="dataList">
-                                { dataLocal.map((city, index) => (
-                                    <option key={index} value={city.Name}>{city.Name}</option>
+                                { listName.map((city, index) => (
+                                    <option key={index} value={city}>{city}</option>
                                 ))}
                             </datalist>
                         </div>

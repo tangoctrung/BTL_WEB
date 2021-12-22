@@ -259,6 +259,37 @@ const changePassword = async (req, res) => {
     }
 }
 
+// change password của cấp dưới
+const changePasswordSecondary = async (req, res) => {
+    try {
+        const accountName = req.accountName;
+        if (req.body.accountName.slice(0, accountName.length) !== accountName) {
+            return res.json({
+                status: false,
+                message: 'Bạn không có quyền thay đổi mật khẩu của tài khoản này',
+            })
+        }
+         // kiểm tra xem password có hợp lệ hay không
+        if (req.body.password.length < 8) 
+            return res.json({
+                success: false, 
+                message: "Password phải từ 8 kí tự.",
+                messageDetail: `Mật khẩu của bạn mới có ${req.body.password.length} ký tự. Chúng tôi cần bạn chọn mật khẩu có từ 8 ký tự trở lên để đảm bảo tính bảo mật.`
+            });
+        const salt = await bcrypt.genSalt(10);
+        const hashedPass = await bcrypt.hash(req.body.password, salt);
+        await User.findOneAndUpdate({accountName: req.body.accountName},
+            {password: hashedPass});
+        res.json({
+            status: true,
+            message: "Đổi mật khẩu thành công",
+        })
+
+    } catch (err) {
+        res.status(500).json({err});
+    }
+}
+
 module.exports = {
     registerUser,
     loginUser,
@@ -268,4 +299,5 @@ module.exports = {
     updateUser,
     getAllUserIsProvied,
     changePassword,
+    changePasswordSecondary,
 }

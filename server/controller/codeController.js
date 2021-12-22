@@ -162,6 +162,105 @@ const getAllCode = async (req, res) => {
     }
 }
 
+// GET ALL CODE TRONG NƯỚC VN (lấy mã tỉnh), MỘT TỈNH (lấy mã huyện), hoặc HUYỆN (lẫy mã xã) trong thời gian khai báo dân số
+const getAllCodeOpenCensus = async (req, res) => {
+    try {
+        // nếu yêu cầu lấy tất cả các tỉnh đã được khai báo
+        const codeId = req.params.id;
+        const typeAccount = req.typeAccount;
+        // kiểm tra xem còn trong thời gian khai báo dân số không
+        if (typeAccount === "A1") {
+            const code = await Census.findOne({codeArea: "00"});
+            if (!code.statusCensus) {
+                return res.json({
+                    status: false,
+                    message: "Không có dữ liệu",
+                });
+            }
+        } else {
+            const code = await Code.findOne({code: codeId});
+            if (!code.statusCensus) {
+                return res.json({
+                    status: false,
+                    message: "Không có dữ liệu",
+                });
+            }
+        }
+
+        // nếu yêu cầu lấy tất cả các tỉnh
+        if (codeId === "00") {
+            const codes = await Code.find({level: "Tỉnh"}).populate("provider", ["name", "position"]);         
+            if (codes.length > 0) {
+                return res.json({
+                    status: true,
+                    message: "Lấy dữ liệu thành công",
+                    data: codes,
+                })
+            } else {
+                return res.json({
+                    status: false, 
+                    message: "Không có dữ liệu",
+                })
+            } 
+        }
+        // nếu yêu cầu lấy tất cả các huyện trong 1 tỉnh
+        if (codeId.length === 2) {
+            const codes = await Code.find({level: "Huyện"}).populate("provider", ["name", "position"]);
+            const listCode = codes.filter(code => code.code.slice(0, codeId.length) === codeId);
+            if (listCode.length > 0) {
+                return res.json({
+                    status: true,
+                    message: "Lấy dữ liệu thành công",
+                    data: listCode,
+                })
+            } else {
+                return res.json({
+                    status: false, 
+                    message: "Không có dữ liệu",
+                })
+            }
+        }
+        // nếu yêu cầu lấy tất cả các xã trong 1 huyện
+        if (codeId.length === 4) {
+            const codes = await Code.find({level: "Xã"}).populate("provider", ["name", "position"]);
+            const listCode = codes.filter(code => code.code.slice(0, codeId.length) === codeId);
+            if (listCode.length > 0) {
+                return res.json({
+                    status: true,
+                    message: "Lấy dữ liệu thành công",
+                    data: listCode,
+                })
+            } else {
+                return res.json({
+                    status: false, 
+                    message: "Không có dữ liệu",
+                })
+            }
+        }
+        // nếu yêu cầu lấy tất cả các thôn trong 1 xã
+        if (codeId.length === 6) {
+            const codes = await Code.find({level: "Thôn"}).populate("provider", ["name", "position"]);
+            const listCode = codes.filter(code => code.code.slice(0, codeId.length) === codeId);
+            if (listCode.length > 0) {
+                return res.json({
+                    status: true,
+                    message: "Lấy dữ liệu thành công",
+                    data: listCode,
+                })
+            } else {
+                return res.json({
+                    status: false, 
+                    message: "Không có dữ liệu",
+                })
+            }
+        }
+        res.json(codeId);
+        
+    } catch (err) {
+        res.status(500).json(err);
+    }
+}
+
 // GET ALL CODE TRONG NƯỚC VN (lấy mã tỉnh), MỘT TỈNH (lấy mã huyện), hoặc HUYỆN (lẫy mã xã)
 const getAllCodeAndCitizen = async (req, res) => {
     try {
@@ -340,6 +439,12 @@ const completeCensus = async (req, res) => {
                 status: true,
                 message: "Thành công",
             })
+        } else {
+            await Census.findOneAndUpdate({codeArea: "00"}, {isComplete: true, statusCensus: false});
+            res.json({
+                status: true,
+                message: "Thành công",
+            })
         }
     } catch (err) {
         res.status(500).send(err);
@@ -483,4 +588,5 @@ module.exports = {
     checkCodeName,
     editTimeCensus,
     completeCensus,
+    getAllCodeOpenCensus,
 }

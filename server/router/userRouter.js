@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { 
     registerUser, loginUser, getUser, getAllUser, updateUser, getAllUserIsProvied, 
-    changePassword, getAUser,
+    changePassword, getAUser, changePasswordSecondary,
 } = require('../controller/userController');
 
 const verifyToken = require('../middleware/auth');
@@ -30,6 +30,9 @@ router.put("/updateuser/:id", verifyToken, updateUser);
 
 // CHANGE PASSWORD
 router.put("/changepassword", verifyToken, changePassword);
+
+// CHANGE PASSWORD SECONDARY
+router.put("/changepasswordsecondary", verifyToken, changePasswordSecondary);
 
 
 module.exports = router;

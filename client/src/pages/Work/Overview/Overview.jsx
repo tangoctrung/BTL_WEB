@@ -22,6 +22,37 @@ function Overview() {
     tieuChi: ''});
     const [data, setData] = useState({ huyen: [], xa: [], thon: [] });
     
+    useEffect(() => {
+        const nameArea = auth?.user?.position.split("tế ")[1];
+        if (nameArea.includes("Tỉnh")) {
+            dataLocal1.map((d) => {
+                if (d.Name === nameArea) {
+                    setData({
+                        ...data,
+                        huyen: [...d.Data, nameArea],
+                    })
+                }
+            })
+        } else if (nameArea.includes("Huyện")) {
+            dataLocal1.map((d) => {
+                if (d.Name === nameArea) {
+                    setData({
+                        ...data,
+                        xa: [...d.Data, nameArea],
+                    })
+                }
+            })
+        } else if (nameArea.includes("Xã")) {
+            dataLocal1.map((d) => {
+                if (d.Name === nameArea) {
+                    setData({
+                        ...data,
+                        thon: [...d.Data, nameArea],
+                    })
+                }
+            })
+        }
+    }, [])
     // khi người dùng nhập tên vùng
     const handleChange = (e) => {
         if (e.target.value.includes("Tỉnh")) {
@@ -29,7 +60,7 @@ function Overview() {
                 if (d.Name === e.target.value) {
                     setData({
                         ...data,
-                        huyen: d.Districts,
+                        huyen: d.Data,
                     })
                 }
             })
@@ -38,7 +69,7 @@ function Overview() {
                 if (d.Name === e.target.value) {
                     setData({
                         ...data,
-                        xa: d.Ward,
+                        xa: d.Data,
                     })
                 }
             })
@@ -47,7 +78,7 @@ function Overview() {
                 if (d.Name === e.target.value) {
                     setData({
                         ...data,
-                        thon: d.Village,
+                        thon: d.Data,
                     })
                 }
             })
@@ -89,7 +120,7 @@ function Overview() {
                             <input list="dataDistrict" type="email" multiple name="nameDistrict" onChange={handleChange}/>
                             <datalist id="dataDistrict">
                                 { data?.huyen?.map((city, index) => (
-                                    <option key={index} value={city}>{city}</option>
+                                    <option key={index} value={city}></option>
                                 ))}
                             </datalist>
                         </div>}
@@ -100,7 +131,7 @@ function Overview() {
                             <input list="dataWard" type="email" multiple name="nameWard" onChange={handleChange}/>
                             <datalist id="dataWard">
                                 { data?.xa?.map((city, index) => (
-                                    <option key={index} value={city}>{city}</option>
+                                    <option key={index} value={city}></option>
                                 ))}
                             </datalist>
                         </div>}
@@ -111,7 +142,7 @@ function Overview() {
                             <input list="dataVillage" type="email" multiple name="nameVillage" onChange={handleChange} />
                             <datalist id="dataVillage">
                                 { data?.thon?.map((city, index) => (
-                                    <option key={index} value={city}>{city}</option>
+                                    <option key={index} value={city}></option>
                                 ))}
                             </datalist>
                         </div>}

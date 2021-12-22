@@ -32,6 +32,17 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWVmM
 }
 
 ###
+PUT http://localhost:8800/api/changepasswordsecondary HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWU4NDEyYzFlOWQzOTg4YjgzZGYiLCJ0eXBlQWNjb3VudCI6IkEzIiwiYWNjb3VudE5hbWUiOiIwMjAxIiwiaWF0IjoxNjQwMDg5MzI3fQ.Li5mBljRG0o-jJr0EY1k8TkRaqyVpGA2AQrx8monl-0
+
+{
+    "password": "",
+    "accountName": "020101"
+}
+
+
+###
 GET http://localhost:8800/api/getuser HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWVmMzEyYzFlOWQzOTg4YjgzZWYiLCJ0eXBlQWNjb3VudCI6IkIyIiwiYWNjb3VudE5hbWUiOiIwMjAxMDEwMSIsImlhdCI6MTYzOTQwOTYzNH0.42v-U8IZy4zv-jxcr_QmbwMSOMLDmw02qm-gL7oWj6Q
 
@@ -139,9 +150,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTk3OTE2N
 
 
 ###
-GET http://localhost:8800/api/getallcitizencode?codeName=Thôn Quang Thừa Đê&level=Thôn HTTP/1.1
+GET http://localhost:8800/api/getallcitizencode?codeName=Thôn Quang Thừa&level=Thôn HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWVmMzEyYzFlOWQzOTg4YjgzZWYiLCJ0eXBlQWNjb3VudCI6IkIyIiwiYWNjb3VudE5hbWUiOiIwMjAxMDEwMSIsImlhdCI6MTYzOTQ4MzkwNH0.GaYAgcu1E8RXybUJ1ycExSEh29AwLkIYvlYkf07XOLI
+
+
+###
+GET http://localhost:8800/api/getcitizenmanycode?codeName=Xã Tượng Lĩnh,Xã Lê Hồ&level=Xã HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFlMWVmMzEyYzFlOWQzOTg4YjgzZWYiLCJ0eXBlQWNjb3VudCI6IkIyIiwiYWNjb3VudE5hbWUiOiIwMjAxMDEwMSIsImlhdCI6MTYzOTQ4MzkwNH0.GaYAgcu1E8RXybUJ1ycExSEh29AwLkIYvlYkf07XOLI
+
 
 ###
 GET http://localhost:8800/api/getcitizennumCCCD?numCCCD=03520100327667 HTTP/1.1

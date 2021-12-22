@@ -4,7 +4,7 @@ const {
     getCitizenNumCCCD, getCitizenId,  getAllCitizen,
     getAllCitizenCode, getCitizenGender,getCitizenReligion,
     getCitizenNation, getCitizenAge, getCitizenEducation,
-    getCitizenJob,
+    getCitizenJob, getCitizenManyCode
 } = require('../controller/citizenController');
 const verifyToken = require('../middleware/auth');
 
@@ -22,6 +22,9 @@ router.get("/getallcitizen", verifyToken, getAllCitizen);
 
 // lấy thông tin tất cả công dân theo vùng
 router.get("/getallcitizencode", verifyToken, getAllCitizenCode);
+
+// lấy thông tin công dân theo nhiều vùng
+router.get("/getcitizenmanycode", verifyToken, getCitizenManyCode);
 
 // lấy thông tin tất cả công dân theo điều kiện nào đó
 router.get("/getcitizennumCCCD", verifyToken, getCitizenNumCCCD);

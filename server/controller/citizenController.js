@@ -117,7 +117,7 @@ const UpdateCitizen = async (req, res) => {
         if (!code) {
             return res.json({
                 status: false,
-                message: "Bạn không thể xóa công dân này.",
+                message: "Bạn không thể sửa đổi thông tin công dân này.",
             })
         } else {
 
@@ -258,6 +258,40 @@ const getAllCitizenCode = async (req, res) => {
     }
 }
 
+const getCitizenManyCode = async (req, res) => {
+    const codeName = req.query.codeName.split(",");
+    const level = req.query.level;
+    // kiểm tra xem người dùng có thể lấy dữ liệu từ codeName này không
+    let citizens = [];
+    try {
+        if (level === "Tỉnh") {
+            citizens = await Citizen.find({"hometownCity": {$in: codeName}});
+        } else if (level === "Huyện") {            
+            citizens = await Citizen.find({"hometownDistrict": {$in: codeName}});
+        } else if (level === "Xã") {
+            citizens = await Citizen.find({"hometownWard": {$in: codeName}});
+        } else if (level === "Thôn") { 
+            citizens = await Citizen.find({"hometownVillage": {$in: codeName}});
+        } 
+        if (!citizens.length > 0) {
+            return res.json({
+                status: false,
+                message: "Không tìm thấy dữ liệu",
+                citizens: [],
+            })
+        }
+        
+        res.json({
+            status: true, 
+            message: "Lấy dữ liệu của tất cả công dân thành công.",
+            citizens,
+        })
+
+    } catch (err) {
+        res.status(500).json(err);
+    }
+}
+
 // lấy thông tin của 1 công dân với số CCCD
 const getCitizenNumCCCD = async (req, res) => {
     let numCCCD = req.query.numCCCD;
@@ -305,12 +339,24 @@ const getCitizenId = async (req, res) => {
 
 // lấy công dân theo tỉ lệ nam nữ của một vùng nào đó
 const getCitizenGender = async (req, res) => {
-    const codeName = req.query.codeName; // tên vùng muốn xem
+    let name = req.query.codeName; // tên vùng muốn xem
+    let codeName = null;
+    if (name.includes(",")){
+        codeName = name.split(",");
+    } else {
+        codeName = [name];
+    }
     if (req.typeAccount !== "A1") {
-        const newCode = await Code.findOne({name: codeName});
-        const code = newCode.code;
-        const codeUser = req.accountName;
-        if (code.slice(0, codeUser.length) !== codeUser) {
+        const newCode = await Code.find({"name": {$in: codeName}});
+        let index = 0;
+        newCode.forEach((code) => {
+            const code1 = code.code;
+            const codeUser = req.accountName;
+            if (code1.slice(0, codeUser.length) !== codeUser) {
+                index = index + 1;
+            }
+        })
+        if (index > 0) {
             return res.json({
                 status: false,
                 message: "Bạn không có quyền xem dữ liệu của địa phương này."
@@ -321,13 +367,13 @@ const getCitizenGender = async (req, res) => {
     try {
         let citizens = null;
         if (level === "Tỉnh") {
-            citizens = await Citizen.find({"hometownCity": codeName});
+            citizens = await Citizen.find({"hometownCity": { $in : codeName}});
         } else if (level === "Huyện") {
-            citizens = await Citizen.find({"hometownDistrict": codeName});
+            citizens = await Citizen.find({"hometownDistrict": { $in : codeName}});
         } else if (level === "Xã") {
-            citizens = await Citizen.find({"hometownWard": codeName});
+            citizens = await Citizen.find({"hometownWard": { $in : codeName}});
         } else if (level === "Thôn") {
-            citizens = await Citizen.find({"hometownVillage": codeName});
+            citizens = await Citizen.find({"hometownVillage": { $in : codeName}});
         } 
         // nếu không có dữ liệu nào
         if (!citizens.length > 0) {
@@ -362,29 +408,41 @@ const getCitizenGender = async (req, res) => {
 
 // lấy công dân theo tỉ lệ độ tuổi của một vùng nào đó
 const getCitizenAge = async (req, res) => {
-    const codeName = req.query.codeName; // tên vùng muốn xem
-    const level = req.query.level;  // level của vùng đó: tỉnh, huyện, xã, thôn
+    let name = req.query.codeName; // tên vùng muốn xem
+    let codeName = null;
+    if (name.includes(",")){
+        codeName = name.split(",");
+    } else {
+        codeName = [name];
+    }
     if (req.typeAccount !== "A1") {
-        const newCode = await Code.findOne({name: codeName});
-        const code = newCode.code;
-        const codeUser = req.accountName;
-        if (code.slice(0, codeUser.length) !== codeUser) {
+        const newCode = await Code.find({"name": {$in: codeName}});
+        let index = 0;
+        newCode.forEach((code) => {
+            const code1 = code.code;
+            const codeUser = req.accountName;
+            if (code1.slice(0, codeUser.length) !== codeUser) {
+                index = index + 1;
+            }
+        })
+        if (index > 0) {
             return res.json({
                 status: false,
                 message: "Bạn không có quyền xem dữ liệu của địa phương này."
             })
         }
     }
+    const level = req.query.level;  // level của vùng đó: tỉnh, huyện, xã, thôn
     try {
         let citizens = null;
         if (level === "Tỉnh") {
-            citizens = await Citizen.find({"hometownCity": codeName});
+            citizens = await Citizen.find({"hometownCity": { $in : codeName}});
         } else if (level === "Huyện") {
-            citizens = await Citizen.find({"hometownDistrict": codeName});
+            citizens = await Citizen.find({"hometownDistrict": { $in : codeName}});
         } else if (level === "Xã") {
-            citizens = await Citizen.find({"hometownWard": codeName});
+            citizens = await Citizen.find({"hometownWard": { $in : codeName}});
         } else if (level === "Thôn") {
-            citizens = await Citizen.find({"hometownVillage": codeName});
+            citizens = await Citizen.find({"hometownVillage": { $in : codeName}});
         } 
         // nếu không có dữ liệu nào
         if (!citizens.length > 0) {
@@ -436,29 +494,41 @@ const getCitizenAge = async (req, res) => {
 
 // lấy công dân theo tỉ lệ dân tộc của một vùng nào đó
 const getCitizenNation = async (req, res) => {
-    const codeName = req.query.codeName; // tên vùng muốn xem
-    const level = req.query.level;  // level của vùng đó: tỉnh, huyện, xã, thôn
+    let name = req.query.codeName; // tên vùng muốn xem
+    let codeName = null;
+    if (name.includes(",")){
+        codeName = name.split(",");
+    } else {
+        codeName = [name];
+    }
     if (req.typeAccount !== "A1") {
-        const newCode = await Code.findOne({name: codeName});
-        const code = newCode.code;
-        const codeUser = req.accountName;
-        if (code.slice(0, codeUser.length) !== codeUser) {
+        const newCode = await Code.find({"name": {$in: codeName}});
+        let index = 0;
+        newCode.forEach((code) => {
+            const code1 = code.code;
+            const codeUser = req.accountName;
+            if (code1.slice(0, codeUser.length) !== codeUser) {
+                index = index + 1;
+            }
+        })
+        if (index > 0) {
             return res.json({
                 status: false,
                 message: "Bạn không có quyền xem dữ liệu của địa phương này."
             })
         }
     }
+    const level = req.query.level;  // level của vùng đó: tỉnh, huyện, xã, thôn
     try {
         let citizens = null;
         if (level === "Tỉnh") {
-            citizens = await Citizen.find({"hometownCity": codeName});
+            citizens = await Citizen.find({"hometownCity": { $in : codeName}});
         } else if (level === "Huyện") {
-            citizens = await Citizen.find({"hometownDistrict": codeName});
+            citizens = await Citizen.find({"hometownDistrict": { $in : codeName}});
         } else if (level === "Xã") {
-            citizens = await Citizen.find({"hometownWard": codeName});
+            citizens = await Citizen.find({"hometownWard": { $in : codeName}});
         } else if (level === "Thôn") {
-            citizens = await Citizen.find({"hometownVillage": codeName});
+            citizens = await Citizen.find({"hometownVillage": { $in : codeName}});
         } 
         // nếu không có dữ liệu nào
         if (!citizens.length > 0) {
@@ -504,29 +574,41 @@ const getCitizenNation = async (req, res) => {
 
 // lấy công dân theo tỉ lệ tôn giáo của một vùng nào đó
 const getCitizenReligion = async (req, res) => {
-    const codeName = req.query.codeName; // tên vùng muốn xem
-    const level = req.query.level;  // level của vùng đó: tỉnh, huyện, xã, thôn
+    let name = req.query.codeName; // tên vùng muốn xem
+    let codeName = null;
+    if (name.includes(",")){
+        codeName = name.split(",");
+    } else {
+        codeName = [name];
+    }
     if (req.typeAccount !== "A1") {
-        const newCode = await Code.findOne({name: codeName});
-        const code = newCode.code;
-        const codeUser = req.accountName;
-        if (code.slice(0, codeUser.length) !== codeUser) {
+        const newCode = await Code.find({"name": {$in: codeName}});
+        let index = 0;
+        newCode.forEach((code) => {
+            const code1 = code.code;
+            const codeUser = req.accountName;
+            if (code1.slice(0, codeUser.length) !== codeUser) {
+                index = index + 1;
+            }
+        })
+        if (index > 0) {
             return res.json({
                 status: false,
                 message: "Bạn không có quyền xem dữ liệu của địa phương này."
             })
         }
     }
+    const level = req.query.level;  // level của vùng đó: tỉnh, huyện, xã, thôn
     try {
         let citizens = null;
         if (level === "Tỉnh") {
-            citizens = await Citizen.find({"hometownCity": codeName});
+            citizens = await Citizen.find({"hometownCity": { $in : codeName}});
         } else if (level === "Huyện") {
-            citizens = await Citizen.find({"hometownDistrict": codeName});
+            citizens = await Citizen.find({"hometownDistrict": { $in : codeName}});
         } else if (level === "Xã") {
-            citizens = await Citizen.find({"hometownWard": codeName});
+            citizens = await Citizen.find({"hometownWard": { $in : codeName}});
         } else if (level === "Thôn") {
-            citizens = await Citizen.find({"hometownVillage": codeName});
+            citizens = await Citizen.find({"hometownVillage": { $in : codeName}});
         } 
         // nếu không có dữ liệu nào
         if (!citizens.length > 0) {
@@ -570,29 +652,41 @@ const getCitizenReligion = async (req, res) => {
 
 // lấy công dân theo tỉ lệ trình độ giáo dục của một vùng nào đó
 const getCitizenEducation = async (req, res) => {
-    const codeName = req.query.codeName; // tên vùng muốn xem
-    const level = req.query.level;  // level của vùng đó: tỉnh, huyện, xã, thôn
+    let name = req.query.codeName; // tên vùng muốn xem
+    let codeName = null;
+    if (name.includes(",")){
+        codeName = name.split(",");
+    } else {
+        codeName = [name];
+    }
     if (req.typeAccount !== "A1") {
-        const newCode = await Code.findOne({name: codeName});
-        const code = newCode.code;
-        const codeUser = req.accountName;
-        if (code.slice(0, codeUser.length) !== codeUser) {
+        const newCode = await Code.find({"name": {$in: codeName}});
+        let index = 0;
+        newCode.forEach((code) => {
+            const code1 = code.code;
+            const codeUser = req.accountName;
+            if (code1.slice(0, codeUser.length) !== codeUser) {
+                index = index + 1;
+            }
+        })
+        if (index > 0) {
             return res.json({
                 status: false,
                 message: "Bạn không có quyền xem dữ liệu của địa phương này."
             })
         }
     }
+    const level = req.query.level;  // level của vùng đó: tỉnh, huyện, xã, thôn
     try {
         let citizens = null;
         if (level === "Tỉnh") {
-            citizens = await Citizen.find({"hometownCity": codeName});
+            citizens = await Citizen.find({"hometownCity": { $in : codeName}});
         } else if (level === "Huyện") {
-            citizens = await Citizen.find({"hometownDistrict": codeName});
+            citizens = await Citizen.find({"hometownDistrict": { $in : codeName}});
         } else if (level === "Xã") {
-            citizens = await Citizen.find({"hometownWard": codeName});
+            citizens = await Citizen.find({"hometownWard": { $in : codeName}});
         } else if (level === "Thôn") {
-            citizens = await Citizen.find({"hometownVillage": codeName});
+            citizens = await Citizen.find({"hometownVillage": { $in : codeName}});
         } 
         // nếu không có dữ liệu nào
         if (!citizens.length > 0) {
@@ -639,29 +733,41 @@ const getCitizenEducation = async (req, res) => {
 
 // lấy công dân theo tỉ lệ ngành nghề của một vùng nào đó
 const getCitizenJob = async (req, res) => {
-    const codeName = req.query.codeName; // tên vùng muốn xem
-    const level = req.query.level;  // level của vùng đó: tỉnh, huyện, xã, thôn
+    let name = req.query.codeName; // tên vùng muốn xem
+    let codeName = null;
+    if (name.includes(",")){
+        codeName = name.split(",");
+    } else {
+        codeName = [name];
+    }
     if (req.typeAccount !== "A1") {
-        const newCode = await Code.findOne({name: codeName});
-        const code = newCode.code;
-        const codeUser = req.accountName;
-        if (code.slice(0, codeUser.length) !== codeUser) {
+        const newCode = await Code.find({"name": {$in: codeName}});
+        let index = 0;
+        newCode.forEach((code) => {
+            const code1 = code.code;
+            const codeUser = req.accountName;
+            if (code1.slice(0, codeUser.length) !== codeUser) {
+                index = index + 1;
+            }
+        })
+        if (index > 0) {
             return res.json({
                 status: false,
                 message: "Bạn không có quyền xem dữ liệu của địa phương này."
             })
         }
     }
+    const level = req.query.level;  // level của vùng đó: tỉnh, huyện, xã, thôn
     try {
         let citizens = null;
         if (level === "Tỉnh") {
-            citizens = await Citizen.find({"hometownCity": codeName});
+            citizens = await Citizen.find({"hometownCity": { $in : codeName}});
         } else if (level === "Huyện") {
-            citizens = await Citizen.find({"hometownDistrict": codeName});
+            citizens = await Citizen.find({"hometownDistrict": { $in : codeName}});
         } else if (level === "Xã") {
-            citizens = await Citizen.find({"hometownWard": codeName});
+            citizens = await Citizen.find({"hometownWard": { $in : codeName}});
         } else if (level === "Thôn") {
-            citizens = await Citizen.find({"hometownVillage": codeName});
+            citizens = await Citizen.find({"hometownVillage": { $in : codeName}});
         } 
         // nếu không có dữ liệu nào
         if (!citizens.length > 0) {
@@ -727,5 +833,5 @@ module.exports = {
     getCitizenAge,
     getCitizenEducation,
     getCitizenJob,
-
+    getCitizenManyCode,
 }

@@ -4,7 +4,7 @@ import * as ACTIONS from "../constants/openCensusContant";
 // lấy danh sách các tỉnh, huyện, xã, thôn mà người dùng quản lí
 export const getCodeNameOpenCensus = (codeId, token) => async (dispatch) => {
     try {
-        const res = await getDataAPI('getallcode/' + codeId, token);
+        const res = await getDataAPI('getallcodeopencensus/' + codeId, token);
         if (res.data.status === true) {
             if (codeId === "00") {
                 dispatch({type: ACTIONS.GET_CITY, payload: {city: res.data.data}})

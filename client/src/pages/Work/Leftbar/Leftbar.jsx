@@ -21,7 +21,7 @@ function Leftbar() {
                 <img src={auth?.user?.avatar ? auth?.user?.avatar : noAvatar } alt="avatar" />
                 <div className="leftbar-infoUser">
                     <span>{ auth?.user?.name }</span>
-                    {/* <p>{ auth?.user?.position }</p> */}
+                    <p>{ auth?.user?.typeAccount === "A1" ? auth?.user?.position : "Công tác tại " + auth?.user?.position.split("tế ")[1]}</p>
                 </div>
             </Link>
             <div className="leftbar-listMenu">

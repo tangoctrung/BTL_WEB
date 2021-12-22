@@ -36,6 +36,39 @@ function ViewPersonal() {
         }
         
     }, [])
+
+    useEffect(() => {
+        const nameArea = auth?.user?.position.split("tế ")[1];
+        if (nameArea.includes("Tỉnh")) {
+            dataLocal1.map((d) => {
+                if (d.Name === nameArea) {
+                    setData({
+                        ...data,
+                        huyen: [...d.Data, nameArea],
+                    })
+                }
+            })
+        } else if (nameArea.includes("Huyện")) {
+            dataLocal1.map((d) => {
+                if (d.Name === nameArea) {
+                    setData({
+                        ...data,
+                        xa: [...d.Data, nameArea],
+                    })
+                }
+            })
+        } else if (nameArea.includes("Xã")) {
+            dataLocal1.map((d) => {
+                if (d.Name === nameArea) {
+                    setData({
+                        ...data,
+                        thon: [...d.Data, nameArea],
+                    })
+                }
+            })
+        }
+    }, [])
+
     const handleChangeModeView = (s) => {
         if (s === 'table') {
             dispatch({type: ACTIONS.MODE_VIEW_TABLE});
@@ -73,7 +106,7 @@ function ViewPersonal() {
                 if (d.Name === e.target.value) {
                     setData({
                         ...data,
-                        huyen: d.Districts,
+                        huyen: d.Data,
                     })
                 }
             })
@@ -82,7 +115,7 @@ function ViewPersonal() {
                 if (d.Name === e.target.value) {
                     setData({
                         ...data,
-                        xa: d.Ward,
+                        xa: d.Data,
                     })
                 }
             })
@@ -91,7 +124,7 @@ function ViewPersonal() {
                 if (d.Name === e.target.value) {
                     setData({
                         ...data,
-                        thon: d.Village,
+                        thon: d.Data,
                     })
                 }
             })
@@ -132,7 +165,7 @@ function ViewPersonal() {
                             { auth?.user?.typeAccount==="A1" &&
                                 <div className="viewPersonal-top-content-item">
                                     <p>Tên tỉnh(thành phố)</p>
-                                    <input type="email" list="dataCity" name="nameCity" onChange={handleChange} />
+                                    <input type="email" list="dataCity" name="nameCity" onChange={handleChange} multiple />
                                     <datalist id="dataCity">
                                         { dataLocal.map((city, index) => (
                                             <option key={index} value={city.Name}>{city.Name}</option>
@@ -143,10 +176,10 @@ function ViewPersonal() {
                             { ["A1", "A2"].includes(auth?.user?.typeAccount) &&
                                 <div className="viewPersonal-top-content-item">
                                     <p>Tên huyện(quận)</p>
-                                    <input type="email" list="dataDistrict" name="nameDistrict" onChange={handleChange}  />
+                                    <input type="email" list="dataDistrict" name="nameDistrict" onChange={handleChange} multiple />
                                     <datalist id="dataDistrict">
                                         { data?.huyen?.map((city, index) => (
-                                            <option key={index} value={city}>{city}</option>
+                                            <option key={index} value={city}></option>
                                         ))}
                                     </datalist>
                                 </div>}
@@ -154,10 +187,10 @@ function ViewPersonal() {
                             { ["A1", "A2", "A3"].includes(auth?.user?.typeAccount) &&
                                 <div className="viewPersonal-top-content-item">
                                     <p>Tên xã(phường)</p>
-                                    <input type="email" list="dataWard" name="nameWard" onChange={handleChange} />
+                                    <input type="email" list="dataWard" name="nameWard" onChange={handleChange} multiple/>
                                     <datalist id="dataWard">
                                         { data?.xa?.map((city, index) => (
-                                            <option key={index} value={city}>{city}</option>
+                                            <option key={index} value={city}></option>
                                         ))}
                                     </datalist>
                                 </div>}
@@ -165,10 +198,10 @@ function ViewPersonal() {
                             { ["A1", "A2", "A3", "B1"].includes(auth?.user?.typeAccount) &&
                                 <div className="viewPersonal-top-content-item">
                                     <p>Tên thôn(phố, bản, làng)</p>
-                                    <input type="email" list="dataVillage" name="nameVillage" onChange={handleChange}  />
+                                    <input type="email" list="dataVillage" name="nameVillage" onChange={handleChange} multiple  />
                                     <datalist id="dataVillage">
                                         { data?.thon?.map((city, index) => (
-                                            <option key={index} value={city}>{city}</option>
+                                            <option key={index} value={city}></option>
                                         ))}
                                     </datalist>
                                 </div>}

@@ -130,7 +130,12 @@ export const getAllCitizenCodename = (data, token) => async (dispatch) => {
     }
     try {
         if (level !== "" && codeName !== "") {
-            const res = await getDataAPI(`getallcitizencode?codeName=${codeName}&level=${level}`, token);
+            let res = null;
+            if (codeName.includes(",")) {
+                res = await getDataAPI(`getcitizenmanycode?codeName=${codeName}&level=${level}`, token);
+            } else {
+                res = await getDataAPI(`getallcitizencode?codeName=${codeName}&level=${level}`, token);
+            }
             dispatch({type: ACTIONS.GET_CITIZEN, payload: {citizens: res.data.citizens}});
         }
     } catch (err) {

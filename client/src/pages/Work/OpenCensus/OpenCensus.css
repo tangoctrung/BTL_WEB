@@ -129,6 +129,14 @@
     overflow-y: scroll;
     padding: 10px;
 }
+.openCensus-listLocalName>p{
+    width: 100%;
+    text-align: center;
+    margin-top: 100px;
+    font-size: 20px;
+    font-weight: 500;
+    color: rgb(94, 25, 25);
+}
 .openCensus-listLocalName-text{
     width: 100%;
     text-align: center;

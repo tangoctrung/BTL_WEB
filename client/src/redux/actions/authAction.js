@@ -87,3 +87,16 @@ export const logout = () => async (dispatch) => {
         console.log(err);
     }
 }
+
+export const changePassword = (data, setIsOpenModalPassword, token) => async (dispatch) => {
+    try {
+        const res = await putDataAPI("changepasswordsecondary", data, token);
+        if (res.data.status) {
+            setIsOpenModalPassword(false)
+        } else {
+            alert(`${res.data.message}`);
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
