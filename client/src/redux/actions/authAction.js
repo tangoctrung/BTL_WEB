@@ -23,9 +23,9 @@ export const login = (data) => async (dispatch) => {
     }
 }
 
-export const register = (data) => async (dispatch) => {
+export const register = (data, token) => async (dispatch) => {
     try {
-        const res = await postDataAPI('auth/register', data);
+        const res = await postDataAPI('auth/register', data, token);
         if (res.data.status === true) {
             dispatch({type: ACTIONS.REGISTER_SUCCESS, payload: {message: res.data.message}});
         } else {

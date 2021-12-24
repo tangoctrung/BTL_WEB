@@ -65,12 +65,20 @@ function ProvideCode() {
             default:
                 break;
         }
-        const nameArea = auth?.user?.position.split("tế ")[1];
-        dataLocal1.forEach((code) => {
-            if (code.Name === nameArea) {
-                setListName(code.Data);
-            }
-        })
+        if (auth?.user?.typeAccount !== "A1"){
+            const nameArea = auth?.user?.position.split("tế ")[1];
+            dataLocal1.forEach((code) => {
+                if (code.Name === nameArea) {
+                    setListName(code.Data);
+                }
+            })
+        } else {
+            let names = [];
+            dataLocal.forEach((code) => {
+                names.push(code.Name);
+            })
+            setListName([...names]);
+        }
     }, []);
 
     useEffect(() => {

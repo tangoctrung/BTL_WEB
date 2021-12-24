@@ -148,16 +148,17 @@ function OpenCensus() {
                                         onClick={handleOpenModalEditTime}
                                     />
                                 </div>
-                                <div className="openCensus-open-itemButton">
-                                    <Button 
-                                        typeButton="normal" 
-                                        width={120} 
-                                        height={45} 
-                                        text="Hoàn thành" 
-                                        borderRadius={30}
-                                        onClick={handleOpenModalComplete}
-                                    />
-                                </div>
+                                {auth?.user?.typeAccount !== "A1" && 
+                                    <div className="openCensus-open-itemButton">
+                                        <Button 
+                                            typeButton="normal" 
+                                            width={120} 
+                                            height={45} 
+                                            text="Hoàn thành" 
+                                            borderRadius={30}
+                                            onClick={handleOpenModalComplete}
+                                        />
+                                    </div>}
                             </div>
                         </div>
                     }

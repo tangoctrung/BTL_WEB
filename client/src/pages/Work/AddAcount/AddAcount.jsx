@@ -122,7 +122,7 @@ function AddAcount() {
     // khi submit tạo tài khoản
     const handleAddAccount = (e) => {
         e.preventDefault();
-        dispatch(register(state))
+        dispatch(register(state, auth?.accessToken))
     }
 
     // khi người dùng mở modal thay đổi password

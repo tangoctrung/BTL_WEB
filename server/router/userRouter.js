@@ -8,7 +8,7 @@ const verifyToken = require('../middleware/auth');
 
 
 // CREATE A USER / REGISTER
-router.post("/auth/register", registerUser);
+router.post("/auth/register", verifyToken, registerUser);
 
 // LOGIN
 router.post("/auth/login", loginUser);

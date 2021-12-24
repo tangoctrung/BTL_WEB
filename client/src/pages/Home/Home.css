@@ -73,6 +73,14 @@
     margin-top: 30px;
     width: 100%;
 }
+.home-news-listPost>p{
+    width: 100%;
+    text-align: center;
+    font-size: 28px;
+    color: rgb(128, 30, 30);
+    font-weight: bold;
+    margin-top: 200px;
+}
 
 @media screen and (max-width: 1200px) {
     .home-news-content{

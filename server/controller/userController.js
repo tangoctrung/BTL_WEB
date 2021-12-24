@@ -10,7 +10,9 @@ var moment = require('moment');
 const registerUser = async (req, res) => {
 
     try {
-        const {accountName, typeAccount, accountNameProvider} = req.body;
+        const {accountName, typeAccount} = req.body;
+        const typeAccountProvider = req.typeAccount;
+        const accountNameProvider = req.accountName;
         // kiểm tra xem người dùng có đủ thẩm quyền cấp tên tài khoản này hay không
         if ((typeAccount === "A2" && (accountName.length !== 2)) 
         || (typeAccount === "A3" && (accountName.length !== 4)) 
@@ -87,12 +89,15 @@ const registerUser = async (req, res) => {
 
         // kiểm tra xem tên tài khoản có nằm trong mã code mà người dùng đó quản lí hay không
          // kiểm tra xem code có hợp lệ ko 
-         if (accountNameProvider === "A1" && accountName.length !== 2) {
-            return res.send({
-                status: false, 
-                message: "Bạn không đủ thẩm quyền hoặc không đủ quyền cấp tên tài khoản này",
-                messageDetail: "Bạn chỉ có thể cấp tên tài khoản có độ dài là 2 tương ứng với mã tỉnh/thành phố đã được khai báo.",
-            })
+         if (typeAccountProvider === "A1") {
+            if (accountName.length !== 2) {
+                return res.send({
+                    status: false, 
+                    message: "Bạn không đủ thẩm quyền hoặc không đủ quyền cấp tên tài khoản này",
+                    messageDetail: "Bạn chỉ có thể cấp tên tài khoản có độ dài là 2 tương ứng với mã tỉnh/thành phố đã được khai báo.",
+                })
+
+            }
         } else if (accountName.slice(0, accountNameProvider.length) !== accountNameProvider) {
             return res.send({
                 status: false, 
@@ -263,19 +268,21 @@ const changePassword = async (req, res) => {
 const changePasswordSecondary = async (req, res) => {
     try {
         const accountName = req.accountName;
-        if (req.body.accountName.slice(0, accountName.length) !== accountName) {
-            return res.json({
-                status: false,
-                message: 'Bạn không có quyền thay đổi mật khẩu của tài khoản này',
-            })
+        if (req.typeAccount !== "A1") {
+            if (req.body.accountName.slice(0, accountName.length) !== accountName) {
+                return res.json({
+                    status: false,
+                    message: 'Bạn không có quyền thay đổi mật khẩu của tài khoản này',
+                })
+            }       
         }
-         // kiểm tra xem password có hợp lệ hay không
-        if (req.body.password.length < 8) 
-            return res.json({
-                success: false, 
-                message: "Password phải từ 8 kí tự.",
-                messageDetail: `Mật khẩu của bạn mới có ${req.body.password.length} ký tự. Chúng tôi cần bạn chọn mật khẩu có từ 8 ký tự trở lên để đảm bảo tính bảo mật.`
-            });
+        // kiểm tra xem password có hợp lệ hay không
+       if (req.body.password.length < 8) 
+           return res.json({
+               success: false, 
+               message: "Password phải từ 8 kí tự.",
+               messageDetail: `Mật khẩu của bạn mới có ${req.body.password.length} ký tự. Chúng tôi cần bạn chọn mật khẩu có từ 8 ký tự trở lên để đảm bảo tính bảo mật.`
+           });
         const salt = await bcrypt.genSalt(10);
         const hashedPass = await bcrypt.hash(req.body.password, salt);
         await User.findOneAndUpdate({accountName: req.body.accountName},

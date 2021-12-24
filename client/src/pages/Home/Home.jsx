@@ -59,9 +59,10 @@ function Home() {
                         
                     </div>
                     <div className="home-news-listPost">
-                        { user?.articleView ==="1" && <ListPost dataPost={post?.allPosts} />}
-                        { user?.articleView ==="2" && <ListPost dataPost={post?.hotPosts} />}
-                        { user?.articleView ==="3" && <ListPost dataPost={post?.codenamePosts} />}
+                        { user?.articleView ==="1" && post?.allPosts.length > 0 && <ListPost dataPost={post?.allPosts} />}
+                        { user?.articleView ==="1" && post?.allPosts.length <= 0 && <p>Không có bài viết nào</p>}
+                        { user?.articleView ==="2" && post?.hotPosts.length > 0 && <ListPost dataPost={post?.hotPosts} />}
+                        { user?.articleView ==="2" && post?.hotPosts.length <= 0 && <p>Không có bài viết nào</p>}
                     </div>
                 </div>
             </div>

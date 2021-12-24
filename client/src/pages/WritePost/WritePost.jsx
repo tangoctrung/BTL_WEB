@@ -36,11 +36,11 @@ function WritePost() {
     }
     // khi người dùng xóa ảnh
     const handleDeleteImage = (index) => {
-        let images = [...state.listImage];
-        images.splice(index, 1);
+        let listImage = [...state.images];
+        listImage.splice(index, 1);
         setState({
             ...state,
-            images: images,
+            images: listImage,
         })
     }
     // khi người dùng upload ảnh
